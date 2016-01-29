@@ -1,0 +1,25 @@
+﻿<Window x:Class="WetLand.Routing.OutputReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.Routing"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Output Report" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
+            <ComboBoxItem Content="H:Average depth of water in wetland (m)" />
+            <ComboBoxItem Content="Outflow:Wetland discharge (outflow) rate (m³/day)"/>
+            <ComboBoxItem Content="Volume:Wetland water volume (m³)"/>
+            <ComboBoxItem Content="Area:Wetland surface area (m²)"/>
+            <ComboBoxItem Content="Qin and Outflow"/>
+        </ComboBox>
+        <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
+    </Grid>
+</Window>

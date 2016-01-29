@@ -1,0 +1,122 @@
+﻿<Window x:Class="WetLand.TimeDependentParameters.InitialConcentration"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterScreen"
+        Title="Initial Concentration" Height="650" Width="950" BorderBrush="#74000000">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0" />
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#FFBFBFBF" Offset="0.844" />
+            <GradientStop Color="#FF7F7F7F" Offset="1" />
+            <GradientStop Color="#FFDFDFDF" Offset="0.992" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="--------mg/L--------" Grid.ColumnSpan="9" FontFamily="Arial" TextAlignment="Center" FontWeight="Bold" Foreground="Black"></TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="ONw" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Particulate organic nitrogen concentration in free water"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="ONsf" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Concentration of organic nitrogen in in aerobic sediment layer"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="ONss" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Concentration of organic nitrogen in in anaerobic sediment layer"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="Nw" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in free water"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="Ns1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Total ammonia-nitrogen pore-water concentration in upper aerobic layer"/>
+        <TextBlock Grid.Row="1" Grid.Column="5" Text="Ns2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"  ToolTip="Total ammonia-nitrogen pore-water concentration in lower anaerobic layer"/>
+        <TextBlock Grid.Row="1" Grid.Column="6" Text="N03w" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Nitrate-nitrogen concentration in free water"/>
+        <TextBlock Grid.Row="1" Grid.Column="7" Text="N03s1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Nitrate-nitrogen pore-water concentration in upper aerobic layer"/>
+        <TextBlock Grid.Row="1" Grid.Column="8" Text="N03s2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Nitrate-nitrogen pore-water concentration in lower anaerobic layer"/>
+
+        <TextBox Grid.Row="2" Grid.Column="0" Width="80" Name="onw" Text="" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="80" Name="onsf" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Width="80" Name="onss" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="3" Width="80" Name="nw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="4" Width="80" Name="ns1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="5" Width="80" Name="ns2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="6" Width="80" Name="n03w" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="7" Width="80" Name="n03s1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="8" Width="80" Name="n03s2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="a(0)(g)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Mass of free floating plant (gr chlorophyll a)"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="b(0)(g)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Mass of rooted plants (gr chlorophyll a)"/>
+        <TextBox Grid.Row="4" Grid.Column="0" Width="80" Name="a" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Width="80" Name="b" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" ToolTip="Sediment concentration in free water" Text="mw(mg/L)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Grid.Column="1" ToolTip="Wetland soil bulk density" Text="ms(0)s" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="6" Grid.Column="0" Width="80" Name="mw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Width="80" Name="ms" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="7" Grid.Column="0"  ToolTip="Oxygen concentration in free water" Text="Ow(0)(mg/L)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="8" Grid.Column="0" Width="80"  Name="ow" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="9" Grid.Column="0" ToolTip="Total inorganic phosphorus concentration in free water" Text="Pw(0)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="9" Grid.Column="1" ToolTip="Total phosphorus concentration in aerobic layer" Text="Ps1(0)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="9" Grid.Column="2" ToolTip="Total phosphorus concentration in anaerobic layer" Text="Ps2(0)" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="10" Grid.Column="0" Width="80" Name="pw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="10" Grid.Column="1" Width="80" Name="ps1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="10" Grid.Column="2" Width="80" Name="ps2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="11" Grid.Column="0" Text="--------mg/L--------" Grid.ColumnSpan="9" FontFamily="Arial" TextAlignment="Center" FontWeight="Bold" Foreground="Black"></TextBlock>
+        <TextBlock Grid.Row="12" Grid.Column="0" ToolTip="Concentrations of dissolved organic C in free water" Text="DOCw" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="1" ToolTip="Concentrations of labile (fast reacting) particulate organic C in free water" Text="LPOCw" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="2" ToolTip="Concentrations of refractory (slow reacting) particulate organic C in free water" Text="RPOCw" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="3" ToolTip="Pore water concentrations of DOC in aerobic sediment layer" Text="DOCs1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="4" ToolTip="Pore water concentrations of LPOC in aerobic sediment layer" Text="LPOCs1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="5" ToolTip="Pore water concentrations of RPOC in aerobic sediment layer" Text="RPOCs1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="6" ToolTip="Pore water concentrations of DOC in lower anaerobic sediment layer" Text="DOCs2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="7" ToolTip="Pore water concentrations of LPOC in lower anaerobic sediment layer" Text="LPOCs2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="8" ToolTip="Pore water concentrations of RPOC in lower anaerobic sediment layer" Text="RPOCs2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <TextBox Grid.Row="13" Grid.Column="0" Width="80" Name="docw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="1" Width="80" Name="lpocw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="2" Width="80" Name="rpocw" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="3" Width="80" Name="docs1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="4" Width="80" Name="lpocs1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="5" Width="80" Name="rpocs1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="6" Width="80" Name="docs2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="7" Width="80" Name="lpocs2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="8" Width="80" Name="rpocs2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="14" Grid.Column="0" ToolTip="Methane concentration in free water" Text="Ch4w" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="14" Grid.Column="1" ToolTip="Methane concentration in aerobic sediment layer" Text="CH4s1" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="14" Grid.Column="2" ToolTip="Methane concentration in anaerobic sediment layer" Text="CH4s2" TextAlignment="Center" Foreground="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="15" Grid.Column="0" Width="80" Name="ch4w" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="15" Grid.Column="1" Width="80" Name="ch4s1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.Row="15" Grid.Column="2" Width="80" Name="ch4s2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+
+        <TextBlock Grid.Row="15" Grid.ColumnSpan="4" Grid.Column="3" Text="Status" TextAlignment="Center" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden" Name="status"></TextBlock>
+        <Button Grid.Row="15" Grid.Column="7" Content="Save Values"  FontFamily="Arial" Padding="0" Name="Save" Click="Save_Click" Height="34" Margin="2,1,2,0" VerticalAlignment="Top" ></Button>
+
+    </Grid>
+</Window>

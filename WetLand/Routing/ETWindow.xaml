@@ -1,0 +1,28 @@
+﻿<Window x:Class="WetLand.Routing.ETWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.Routing"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ETWindow" Height="400" Width="400">
+    <Window.Resources>
+        <DataTemplate x:Key="ETtemp">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding julian}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding ta}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="etData" Grid.Row="1" ItemTemplate="{StaticResource ETtemp}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="col0" Header="Julian (day)" Width="185" DisplayMemberBinding="{Binding julian}"></GridViewColumn>
+                    <GridViewColumn x:Name="col1" Header="Ta (degC)" Width="185" DisplayMemberBinding="{Binding ta}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

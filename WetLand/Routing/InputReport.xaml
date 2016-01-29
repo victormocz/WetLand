@@ -1,0 +1,24 @@
+﻿<Window x:Class="WetLand.Routing.InputReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.Routing"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Input Report" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
+            <ComboBoxItem Content="Qin:Volumetric inflow rate (m³/day)" />
+            <ComboBoxItem Content="ET:Evapotranspiration rate (cm/day)"/>
+            <ComboBoxItem Content="ip:Precipitation rate (cm/day)" />
+            <ComboBoxItem Content="Qg:Groundwater discharge (negative for infiltration) (m³/day)"/>
+        </ComboBox>
+        <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
+    </Grid>
+</Window>

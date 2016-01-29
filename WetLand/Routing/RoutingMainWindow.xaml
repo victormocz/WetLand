@@ -1,0 +1,145 @@
+﻿<Window x:Name="RouthingWindow" x:Class="WetLand.Routing.RoutingMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.Routing"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Flow Routing" Height="400" Width="700" SizeChanged="RouthingWindow_SizeChanged">
+    <Window.Resources>
+        <DataTemplate x:Key="outputTemp">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding date}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding h}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding outflow}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding volume}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding area}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="inputtimeTemp">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding date}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding qin}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding et}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding ip}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding qg}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="geoTemp">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding h}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding area}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding volume}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{Binding outflow}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <TabControl x:Name="tabview" SelectionChanged="tabview_SelectionChanged">
+            <TabItem x:Name="inputItem" Width="170" Header="Inputs">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Hinitial(m)" HorizontalAlignment="Center"></TextBlock>
+                    <TextBox x:Name="hinitial" Grid.Column="2" Grid.Row="2" Width="100" Height="34" FontSize="16"></TextBox>
+                    <Button x:Name="save" Grid.Column="2" Grid.Row="3" Height="34" Content="Save" Click="save_Click"></Button>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="4" Name="status" HorizontalAlignment="Center"></TextBlock>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="timeItem" Width="170" Header="Inputs Time Series">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="viewInputGraph" Grid.Column="1" Text="View Inputs Time Series Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewInputGraph_PreviewMouseDown" Focusable="True" KeyDown="viewInputGraph_KeyDown">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                            </TextBlock.Foreground></TextBlock>
+                        <TextBlock x:Name="ETdata" Text="ET Data" PreviewMouseDown="ETdata_PreviewMouseDown" Focusable="True" KeyDown="ETdata_KeyDown">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
+                    
+                    <ListView x:Name="timeSeriesData" Grid.Row="1" ItemTemplate="{StaticResource inputtimeTemp}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="col0" Header="Date" Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}"></GridViewColumn>
+                                <GridViewColumn x:Name="col1" Header="Qin (m³/day)" Width="135" DisplayMemberBinding="{Binding qin}"></GridViewColumn>
+                                <GridViewColumn x:Name="col2" Header="ET (cm/day)" Width="135" DisplayMemberBinding="{Binding et}"></GridViewColumn>
+                                <GridViewColumn x:Name="col3" Header="ip (cm/day)" Width="135" DisplayMemberBinding="{Binding ip}"></GridViewColumn>
+                                <GridViewColumn x:Name="col4" Header="Qg (m³/day)" Width="135" DisplayMemberBinding="{Binding qg}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="geometryItem" Width="170" Header="Geometry">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="viewGeoGraph" Text="View Geometry Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewGeoGraph_PreviewMouseDown" Focusable="True" KeyDown="viewGeoGraph_KeyDown">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                        </TextBlock.Foreground></TextBlock>
+                    <ListView x:Name="geometryData" Grid.Row="1" ItemTemplate="{StaticResource geoTemp}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="gcol0" Header="H (m)" Width="175" DisplayMemberBinding="{Binding h}"></GridViewColumn>
+                                <GridViewColumn x:Name="gcol1" Header="Area (m²)" Width="175" DisplayMemberBinding="{Binding area}"></GridViewColumn>
+                                <GridViewColumn x:Name="gcol2" Header="Volume (m³)" Width="175" DisplayMemberBinding="{Binding volume}"></GridViewColumn>
+                                <GridViewColumn x:Name="gcol3" Header="Outflow (m³/day)" Width="175" DisplayMemberBinding="{Binding outflow}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="outputItem" Width="170" Header="Output">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="viewOutputGraph" Text="View Output Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewOutputGraph_PreviewMouseDown" KeyDown="viewOutputGraph_KeyDown" Focusable="True">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                        </TextBlock.Foreground></TextBlock>
+                    <ListView x:Name="outputData" Grid.Row="1" ItemTemplate="{StaticResource outputTemp}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="ocol0" Header="Date" Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}"></GridViewColumn>
+                                <GridViewColumn x:Name="ocol1" Header="H (m)" Width="135" DisplayMemberBinding="{Binding h}"></GridViewColumn>
+                                <GridViewColumn x:Name="ocol2" Header="Volume (m³)" Width="135" DisplayMemberBinding="{Binding volume}"></GridViewColumn>
+                                <GridViewColumn x:Name="ocol3" Header="Outflow (m³/day)" Width="135" DisplayMemberBinding="{Binding outflow}"></GridViewColumn>
+                                <GridViewColumn x:Name="ocol4" Header="Area (m²)" Width="135" DisplayMemberBinding="{Binding area}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

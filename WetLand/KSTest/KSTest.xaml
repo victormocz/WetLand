@@ -1,0 +1,28 @@
+﻿<Window x:Class="WetLand.KSTest.KSTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.KSTest"
+        mc:Ignorable="d"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        Title="Sensitivity Analysis" Height="800" Width="1200">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="reportIndex" Grid.Row="0" SelectionChanged="reportIndex_SelectionChanged" Visibility="Hidden" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        </ComboBox>
+        <Button x:Name="calculation" Grid.Row="0" Content="Start Calculations" Click="calculation_Click"></Button>
+        <StackPanel Name="percentPanel" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Percentage" Margin="0,0,20,0"></TextBlock>
+            <TextBox Name="percentage"></TextBox>
+            <TextBlock Text="%"></TextBlock>
+            <Button Margin="20,0,0,0" Content="Update" Name="updateButton" Click="updateButton_Click" ></Button>
+        </StackPanel>
+        <oxy:PlotView x:Name="report" Grid.Row="2"></oxy:PlotView>
+    </Grid>
+</Window>

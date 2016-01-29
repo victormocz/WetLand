@@ -1,0 +1,84 @@
+﻿<Window x:Class="WetLand.Analysis.AnalysisReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.Analysis"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AnalysisReport" Height="830" Width="1200">
+    <Window.Resources>
+        <DataTemplate x:Key="analysisTemp">
+            <StackPanel>
+                <TextBlock  Text="{Binding date, StringFormat=MM/dd/yyyy}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF1700FF"></TextBlock>
+                <TextBlock  Text="{Binding simulationValue}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
+            <ComboBoxItem Content="Particulate organic nitrogen concentration in free water (gr/cm³)" />
+            <ComboBoxItem Content="Concentration of organic nitrogen in in anaerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Concentration of organic nitrogen in in aerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in free water (gr/cm³)" />
+            <ComboBoxItem Content="Total ammonia-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Total ammonia-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Nitrate-nitrogen concentration in free water (gr/cm³)" />
+            <ComboBoxItem Content="Nitrate-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Nitrate-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Oxygen concentration in free water (gr/cm³)"/>
+            <ComboBoxItem Content="Mass of free floating plant (gr chlorophyll a)" />
+            <ComboBoxItem Content="Mass of rooted plants (gr chlorophyll a)" />
+            <ComboBoxItem Content="Total inorganic phosphorus concentration in free water (gr/cm³)" />
+            <ComboBoxItem Content="Total phosphorus concentration in aerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Total phosphorus concentration in anaerobic layer (gr/cm³)" />
+            <ComboBoxItem Content="Sediment concentration in free water (gr/cm³)"/>
+            <ComboBoxItem Content="Concentrations of dissolved organic C in free water (gr/cm³)" />
+            <ComboBoxItem Content="Concentrations of labile (fast reacting) particulate organic C in free water (gr/cm³)" />
+            <ComboBoxItem Content="Concentrations of refractory (slow reacting) particulate organic C in free water (gr/cm³)" />
+            <ComboBoxItem Content="Pore water concentrations of DOC in aerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Pore water concentrations of LPOC in aerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Pore water concentrations of RPOC in aerobic sediment layer (gr/cm³)"/>
+            <ComboBoxItem Content="Pore water concentrations of DOC in lower anaerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Pore water concentrations of LPOC in lower anaerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Pore water concentrations of RPOC in lower anaerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Concentrations of total organic C in free water (gr/cm³)" />
+            <ComboBoxItem Content="Methane concentration in free water (gr/cm³)" />
+            <ComboBoxItem Content="Methane concentration in aerobic sediment layer (gr/cm³)" />
+            <ComboBoxItem Content="Methane concentration in anaerobic sediment layer (gr/cm³)"/>
+        </ComboBox>
+        <Grid x:Name="SimulationNumSelector" Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="status" Grid.Column="2" Grid.ColumnSpan="2" Text="Simulation Number" HorizontalAlignment="Center"></TextBlock>
+            <TextBox x:Name="simulationNum" Grid.Column="4"  Width="100" Text="1"></TextBox>
+            <Button x:Name="Update" Grid.Column="5"  Width="90" Content="Update" Click="Update_Click"></Button>
+        </Grid>
+        <ListView Grid.Row="3" Name="analysisSimulation"
+                  ItemTemplate="{StaticResource analysisTemp}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal" Margin="4" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListView>
+        <oxy:PlotView x:Name="report" Grid.Row="4"></oxy:PlotView>
+    </Grid>
+</Window>

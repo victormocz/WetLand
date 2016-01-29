@@ -1,0 +1,263 @@
+﻿<Window x:Class="WetLand.ModelParameters.Deterministic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.ModelParameters"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Deterministic Model Parameters" Height="750" Width="1100">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid DataContext="{Binding}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border 
+                  Grid.Row="1"
+                  Grid.RowSpan="15"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6" BorderThickness="2" OpacityMask="{x:Null}" BorderBrush="Black" />
+
+            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="N,P,TSS" TextAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Normal"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" ToolTip="thickness of anaerobic soil layer [cm]
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="l2 (cm)"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" ToolTip="Temperature coefficient in Arhenious equation 
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">θ</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" ToolTip="optimal light level (ly/day), range from about 100 to 400 ly/d (Chapra, 1997, p 611)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Is (ly/day)"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" ToolTip="fraction of total ammonia nitrogen in ionized form
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fN</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box02" Margin="26,5,37,5" Grid.Row="2" Grid.Column="0" Text="27.63" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box04" Margin="26,5,37,5" Grid.Row="2" Grid.Column="1" Text="1.25" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box05" Margin="27,5,36,5" Grid.Row="2" Grid.Column="2" Text="248.58" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box06" Margin="26,5,37,5" Grid.Row="2" Grid.Column="3" Text="0.335" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" ToolTip="ammonium ion distribution coefficient (mL/g)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kd (mL/g)"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" ToolTip="parameter required as input but not used in the model (1/m)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kep (1/m)"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" ToolTip="growth rate of free-floating plant (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kga (1/day)"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" ToolTip="growth rate of benthic and rooted plant (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kgb (1/day)"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center" ToolTip="first-order rapid mineralization rate in wetland soil (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kmr (1/day)"></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="5" HorizontalAlignment="Center" ToolTip="first-order nitrification rate in wetland free water (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="knw (1/day)"></TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box07" Margin="27,5,36,5" Grid.Row="5" Text="1.2" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box08" Margin="26,5,37,5" Grid.Row="5" Grid.Column="1" Text="0.3" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box09" Margin="27,5,36,5" Grid.Row="5" Grid.Column="2" Text="0.0014" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box10" Margin="26,5,37,5" Grid.Row="5" Grid.Column="3" Text="0.0014" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box11" Margin="27,5,36,5" Grid.Row="5" Grid.Column="4" Text="0.00003" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box12" Margin="26,5,37,5" Grid.Row="5" Grid.Column="5" Text="0.0032" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" ToolTip="first-order mineralization rate in wetland free water (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kmw (1/day)"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" ToolTip="first-order nitrification rate in aerobic soil layer (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kns (1/day)"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" ToolTip="denitrification rate in anaerobic soil layer (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kdn (1/day)"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" ToolTip="wetland soil particle density
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">ρs</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" ToolTip="effective settling velocity (cm/day) for organic material
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="vso (cm/day)"></TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="5" HorizontalAlignment="Center" ToolTip="effective settling velocity (cm/day) for sediment
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="vss (cm/day)"></TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box13" Margin="27,5,36,5" Grid.Row="7" Text="0.000032" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box14" Margin="26,5,37,5" Grid.Row="7" Grid.Column="1" Text="0.32" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"   Name="box15" Margin="27,5,36,5" Grid.Row="7" Grid.Column="2" Text="1.29" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"   Name="box16" Margin="26,5,37,5" Grid.Row="7" Grid.Column="3" Text="2" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box17" Margin="27,5,36,5" Grid.Row="7" Grid.Column="4" Text="0.8" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box18" Margin="26,5,37,5" Grid.Row="7" Grid.Column="5" Text="299" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" ToolTip="effective burial velocity (cm/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="vb (cm/day)"></TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" ToolTip="gram of nitrogen per gram of chlorophyll-a in plant/algae F
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="ana (cm/day)"></TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" ToolTip="ratio of carbon mass to chlorophyll a mass in algae (gC/gChl)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="rc,chl (gC/gChl)"></TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="3" HorizontalAlignment="Center" ToolTip="oxygen removal rate per unit volume of aerobic layer by other processes (g/L/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Ss (g/L/day)"></TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="4" HorizontalAlignment="Center" ToolTip="volumetric oxygen consumption rate in water by other processes (gr/cm³/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Sw (gr/cm³/day)"></TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="5" HorizontalAlignment="Center" ToolTip="Imperical parameter used for calculating volatilization mass transfer velocity kv 
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">α</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box19" Margin="27,5,36,5" Grid.Row="9" Text="0.0034" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box20" Margin="26,5,37,5" Grid.Row="9" Grid.Column="1" Text="10.56" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box21" Margin="27,5,36,5" Grid.Row="9" Grid.Column="2" Text="60" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box22" Margin="26,5,37,5" Grid.Row="9" Grid.Column="3" Text="0.0435" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box23" Margin="27,5,36,5" Grid.Row="9" Grid.Column="4" Text="0" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box24" Margin="26,5,37,5" Grid.Row="9" Grid.Column="5" Text="0.2155" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of rapidly mineralizing particulate organic matter
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fr</TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" ToolTip="Used for calculating pK (Keq, equilibrium coefficient)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">c1</TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="2" HorizontalAlignment="Center" ToolTip="Used for calculating pK (Keq, equilibrium coefficient)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">c2</TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="3" HorizontalAlignment="Center" ToolTip="pH
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">pH</TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="4" HorizontalAlignment="Center" ToolTip="rate of nitrogen fixation by microorganisms (mg-N/m³/hr)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="S (mg-N/m³/hr)"></TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="5" HorizontalAlignment="Center" ToolTip="phosphorus sorption coefficient in water (cm³/g)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Kw (cm³/g)"></TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box25" Margin="27,5,36,5" Grid.Row="11" Text="0.7514" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box26" Margin="26,5,37,5" Grid.Row="11" Grid.Column="1" Text="0.09" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box27" Margin="27,5,36,5" Grid.Row="11" Grid.Column="2" Text="2450" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box28" Margin="26,5,37,5" Grid.Row="11" Grid.Column="3" Text="6.36" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box29" Margin="27,5,36,5" Grid.Row="11" Grid.Column="4" Text="0.1266" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box30" Margin="26,5,37,5" Grid.Row="11" Grid.Column="5" Text="31.54" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" ToolTip="ratio of phosphorus to Chlorophyll-a in algae (grP/grChl)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="apa (grP/grChl)"></TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="1" HorizontalAlignment="Center" ToolTip="inorganic phosphorus free-water diffusion coefficient (cm²/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Dpw (cm²/day)"></TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" ToolTip="accounts for partitioning to phosphorus sorption site (cm³/g)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Ksa (cm³/g)"></TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="3" HorizontalAlignment="Center" ToolTip="accounts for association with iron hydroxide precipitate (cm³/g)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Ksb (cm³/g)"></TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="4" HorizontalAlignment="Center" ToolTip="Random number used for calculating soil porosity (φ) and free-water oxygen diffusion coefficient
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">Ran1</TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="5" HorizontalAlignment="Center" ToolTip="fraction of nitrogen fixation in water
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fw</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box31" Margin="27,5,36,5" Grid.Row="13" Text="1.19" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box32" Margin="26,5,37,5" Grid.Row="13" Grid.Column="1" Text="0.7452" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box33" Margin="27,5,36,5" Grid.Row="13" Grid.Column="2" Text="31.73" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box34" Margin="26,5,37,5" Grid.Row="13" Grid.Column="3" Text="317.46" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box35" Margin="27,5,36,5" Grid.Row="13" Grid.Column="4" Text="0.5" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box36" Margin="26,5,37,5" Grid.Row="13" Grid.Column="5" Text="0.75" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="14" Grid.Column="0" HorizontalAlignment="Center" ToolTip="vertical diffusion magnification factor
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fact</TextBlock>
+            <TextBlock Grid.Row="14" Grid.Column="1" HorizontalAlignment="Center" ToolTip="coefficient for resuspension/recycling of organic material
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">Cro</TextBlock>
+            <TextBlock Grid.Row="14" Grid.Column="2" HorizontalAlignment="Center" ToolTip="coefficient for resuspension/recycling of sediment
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">Crs</TextBlock>
+            <TextBlock Grid.Row="14" Grid.Column="3" HorizontalAlignment="Center" ToolTip="effective porosity of wetland surface water
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">φw</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box37" Margin="27,5,36,5" Grid.Row="15" Text="140" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box38" Margin="26,5,37,5" Grid.Row="15" Grid.Column="1" Text="0.0318" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box39" Margin="27,5,36,5" Grid.Row="15" Grid.Column="2" Text="0.0032" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box40" Margin="26,5,37,5" Grid.Row="15" Grid.Column="3" Text="0.8005" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="2" Text="Carbon" TextAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Normal"></TextBlock>
+
+            <TextBlock Grid.Row="17" Grid.Column="0" HorizontalAlignment="Center" ToolTip="ratio of carbon to chlorophyll-a in algae (gC/gChl)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="(gC/gChl)"></TextBlock>
+            <TextBlock Grid.Row="17" Grid.Column="1" HorizontalAlignment="Center" ToolTip="Fraction of dissolved organic C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">faD</TextBlock>
+            <TextBlock Grid.Row="17" Grid.Column="2" HorizontalAlignment="Center" ToolTip="Fraction of labile particulate C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">faL</TextBlock>
+            <TextBlock Grid.Row="17" Grid.Column="3" HorizontalAlignment="Center" ToolTip="Fraction of refractory particulate C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">faR</TextBlock>
+            <TextBlock Grid.Row="17" Grid.Column="4" HorizontalAlignment="Center" ToolTip="Fraction of dissolved organic C produced by death/loss of rooted and benthic plants     (fbL + fbR + fbD = 1)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fbD</TextBlock>
+            <TextBlock Grid.Row="17" Grid.Column="5" HorizontalAlignment="Center" ToolTip="Fraction of labile particulate C produced by death/loss of rooted and benthic plants     (fbL + fbR + fbD = 1)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fbL</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"   Name="box_01" Margin="27,5,36,5" Grid.Row="18" Text="86.6" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_02" Margin="26,5,37,5" Grid.Row="18" Grid.Column="1" Text="0.16" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_03" Margin="27,5,36,5" Grid.Row="18" Grid.Column="2" Text="0.5" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_04" Margin="26,5,37,5" Grid.Row="18" Grid.Column="3" Text="0.5" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_05" Margin="27,5,36,5" Grid.Row="18" Grid.Column="4" Text="0.16" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_06" Margin="26,5,37,5" Grid.Row="18" Grid.Column="5" Text="0.5" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="19" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of refractory particulate C produced by death/loss of rooted and benthic plants     (fbL + fbR + fbD = 1)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">fbR</TextBlock>
+            <TextBlock Grid.Row="19" Grid.Column="1" HorizontalAlignment="Center" ToolTip="first order hydrolysis rate of labile particulate organic carbon (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kL (1/day)"></TextBlock>
+            <TextBlock Grid.Row="19" Grid.Column="2" HorizontalAlignment="Center" ToolTip="First order hydrolysis rate of refractory particulate organic carbon (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="kR (1/day)"></TextBlock>
+            <TextBlock Grid.Row="19" Grid.Column="3" HorizontalAlignment="Center" ToolTip="Michaelis–Menten half saturation concentration of dissolved oxygen required for oxic respiration (mg/lit)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="KO (mg/lit)"></TextBlock>
+            <TextBlock Grid.Row="19" Grid.Column="4" HorizontalAlignment="Center" ToolTip="Michaelis–Menten oxygen inhabitation coefficient (mg/lit)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="KinO (mg/lit)"></TextBlock>
+            <TextBlock Grid.Row="19" Grid.Column="5" HorizontalAlignment="Center" ToolTip="Michaelis–Menten nitrate N half saturation concentration required for denitrification (mg/lit)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="KN (mg/lit)"></TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_07" Margin="27,5,36,5" Grid.Row="20" Text="0.5" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_08" Margin="26,5,37,5" Grid.Row="20" Grid.Column="1" Text="0.00001" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_09" Margin="27,5,36,5" Grid.Row="20" Grid.Column="2" Text="0.000001" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_10" Margin="26,5,37,5" Grid.Row="20" Grid.Column="3" Text="0.6" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"     Name="box_11" Margin="27,5,36,5" Grid.Row="20" Grid.Column="4" Text="0.25" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_12" Margin="26,5,37,5" Grid.Row="20" Grid.Column="5" Text="0.038" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="21" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Michaelis–Menten nitrate-N inhibition coefficient (mg/lit)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="KinN (mg/lit)"></TextBlock>
+            <TextBlock Grid.Row="21" Grid.Column="1" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for aerobic respiration (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="K1DOC (1/day)"></TextBlock>
+            <TextBlock Grid.Row="21" Grid.Column="2" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for denitrification (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="K2DOC (1/day)"></TextBlock>
+            <TextBlock Grid.Row="21" Grid.Column="3" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for methanogenesis in anaerobic water (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="K3DOC (1/day)"></TextBlock>
+            <TextBlock Grid.Row="21" Grid.Column="4" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for methanogenesis in anaerobic sediment (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="K4DOC (1/day)"></TextBlock>
+            <TextBlock Grid.Row="21" Grid.Column="5" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon (TOCin) in form of dissolved organic carbon (DOC)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">cp1</TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_13" Margin="5" Grid.Row="22" Grid.Column="0" Text="0.019" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_14" Margin="5" Grid.Row="22" Grid.Column="1" Text="0.2" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_15" Margin="5" Grid.Row="22" Grid.Column="2" Text="0.08" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_16" Margin="5" Grid.Row="22" Grid.Column="3" Text="0.04" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_17" Margin="27,5,36,5" Grid.Row="22" Grid.Column="4" Text="0.015" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_18" Margin="26,5,37,5" Grid.Row="22" Grid.Column="5" Text="0.36" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+
+            <TextBlock Grid.Row="23" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon in form of labile particulate organic carbon (LPOC)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">cp2</TextBlock>
+            <TextBlock Grid.Row="23" Grid.Column="1" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon in form of refractory particulate organic carbon (RPOC)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue">cp3</TextBlock>
+            <TextBlock Grid.Row="23" Grid.Column="2" HorizontalAlignment="Center" ToolTip="fraction of rooted plant biomass above soil-water interface (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="fbw (1/day)"></TextBlock>
+            <TextBlock Grid.Row="23" Grid.Column="3" HorizontalAlignment="Center" ToolTip="maximum methane utilization rate for aerobic respiration (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="k1CH4 (1/day)"></TextBlock>
+            <TextBlock Grid.Row="23" Grid.Column="4" HorizontalAlignment="Center" ToolTip="maximum methane utilization rate for denitrification (1/day)
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="k2CH4 (1/day)"></TextBlock>
+            <TextBlock Grid.Row="23" Grid.Column="5" HorizontalAlignment="Center" ToolTip="root length density in soil (cm/gr) [L root/M chla]
+" FontFamily="Arial" FontSize="12" Foreground="RoyalBlue" Text="Rv (cm/gr)"></TextBlock>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_19" Margin="5" Grid.Row="24" Grid.Column="0" Text="0.36" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_20" Margin="5" Grid.Row="24" Grid.Column="1" Text="0.36" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_21" Margin="5" Grid.Row="24" Grid.Column="2" Text="0.55" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_22" Margin="5" Grid.Row="24" Grid.Column="3" Text="0.13" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_23" Margin="27,5,36,5" Grid.Row="24" Grid.Column="4" Text="0.04" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBox PreviewTextInput="box01_PreviewTextInput"    Name="box_24" Margin="26,5,37,5" Grid.Row="24" Grid.Column="5" Text="0.1" Width="100" Height="30" FontFamily="Arial" FontSize="12" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" TextWrapping="Wrap"></TextBox>
+            <TextBlock Grid.Row="25" Grid.Column="0" Grid.ColumnSpan ="6" Name="Status" Text="Status" FontSize="16" TextAlignment="Center" FontFamily="Arial" FontWeight="Bold" Visibility="Collapsed" Foreground="Red"></TextBlock>
+            <Button Margin="5" Grid.Row="26" Grid.Column="2" Grid.ColumnSpan="1" Content="Save Value" Name="save" Click="save_Click" FontFamily="Arial" FontSize="12" Height="35" Padding="0"></Button>
+            <Button Grid.Row="26" Grid.Column="3" Content="Default Values" FontFamily="Arial" FontSize="12" Height="35" Padding="0" Name="default" Click="default_Click"></Button>
+        </Grid>
+
+
+    </ScrollViewer>
+</Window>

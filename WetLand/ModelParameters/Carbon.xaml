@@ -1,0 +1,368 @@
+﻿<Window x:Class="WetLand.ModelParameters.Carbon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.ModelParameters"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Carbon" Height="600" Width="950">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid DataContext="{Binding}" OpacityMask="#FF349B34">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+
+
+
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">Parameters</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">Distribution</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Text="Min (or mu)" Background="White"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="4" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">"c" in Triangular dist</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Text="Max (or sigma)" Background="White"></TextBlock>
+
+
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" ToolTip="ratio of carbon to chlorophyll-a in algae (gC/gChl)" FontFamily="Arial" FontSize="12" Text="aca (gC/gChl)"></TextBlock>
+            <ComboBox Grid.Row="1" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no01d" SelectionChanged="no01d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="1" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no01min" Padding="0" Text="15"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no01tri" Padding="0" Text="15"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no01max" Padding="0" Text="160"></TextBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of dissolved organic C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12" Text="faD"></TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no02d" SelectionChanged="no02d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="2" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no02min" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no02tri" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no02max" Padding="0" Text="0.33"></TextBox>
+
+
+            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of labile particulate C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12">faL</TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no03d" SelectionChanged="no03d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="3" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no03min" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no03tri" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no03max" Padding="0" Text="0.99"></TextBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of refractory particulate C produced by death/loss of free floating plants and attached algae (faL + faR + faD = 1) (Dimensionless)
+" FontFamily="Arial" FontSize="12" Text="faR"></TextBlock>
+            <ComboBox Grid.Row="4" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no04d" SelectionChanged="no04d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="4" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no04min" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no04tri" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no04max" Padding="0" Text="0.99"></TextBox>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of total ammonia nitrogen in ionized form 
+" FontFamily="Arial" FontSize="12" Text="fbD"></TextBlock>
+            <ComboBox Grid.Row="5" Grid.Column="1" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no05d" SelectionChanged="no05d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="5" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no05min" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no05tri" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no05max" Padding="0" Text="0.33"></TextBox>
+
+
+            <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of labile particulate C produced by death/loss of rooted and benthic plants     (fbL + fbR + fbD = 1)
+" FontFamily="Arial" FontSize="12" Text="fbL"></TextBlock>
+            <ComboBox Grid.Row="6" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no06d" SelectionChanged="no06d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="6" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no06min" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="6" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no06tri" Padding="0" Text="0.01"></TextBox>
+            <TextBox Grid.Row="6" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no06max" Padding="0" Text="0.99"></TextBox>
+
+
+            <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Fraction of refractory particulate C produced by death/loss of rooted and benthic plants     (fbL + fbR + fbD = 1)" FontFamily="Arial" FontSize="12" Text="fbR"></TextBlock>
+            <ComboBox Grid.Row="7" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no07d" SelectionChanged="no07d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="7" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no07min" Padding="0" Text="0.04"></TextBox>
+            <TextBox Grid.Row="7" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no07tri" Padding="0" Text="0.04"></TextBox>
+            <TextBox Grid.Row="7" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no07max" Padding="0" Text="0.99"></TextBox>
+
+            <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" ToolTip="first order hydrolysis rate of labile particulate organic carbon (1/day)" FontFamily="Arial" FontSize="12" Text="kL (1/day)"></TextBlock>
+            <ComboBox Grid.Row="8" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no08d" SelectionChanged="no08d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="8" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no08min" Padding="0" Text="0.000001"></TextBox>
+            <TextBox Grid.Row="8" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no08tri" Padding="0" Text="0.000001"></TextBox>
+            <TextBox Grid.Row="8" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no08max" Padding="0" Text="0.003"></TextBox>
+
+            <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" ToolTip="First order hydrolysis rate of refractory particulate organic carbon (1/day)
+" FontFamily="Arial" FontSize="12" Text="kR (1/day)"></TextBlock>
+            <ComboBox Grid.Row="9" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no09d" SelectionChanged="no09d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="9" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no09min" Padding="0" Text="0.0000001"></TextBox>
+            <TextBox Grid.Row="9" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no09tri" Padding="0" Text="0.0000001"></TextBox>
+            <TextBox Grid.Row="9" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no09max" Padding="0" Text="0.0003"></TextBox>
+
+
+            <TextBlock Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Michaelis–Menten half saturation concentration of dissolved oxygen required for oxic respiration (mg/lit)
+" FontFamily="Arial" FontSize="12" Text="KO (mg/lit)"></TextBlock>
+            <ComboBox Grid.Row="10" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no10d" SelectionChanged="no10d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="10" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no10min" Padding="0" Text="0.2"></TextBox>
+            <TextBox Grid.Row="10" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no10tri" Padding="0" Text="0.2"></TextBox>
+            <TextBox Grid.Row="10" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no10max" Padding="0" Text="1"></TextBox>
+
+
+            <TextBlock Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Michaelis–Menten oxygen inhabitation coefficient (mg/lit)" FontFamily="Arial" FontSize="12" Text="KinO (mg/lit)"></TextBlock>
+            <ComboBox Grid.Row="11" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no11d" SelectionChanged="no11d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="11" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no11min" Padding="0" Text="0.00001"></TextBox>
+            <TextBox Grid.Row="11" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no11tri" Padding="0" Text="0.0001"></TextBox>
+            <TextBox Grid.Row="11" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no11max" Padding="0" Text="1"></TextBox>
+
+
+            <TextBlock Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Michaelis–Menten nitrate N half saturation concentration required for denitrification (mg/lit)"  FontFamily="Arial" FontSize="12" Text="KN (mg/lit)"></TextBlock>
+            <ComboBox Grid.Row="12" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no12d" SelectionChanged="no12d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="12" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no12min" Padding="0" Text="0.004"></TextBox>
+            <TextBox Grid.Row="12" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no12tri" Padding="0" Text="0.004"></TextBox>
+            <TextBox Grid.Row="12" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no12max" Padding="0" Text="0.36"></TextBox>
+
+
+            <TextBlock Grid.Row="13" Grid.Column="0" HorizontalAlignment="Center" ToolTip="Michaelis–Menten nitrate-N inhibition coefficient (mg/lit)" FontFamily="Arial" FontSize="12" Text="KinN (mg/lit)"></TextBlock>
+            <ComboBox Grid.Row="13" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no13d" SelectionChanged="no13d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="13" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no13min" Padding="0" Text="0.0000001"></TextBox>
+            <TextBox Grid.Row="13" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no13tri" Padding="0" Text="0.0000001"></TextBox>
+            <TextBox Grid.Row="13" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="True" Name="no13max" Padding="0" Text="0.36"></TextBox>
+
+
+            <TextBlock Grid.Row="14" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for aerobic respiration (1/day)" FontFamily="Arial" FontSize="12" Text="K1DOC (1/day)"></TextBlock>
+            <ComboBox Grid.Row="14" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no14d" SelectionChanged="no14d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="14" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.0015" IsEnabled="True" Name="no14min" Padding="0"></TextBox>
+            <TextBox Grid.Row="14" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no14tri" Padding="0" Text="0.0015"></TextBox>
+            <TextBox Grid.Row="14" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.4" IsEnabled="True" Name="no14max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="15" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for denitrification (1/day)" FontFamily="Arial" FontSize="12" Text="k2DOC (1/day)"></TextBlock>
+            <ComboBox Grid.Row="15" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no15d" SelectionChanged="no15d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="15" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.001" IsEnabled="True" Name="no15min" Padding="0"></TextBox>
+            <TextBox Grid.Row="15" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no15tri" Padding="0" Text="0.001"></TextBox>
+            <TextBox Grid.Row="15" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.16" IsEnabled="True" Name="no15max" Padding="0"></TextBox>
+
+
+
+            <TextBlock Grid.Row="16" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for methanogenesis in anaerobic water (1/day)" FontFamily="Arial" FontSize="12" Text="k3DOC (1/day)"></TextBlock>
+            <ComboBox Grid.Row="16" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no16d" SelectionChanged="no16d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="16" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.0005" IsEnabled="True" Name="no16min" Padding="0"></TextBox>
+            <TextBox Grid.Row="16" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no16tri" Padding="0" Text="0.0005"></TextBox>
+            <TextBox Grid.Row="16" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.08" IsEnabled="True" Name="no16max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="17" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum dissolved organic C utilization rate for methanogenesis in anaerobic sediment (1/day)" FontFamily="Arial" FontSize="12" Text="k4DOC (1/day)"></TextBlock>
+            <ComboBox Grid.Row="17" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no17d" SelectionChanged="no17d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="17" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.0000001" IsEnabled="True" Name="no17min" Padding="0"></TextBox>
+            <TextBox Grid.Row="17" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no17tri" Padding="0" Text="0.0000001"></TextBox>
+            <TextBox Grid.Row="17" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.08" IsEnabled="True" Name="no17max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="18" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon (TOCin) in form of dissolved organic carbon (DOC)" FontFamily="Arial" FontSize="12" Text="cp1"></TextBlock>
+            <ComboBox Grid.Row="18" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no18d" SelectionChanged="no18d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="18" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.00002" IsEnabled="True" Name="no18min" Padding="0"></TextBox>
+            <TextBox Grid.Row="18" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no18tri" Padding="0" Text="0.00002"></TextBox>
+            <TextBox Grid.Row="18" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="1" IsEnabled="True" Name="no18max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="19" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon in form of labile particulate organic carbon (LPOC)" FontFamily="Arial" FontSize="12" Text="cp2"></TextBlock>
+            <ComboBox Grid.Row="19" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no19d" SelectionChanged="no19d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="19" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.000005" IsEnabled="True" Name="no19min" Padding="0"></TextBox>
+            <TextBox Grid.Row="19" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no19tri" Padding="0" Text="0.000005"></TextBox>
+            <TextBox Grid.Row="19" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="1" IsEnabled="True" Name="no19max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="20" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of inflowing organic carbon in form of refractory particulate organic carbon (RPOC)" FontFamily="Arial" FontSize="12" Text="cp3"></TextBlock>
+            <ComboBox Grid.Row="20" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no20d" SelectionChanged="no20d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="20" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.00000015" IsEnabled="True" Name="no20min" Padding="0"></TextBox>
+            <TextBox Grid.Row="20" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no20tri" Padding="0" Text="0.00000015"></TextBox>
+            <TextBox Grid.Row="20" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.5" IsEnabled="True" Name="no20max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="21" Grid.Column="0" HorizontalAlignment="Center" ToolTip="fraction of rooted plant biomass above soil-water interface (1/day)" FontFamily="Arial" FontSize="12" Text="fbw (1/day)"></TextBlock>
+            <ComboBox Grid.Row="21" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no21d" SelectionChanged="no21d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="21" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.4" IsEnabled="True" Name="no21min" Padding="0"></TextBox>
+            <TextBox Grid.Row="21" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no21tri" Padding="0" Text="0.4"></TextBox>
+            <TextBox Grid.Row="21" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.7" IsEnabled="True" Name="no21max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="22" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum methane utilization rate for aerobic respiration (1/day)" FontFamily="Arial" FontSize="12" Text="k1CH4 (1/day)"></TextBlock>
+            <ComboBox Grid.Row="22" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no22d" SelectionChanged="no22d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="22" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.001" IsEnabled="True" Name="no22min" Padding="0"></TextBox>
+            <TextBox Grid.Row="22" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no22tri" Padding="0" Text="0.001"></TextBox>
+            <TextBox Grid.Row="22" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.25" IsEnabled="True" Name="no22max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="23" Grid.Column="0" HorizontalAlignment="Center" ToolTip="maximum methane utilization rate for denitrification (1/day)" FontFamily="Arial" FontSize="12" Text="k2CH4 (1/day)"></TextBlock>
+            <ComboBox Grid.Row="23" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="0" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no23d" SelectionChanged="no23d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="23" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.001" IsEnabled="True" Name="no23min" Padding="0"></TextBox>
+            <TextBox Grid.Row="23" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no23tri" Padding="0" Text="0.001"></TextBox>
+            <TextBox Grid.Row="23" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.08" IsEnabled="True" Name="no23max" Padding="0"></TextBox>
+
+
+            <TextBlock Grid.Row="24" Grid.Column="0" HorizontalAlignment="Center" ToolTip="root length density in soil (cm/gr) [L root/M chla]" FontFamily="Arial" FontSize="12" Text="Rveg (cm/gr)"></TextBlock>
+            <ComboBox Grid.Row="24" Grid.Column="1" Height="auto" Width="auto" SelectedIndex="1" FontSize="12" FontWeight="Normal" FontStyle="Normal" FontFamily="Arial" IsEnabled="True" Name="no24d" SelectionChanged="no24d_SelectionChanged">
+                <ComboBoxItem Content="Uniform" />
+                <ComboBoxItem Content="Log-N(min max)" />
+                <ComboBoxItem Content="Log-N(mu sigma)" />
+                <ComboBoxItem Content="Tri" />
+            </ComboBox>
+            <TextBox Grid.Row="24" Grid.Column="2" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.0000006" IsEnabled="True" Name="no24min" Padding="0"></TextBox>
+            <TextBox Grid.Row="24" Grid.Column="4" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" IsEnabled="false" Name="no24tri" Padding="0" Text="0.0000006"></TextBox>
+            <TextBox Grid.Row="24" Grid.Column="3" PreviewTextInput="no01min_PreviewTextInput"  FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="0.077" IsEnabled="True" Name="no24max" Padding="0"></TextBox>
+
+
+
+            <TextBlock Grid.Row="25" Grid.Column="0" FontFamily="Arial" FontSize="12" TextAlignment="Center" Text="Number of Simulation" Height="20"></TextBlock>
+            <TextBox Grid.Row="25" Grid.Column="1" FontFamily="Arial" FontSize="12" TextAlignment="Center" IsReadOnly="False" Name="sim" IsEnabled="True" Text="1000" Padding="0" PreviewTextInput="numeric"></TextBox>
+            <Button Grid.Row="25" Grid.Column="2" Name="Simulation" Content="Generate" Click="mcs" FontFamily="Arial" Padding="0" Width="100" Margin="18,15,38,15" Height="34"></Button>
+            <Button Grid.Row="25" Grid.Column="2" Grid.ColumnSpan="2" Content="Nitrogen" Width="100" Padding="0" FontFamily="Arial" Name="btnNitrogen" Click="btnNitrogen_Click" Margin="152,15,105,15" Height="34"></Button>
+            <Button Grid.Row="25" Grid.Column="4" Content="Save Values" Width="100" Padding="0" FontFamily="Arial" Name="btnSave" Click="btnSave_Click" Margin="44,15,17,15"></Button>
+            <Button Grid.Row="25" Grid.Column="3" Content="Default Values" Width="100" Padding="0" FontFamily="Arial" Name="default" Click="default_Click" Margin="0,15,162,15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="34"></Button>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
+                    <GradientStop Color="#FF7F7F7F" Offset="0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+
+    </ScrollViewer>
+</Window>
