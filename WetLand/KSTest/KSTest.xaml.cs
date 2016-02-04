@@ -23,6 +23,7 @@ namespace WetLand.KSTest
     using OxyPlot;
     using OxyPlot.Axes;
     using OxyPlot.Series;
+    using System.Threading;
     public partial class KSTest : Window
     {
         public List<KResult> result;
@@ -49,10 +50,12 @@ namespace WetLand.KSTest
 
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (report==null||reportIndex == null) {
+            if (report == null || reportIndex == null)
+            {
                 return;
             }
-            if (reportIndex.SelectedIndex == 0) {
+            if (reportIndex.SelectedIndex == 0)
+            {
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
                 graph.Axes.Add(new CategoryAxis { ItemsSource = this.topTen, LabelField = "name" });
                 graph.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, AbsoluteMinimum = 0 });
@@ -61,10 +64,12 @@ namespace WetLand.KSTest
                 return;
             }
             string title = result[reportIndex.SelectedIndex - 1].name;
-            if (result[reportIndex.SelectedIndex - 1].p < 0.05) {//P value changed
-                title = " Model is sensitive to " +title+" parameter.";
+            if (result[reportIndex.SelectedIndex - 1].p < 0.05)
+            {//P value changed
+                title = " Model is sensitive to " + title + " parameter.";
             }
-            else {
+            else
+            {
                 title = " Model is not sensitive to " + title + " parameter.";
             }
             var tmp = new PlotModel { Title = title };
@@ -73,10 +78,10 @@ namespace WetLand.KSTest
             Collection<Values> DataB = new Collection<Values>();
             Collection<Values> DataNB = new Collection<Values>();
             List<Double> col = new List<double>();
-            for (int i = 0; i < result[reportIndex.SelectedIndex-1].NBData.Count; i++)
+            for (int i = 0; i < result[reportIndex.SelectedIndex - 1].NBData.Count; i++)
             {
 
-                DataB.Add(new Values { xvalue = result[reportIndex.SelectedIndex-1].Interp_BData[i], yvalue = (i+1)*100/(result[reportIndex.SelectedIndex - 1].Interp_BData.Count+1) });
+                DataB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].Interp_BData[i], yvalue = (i + 1) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
                 DataNB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].NBData[i], yvalue = (i + 1) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
             }
             // Create a line series
@@ -111,16 +116,39 @@ namespace WetLand.KSTest
 
 
         }
+        private void getSimulation(List<int> simulationNum)
+        {
+            PostProcess.PostProcessData test = new PostProcess.PostProcessData();
+            test.getObservedValue(obsFilePath + obsFileName[0]);
+            test.getSimulationValue(resultFilePath + resultFileName[0]);
+            test.sort();
+            for (int i = 0; i < test.simulationSeries.Count; i++)
+            {
+                simulationNum.Add(test.simulationSeries[i].simulationNumber);
+            }
+        }
 
         private void calculation_Click(object sender, RoutedEventArgs e)
         {
+            Thread cal = new Thread(calculationThread);
+            calculation.Visibility = Visibility.Hidden;
+            progress.Visibility = Visibility.Visible;
+            status.Visibility = Visibility.Visible;
+            cal.Start();
+        }
+        private void calculationThread()
+        {
             try
             {
-                PostProcess.PostProcessData test = new PostProcess.PostProcessData();
-                test.getObservedValue(obsFilePath + obsFileName[0]);
-                test.getSimulationValue(resultFilePath + resultFileName[0]);
-                test.sort();
 
+                List<int> simulationNum = new List<int>();
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 5
+                ));
+                getSimulation(simulationNum);
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 10
+                ));
                 double percent = Global.percentage;
                 string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\14_generated_parameters.txt");
                 int bound = (int)Math.Floor((contents.Length - 1) * percent);
@@ -135,14 +163,15 @@ namespace WetLand.KSTest
                 Data15 NBData15Sorted = new Data15();
                 for (int i = 0; i < bound; i++)
                 {
-                    Bdata14.addOneRowData(contents[test.simulationSeries[i].simulationNumber]);
-                    OriginalBdata14.addOneRowData(contents[test.simulationSeries[i].simulationNumber]);
+                    Bdata14.addOneRowData(contents[simulationNum[i]]);
+                    OriginalBdata14.addOneRowData(contents[simulationNum[i]]);
                 }
+                
                 //NB dataset
                 for (int i = bound; i < contents.Length - 1; i++)
                 {
-                    NBdata14.addOneRowData(contents[test.simulationSeries[i].simulationNumber]);
-                    NBData14Sorted.addOneRowData(contents[test.simulationSeries[i].simulationNumber]);
+                    NBdata14.addOneRowData(contents[simulationNum[i]]);
+                    NBData14Sorted.addOneRowData(contents[simulationNum[i]]);
                 }
                 NBdata14.sort();
                 contents = File.ReadAllLines(Global.projectName + @"\InputFiles\15_generated_parameters_carbon.txt");
@@ -150,16 +179,22 @@ namespace WetLand.KSTest
 
                 for (int i = 0; i < bound; i++)
                 {
-                    Bdata15.addOneRowData(contents[test.simulationSeries[i].simulationNumber + 1]);
-                    OriginalBdata15.addOneRowData(contents[test.simulationSeries[i].simulationNumber + 1]);
+                    Bdata15.addOneRowData(contents[simulationNum[i] + 1]);
+                    OriginalBdata15.addOneRowData(contents[simulationNum[i] + 1]);
                 }
                 for (int i = bound; i < contents.Length - 2; i++)
                 {
-                    NBdata15.addOneRowData(contents[test.simulationSeries[i].simulationNumber + 1]);
-                    NBData15Sorted.addOneRowData(contents[test.simulationSeries[i].simulationNumber + 1]);
+                    NBdata15.addOneRowData(contents[simulationNum[i] + 1]);
+                    NBData15Sorted.addOneRowData(contents[simulationNum[i] + 1]);
                 }
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 15
+                ));
                 Bdata14.sort();
                 Bdata15.sort();
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 20
+                ));
                 //calculate x
                 double[] x = new double[Bdata15.aca.Count];
                 for (int i = 0; i < x.Length; i++)
@@ -259,7 +294,9 @@ namespace WetLand.KSTest
                     Interp_B15.insertOneRowData(value15);
                     Interp_B15Sorted.insertOneRowData(value15);
                 }
-
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 25
+                ));
 
 
                 Interp_B14Sorted.cdf(Global.Nitrogen[0].type, Interp_B14Sorted.l2, Global.Nitrogen[0].min, Global.Nitrogen[0].max, Global.Nitrogen[0].c);
@@ -396,121 +433,180 @@ namespace WetLand.KSTest
                 NBData15Sorted.cdf(Global.Carbon[22].type, NBData15Sorted.k2ch4, Global.Carbon[22].min, Global.Carbon[22].max, Global.Carbon[22].c);
                 NBData15Sorted.cdf(Global.Carbon[23].type, NBData15Sorted.rveg, Global.Carbon[23].min, Global.Carbon[23].max, Global.Carbon[23].c);
                 NBData15Sorted.sort();
-
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 30
+                ));
                 result = new List<KResult>();
                 //L2	theta	Is	fNup	kd	kep	kga0	kgb0	kmin1s	knw	kminw	kns	kden	
                 //rowp	vels_o	vels_s  	velb	ana	rChl	Ss	Sw	c_Uw	frap	
                 //c1	c2	PH	S	Kw	apa	Dnp	Ksa	Ksb	RanN1	fW	fact  	a_vr_o	a_vr_s	porw
-                result.Add(new KResult("l2", Interp_B14.l2,OriginalBdata14.l2, NBdata14.l2, Interp_B14Sorted.l2, NBData14Sorted.l2));
-                result.Add(new KResult("theta", Interp_B14.theta,OriginalBdata14.theta, NBdata14.theta, Interp_B14Sorted.theta, NBData14Sorted.theta));
-                result.Add(new KResult("Is", Interp_B14.Is,OriginalBdata14.Is, NBdata14.Is, Interp_B14Sorted.Is, NBData14Sorted.Is));
-                result.Add(new KResult("fnup", Interp_B14.fnup,OriginalBdata14.fnup, NBdata14.fnup, Interp_B14Sorted.fnup, NBData14Sorted.fnup));
-                result.Add(new KResult("kd", Interp_B14.kd,OriginalBdata14.kd, NBdata14.kd, Interp_B14Sorted.kd, NBData14Sorted.kd));
-                result.Add(new KResult("kep", Interp_B14.kep,OriginalBdata14.kep, NBdata14.kep, Interp_B14Sorted.kep, NBData14Sorted.kep));
-                result.Add(new KResult("kga0", Interp_B14.kga0,OriginalBdata14.kga0, NBdata14.kga0, Interp_B14Sorted.kga0, NBData14Sorted.kga0));
-                result.Add(new KResult("kgb0", Interp_B14.kgb0,OriginalBdata14.kgb0, NBdata14.kgb0, Interp_B14Sorted.kgb0, NBData14Sorted.kgb0));
-                result.Add(new KResult("kmin1s", Interp_B14.kmin1s,OriginalBdata14.kmin1s, NBdata14.kmin1s, Interp_B14Sorted.kmin1s, NBData14Sorted.kmin1s));
-                result.Add(new KResult("kns", Interp_B14.kns,OriginalBdata14.kns, NBdata14.kns, Interp_B14Sorted.kns, NBData14Sorted.kns));
-                result.Add(new KResult("kminw", Interp_B14.kminw,OriginalBdata14.kminw, NBdata14.kminw, Interp_B14Sorted.kminw, NBData14Sorted.kminw));
-                result.Add(new KResult("kns", Interp_B14.kns,OriginalBdata14.kns, NBdata14.kns, Interp_B14Sorted.kns, NBData14Sorted.kns));
-                result.Add(new KResult("kden", Interp_B14.kden,OriginalBdata14.kden, NBdata14.kden, Interp_B14Sorted.kden, NBData14Sorted.kden));
-                result.Add(new KResult("rowp", Interp_B14.rowp,OriginalBdata14.rowp, NBdata14.rowp, Interp_B14Sorted.rowp, NBData14Sorted.rowp));
-                result.Add(new KResult("vels_o", Interp_B14.vels_o,OriginalBdata14.vels_o, NBdata14.vels_o, Interp_B14Sorted.vels_o, NBData14Sorted.vels_o));
-                result.Add(new KResult("vels_s", Interp_B14.vels_s,OriginalBdata14.vels_s, NBdata14.vels_s, Interp_B14Sorted.vels_s, NBData14Sorted.vels_s));
-                result.Add(new KResult("velb", Interp_B14.velb,OriginalBdata14.velb, NBdata14.velb, Interp_B14Sorted.velb, NBData14Sorted.velb));
-                result.Add(new KResult("ana", Interp_B14.ana,OriginalBdata14.ana, NBdata14.ana, Interp_B14Sorted.ana, NBData14Sorted.ana));
-                result.Add(new KResult("rchl", Interp_B14.rchl,OriginalBdata14.rchl, NBdata14.rchl, Interp_B14Sorted.rchl, NBData14Sorted.rchl));
-                result.Add(new KResult("ss", Interp_B14.ss,OriginalBdata14.ss, NBdata14.ss, Interp_B14Sorted.ss, NBData14Sorted.ss));
-                result.Add(new KResult("sw", Interp_B14.sw,OriginalBdata14.sw, NBdata14.sw, Interp_B14Sorted.sw, NBData14Sorted.sw));
-                result.Add(new KResult("c_uw", Interp_B14.c_uw,OriginalBdata14.c_uw, NBdata14.c_uw, Interp_B14Sorted.c_uw, NBData14Sorted.c_uw));
-                result.Add(new KResult("frap", Interp_B14.frap,OriginalBdata14.frap, NBdata14.frap, Interp_B14Sorted.frap, NBData14Sorted.frap));
-                result.Add(new KResult("c1", Interp_B14.c1,OriginalBdata14.c1, NBdata14.c1, Interp_B14Sorted.c1, NBData14Sorted.c1));
-                result.Add(new KResult("c2", Interp_B14.c2,OriginalBdata14.c2, NBdata14.c2, Interp_B14Sorted.c2, NBData14Sorted.c2));
-                result.Add(new KResult("ph", Interp_B14.ph,OriginalBdata14.ph, NBdata14.ph, Interp_B14Sorted.ph, NBData14Sorted.ph));
-                result.Add(new KResult("s", Interp_B14.s,OriginalBdata14.s, NBdata14.s, Interp_B14Sorted.s, NBData14Sorted.s));
-                result.Add(new KResult("kw", Interp_B14.kw,OriginalBdata14.kw, NBdata14.kw, Interp_B14Sorted.kw, NBData14Sorted.kw));
-                result.Add(new KResult("apa", Interp_B14.apa,OriginalBdata14.apa, NBdata14.apa, Interp_B14Sorted.apa, NBData14Sorted.apa));
-                result.Add(new KResult("dnp", Interp_B14.dnp,OriginalBdata14.dnp, NBdata14.dnp, Interp_B14Sorted.dnp, NBData14Sorted.dnp));
-                result.Add(new KResult("ksa", Interp_B14.ksa,OriginalBdata14.ksa, NBdata14.ksa, Interp_B14Sorted.ksa, NBData14Sorted.ksa));
-                result.Add(new KResult("ksb", Interp_B14.ksb,OriginalBdata14.ksb, NBdata14.ksb, Interp_B14Sorted.ksb, NBData14Sorted.ksb));
-                result.Add(new KResult("rann1", Interp_B14.rann1,OriginalBdata14.rann1, NBdata14.rann1, Interp_B14Sorted.rann1, NBData14Sorted.rann1));
-                result.Add(new KResult("fw", Interp_B14.fw,OriginalBdata14.fw, NBdata14.fw, Interp_B14Sorted.fw, NBData14Sorted.fw));
-                result.Add(new KResult("fact", Interp_B14.fact,OriginalBdata14.fact, NBdata14.fact, Interp_B14Sorted.fact, NBData14Sorted.fact));
-                result.Add(new KResult("a_vr_o", Interp_B14.a_vr_o,OriginalBdata14.a_vr_o, NBdata14.a_vr_o, Interp_B14Sorted.a_vr_o, NBData14Sorted.a_vr_o));
-                result.Add(new KResult("a_vr_s", Interp_B14.a_vr_s,OriginalBdata14.a_vr_s, NBdata14.a_vr_s, Interp_B14Sorted.a_vr_s, NBData14Sorted.a_vr_s));
-                result.Add(new KResult("porw", Interp_B14.porw,OriginalBdata14.porw, NBdata14.porw, Interp_B14Sorted.porw, NBData14Sorted.porw));
+                result.Add(new KResult("l2", Interp_B14.l2, OriginalBdata14.l2, NBdata14.l2, Interp_B14Sorted.l2, NBData14Sorted.l2));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 31
+                ));
+                result.Add(new KResult("theta", Interp_B14.theta, OriginalBdata14.theta, NBdata14.theta, Interp_B14Sorted.theta, NBData14Sorted.theta));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 32
+                ));
+                result.Add(new KResult("Is", Interp_B14.Is, OriginalBdata14.Is, NBdata14.Is, Interp_B14Sorted.Is, NBData14Sorted.Is));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 33
+                ));
+                result.Add(new KResult("fnup", Interp_B14.fnup, OriginalBdata14.fnup, NBdata14.fnup, Interp_B14Sorted.fnup, NBData14Sorted.fnup));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 34
+                ));
+                result.Add(new KResult("kd", Interp_B14.kd, OriginalBdata14.kd, NBdata14.kd, Interp_B14Sorted.kd, NBData14Sorted.kd));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 35
+                ));
+                result.Add(new KResult("kep", Interp_B14.kep, OriginalBdata14.kep, NBdata14.kep, Interp_B14Sorted.kep, NBData14Sorted.kep));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 36
+                ));
+                result.Add(new KResult("kga0", Interp_B14.kga0, OriginalBdata14.kga0, NBdata14.kga0, Interp_B14Sorted.kga0, NBData14Sorted.kga0));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 37
+                ));
+                result.Add(new KResult("kgb0", Interp_B14.kgb0, OriginalBdata14.kgb0, NBdata14.kgb0, Interp_B14Sorted.kgb0, NBData14Sorted.kgb0));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 38
+                ));
+                result.Add(new KResult("kmin1s", Interp_B14.kmin1s, OriginalBdata14.kmin1s, NBdata14.kmin1s, Interp_B14Sorted.kmin1s, NBData14Sorted.kmin1s));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 39
+                ));
+                result.Add(new KResult("kns", Interp_B14.kns, OriginalBdata14.kns, NBdata14.kns, Interp_B14Sorted.kns, NBData14Sorted.kns));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 40
+                ));
+                result.Add(new KResult("kminw", Interp_B14.kminw, OriginalBdata14.kminw, NBdata14.kminw, Interp_B14Sorted.kminw, NBData14Sorted.kminw));
+                result.Add(new KResult("kns", Interp_B14.kns, OriginalBdata14.kns, NBdata14.kns, Interp_B14Sorted.kns, NBData14Sorted.kns));
+                result.Add(new KResult("kden", Interp_B14.kden, OriginalBdata14.kden, NBdata14.kden, Interp_B14Sorted.kden, NBData14Sorted.kden));
+                result.Add(new KResult("rowp", Interp_B14.rowp, OriginalBdata14.rowp, NBdata14.rowp, Interp_B14Sorted.rowp, NBData14Sorted.rowp));
+                result.Add(new KResult("vels_o", Interp_B14.vels_o, OriginalBdata14.vels_o, NBdata14.vels_o, Interp_B14Sorted.vels_o, NBData14Sorted.vels_o));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 45
+                ));
+                result.Add(new KResult("vels_s", Interp_B14.vels_s, OriginalBdata14.vels_s, NBdata14.vels_s, Interp_B14Sorted.vels_s, NBData14Sorted.vels_s));
+                result.Add(new KResult("velb", Interp_B14.velb, OriginalBdata14.velb, NBdata14.velb, Interp_B14Sorted.velb, NBData14Sorted.velb));
+                result.Add(new KResult("ana", Interp_B14.ana, OriginalBdata14.ana, NBdata14.ana, Interp_B14Sorted.ana, NBData14Sorted.ana));
+                result.Add(new KResult("rchl", Interp_B14.rchl, OriginalBdata14.rchl, NBdata14.rchl, Interp_B14Sorted.rchl, NBData14Sorted.rchl));
+                result.Add(new KResult("ss", Interp_B14.ss, OriginalBdata14.ss, NBdata14.ss, Interp_B14Sorted.ss, NBData14Sorted.ss));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 50
+                ));
+                result.Add(new KResult("sw", Interp_B14.sw, OriginalBdata14.sw, NBdata14.sw, Interp_B14Sorted.sw, NBData14Sorted.sw));
+                result.Add(new KResult("c_uw", Interp_B14.c_uw, OriginalBdata14.c_uw, NBdata14.c_uw, Interp_B14Sorted.c_uw, NBData14Sorted.c_uw));
+                result.Add(new KResult("frap", Interp_B14.frap, OriginalBdata14.frap, NBdata14.frap, Interp_B14Sorted.frap, NBData14Sorted.frap));
+                result.Add(new KResult("c1", Interp_B14.c1, OriginalBdata14.c1, NBdata14.c1, Interp_B14Sorted.c1, NBData14Sorted.c1));
+                result.Add(new KResult("c2", Interp_B14.c2, OriginalBdata14.c2, NBdata14.c2, Interp_B14Sorted.c2, NBData14Sorted.c2));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 55
+                ));
+                result.Add(new KResult("ph", Interp_B14.ph, OriginalBdata14.ph, NBdata14.ph, Interp_B14Sorted.ph, NBData14Sorted.ph));
+                result.Add(new KResult("s", Interp_B14.s, OriginalBdata14.s, NBdata14.s, Interp_B14Sorted.s, NBData14Sorted.s));
+                result.Add(new KResult("kw", Interp_B14.kw, OriginalBdata14.kw, NBdata14.kw, Interp_B14Sorted.kw, NBData14Sorted.kw));
+                result.Add(new KResult("apa", Interp_B14.apa, OriginalBdata14.apa, NBdata14.apa, Interp_B14Sorted.apa, NBData14Sorted.apa));
+                result.Add(new KResult("dnp", Interp_B14.dnp, OriginalBdata14.dnp, NBdata14.dnp, Interp_B14Sorted.dnp, NBData14Sorted.dnp));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 60
+                ));
+                result.Add(new KResult("ksa", Interp_B14.ksa, OriginalBdata14.ksa, NBdata14.ksa, Interp_B14Sorted.ksa, NBData14Sorted.ksa));
+                result.Add(new KResult("ksb", Interp_B14.ksb, OriginalBdata14.ksb, NBdata14.ksb, Interp_B14Sorted.ksb, NBData14Sorted.ksb));
+                result.Add(new KResult("rann1", Interp_B14.rann1, OriginalBdata14.rann1, NBdata14.rann1, Interp_B14Sorted.rann1, NBData14Sorted.rann1));
+                result.Add(new KResult("fw", Interp_B14.fw, OriginalBdata14.fw, NBdata14.fw, Interp_B14Sorted.fw, NBData14Sorted.fw));
+                result.Add(new KResult("fact", Interp_B14.fact, OriginalBdata14.fact, NBdata14.fact, Interp_B14Sorted.fact, NBData14Sorted.fact));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 65
+                ));
+                result.Add(new KResult("a_vr_o", Interp_B14.a_vr_o, OriginalBdata14.a_vr_o, NBdata14.a_vr_o, Interp_B14Sorted.a_vr_o, NBData14Sorted.a_vr_o));
+                result.Add(new KResult("a_vr_s", Interp_B14.a_vr_s, OriginalBdata14.a_vr_s, NBdata14.a_vr_s, Interp_B14Sorted.a_vr_s, NBData14Sorted.a_vr_s));
+                result.Add(new KResult("porw", Interp_B14.porw, OriginalBdata14.porw, NBdata14.porw, Interp_B14Sorted.porw, NBData14Sorted.porw));
                 //result for carbon
                 //aca	FaDOC	FaLPOC	FaRPOC	FbDOC	FbLPOC	FbRPOC	kLPOC	kRPOC	KsatO	KinO	KN	KinN	K1DOC	k2DOC	k3DOC	k4DOC	cp1	cp2	cp3	fbw	k1CH4	k2CH4	Rveg
                 result.Add(new KResult("aca", Interp_B15.aca, OriginalBdata15.aca, NBdata15.aca, Interp_B15Sorted.aca, NBData15Sorted.aca));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 70
+                ));
                 result.Add(new KResult("fadoc", Interp_B15.fadoc, OriginalBdata15.fadoc, NBdata15.fadoc, Interp_B15Sorted.fadoc, NBData15Sorted.fadoc));
                 result.Add(new KResult("falpoc", Interp_B15.falpoc, OriginalBdata15.falpoc, NBdata15.falpoc, Interp_B15Sorted.falpoc, NBData15Sorted.falpoc));
                 result.Add(new KResult("farpoc", Interp_B15.farpoc, OriginalBdata15.farpoc, NBdata15.farpoc, Interp_B15Sorted.farpoc, NBData15Sorted.farpoc));
                 result.Add(new KResult("fbdoc", Interp_B15.fbdoc, OriginalBdata15.fbdoc, NBdata15.fbdoc, Interp_B15Sorted.fbdoc, NBData15Sorted.fbdoc));
                 result.Add(new KResult("fblpoc", Interp_B15.fblpoc, OriginalBdata15.fblpoc, NBdata15.fblpoc, Interp_B15Sorted.fblpoc, NBData15Sorted.fblpoc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 75
+                ));
                 result.Add(new KResult("fbrpoc", Interp_B15.fbrpoc, OriginalBdata15.fbrpoc, NBdata15.fbrpoc, Interp_B15Sorted.fbrpoc, NBData15Sorted.fbrpoc));
                 result.Add(new KResult("klpoc", Interp_B15.klpoc, OriginalBdata15.klpoc, NBdata15.klpoc, Interp_B15Sorted.klpoc, NBData15Sorted.klpoc));
                 result.Add(new KResult("krpoc", Interp_B15.krpoc, OriginalBdata15.krpoc, NBdata15.krpoc, Interp_B15Sorted.krpoc, NBData15Sorted.krpoc));
                 result.Add(new KResult("ksato", Interp_B15.ksato, OriginalBdata15.ksato, NBdata15.ksato, Interp_B15Sorted.ksato, NBData15Sorted.ksato));
                 result.Add(new KResult("kino", Interp_B15.kino, OriginalBdata15.kino, NBdata15.kino, Interp_B15Sorted.kino, NBData15Sorted.kino));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 80
+                ));
                 result.Add(new KResult("kn", Interp_B15.kn, OriginalBdata15.kn, NBdata15.kn, Interp_B15Sorted.kn, NBData15Sorted.kn));
                 result.Add(new KResult("kinn", Interp_B15.kinn, OriginalBdata15.kinn, NBdata15.kinn, Interp_B15Sorted.kinn, NBData15Sorted.kinn));
                 result.Add(new KResult("k1doc", Interp_B15.k1doc, OriginalBdata15.k1doc, NBdata15.k1doc, Interp_B15Sorted.k1doc, NBData15Sorted.k1doc));
                 result.Add(new KResult("k2doc", Interp_B15.k2doc, OriginalBdata15.k2doc, NBdata15.k2doc, Interp_B15Sorted.k2doc, NBData15Sorted.k2doc));
                 result.Add(new KResult("k3doc", Interp_B15.k3doc, OriginalBdata15.k3doc, NBdata15.k3doc, Interp_B15Sorted.k3doc, NBData15Sorted.k3doc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 85
+                ));
                 result.Add(new KResult("k4doc", Interp_B15.k4doc, OriginalBdata15.k4doc, NBdata15.k4doc, Interp_B15Sorted.k4doc, NBData15Sorted.k4doc));
                 result.Add(new KResult("cp1", Interp_B15.cp1, OriginalBdata15.cp1, NBdata15.cp1, Interp_B15Sorted.cp1, NBData15Sorted.cp1));
                 result.Add(new KResult("cp2", Interp_B15.cp2, OriginalBdata15.cp2, NBdata15.cp2, Interp_B15Sorted.cp2, NBData15Sorted.cp2));
                 result.Add(new KResult("cp3", Interp_B15.cp3, OriginalBdata15.cp3, NBdata15.cp3, Interp_B15Sorted.cp3, NBData15Sorted.cp3));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 90
+                ));
                 result.Add(new KResult("fbw", Interp_B15.fbw, OriginalBdata15.fbw, NBdata15.fbw, Interp_B15Sorted.fbw, NBData15Sorted.fbw));
                 result.Add(new KResult("k1ch4", Interp_B15.k1ch4, OriginalBdata15.k1ch4, NBdata15.k1ch4, Interp_B15Sorted.k1ch4, NBData15Sorted.k1ch4));
                 result.Add(new KResult("k2ch4", Interp_B15.k2ch4, OriginalBdata15.k2ch4, NBdata15.k2ch4, Interp_B15Sorted.k2ch4, NBData15Sorted.k2ch4));
                 result.Add(new KResult("rveg", Interp_B15.rveg, OriginalBdata15.rveg, NBdata15.rveg, Interp_B15Sorted.rveg, NBData15Sorted.rveg));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 95
+                ));
                 result.Sort();
-                reportIndex.Items.Add("Overview of Sensitivity Analysis (DMax).");
+                Dispatcher.Invoke(new Action(() =>
+                reportIndex.Items.Add("Overview of Sensitivity Analysis (DMax).")));
+                
                 this.topTen = new Collection<Item>();
                 for (int i = 0; i < 20; i++)
                 {//TODO change to 10
                     topTen.Add(new Item() { name = result[i].name, Dmax = result[i].Dmax });
-                    reportIndex.Items.Add("Parameter " + result[i].name + "'s report");
+                    Dispatcher.Invoke(new Action(() =>
+                reportIndex.Items.Add("Parameter " + result[i].name + "'s report")));
                 }
-
+                
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
                 graph.Axes.Add(new CategoryAxis { ItemsSource = this.topTen, LabelField = "name" });
                 graph.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, AbsoluteMinimum = 0 });
-                graph.Series.Add(new ColumnSeries { Title = "parameters", ItemsSource = this.topTen, ValueField = "Dmax",FillColor = OxyColors.Green });
-                report.Model = graph;
-
-                reportIndex.Visibility = Visibility.Visible;
-                calculation.Visibility = Visibility.Hidden;
-                percentPanel.Visibility = Visibility.Visible;
-                //MessageBox.Show(l2.Dmax.ToString(), "DMAX");
-                //MessageBox.Show(l2.ks2stat.ToString(), "stat");
-
-                //double[] a1 = Interp_B14.l2.ToArray();
-                //double[] a2 = NBdata14.l2.ToArray();
-
-                //var t = new TwoSampleKolmogorovSmirnovTest(a1, a2);
-                //double stat = t.Statistic;
-                //double p = t.PValue;
-                //Interp_B14.cdf(0, Interp_B14.l2, 5, 50);
-                //Interp_B14.sortDescending();
-                //NBdata14.cdf(0, NBdata14.l2, 5, 50);
-                //NBdata14.sortDescending();
-                //double dmax = -1;
-                //for (int i = 0; i < Interp_B14.l2.Count; i++) {
-                //    double difference = Math.Abs(Interp_B14.l2[i] - NBdata14.l2[i]);
-                //    if (difference > dmax) {
-                //        dmax = difference;
-                //    }
-                //}
-                //MessageBox.Show(dmax.ToString(), "DMAX");
-                //MessageBox.Show(t.Statistic.ToString(), "stat");
-
-                //MessageBox.Show(t.PValue.ToString(),"p value");
-                //MessageBox.Show(t.Significant.ToString(), "significant");
-                //Console.WriteLine("test");
-
-
+                graph.Series.Add(new ColumnSeries { Title = "parameters", ItemsSource = this.topTen, ValueField = "Dmax", FillColor = OxyColors.Green });
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 100
+                ));
+                Dispatcher.Invoke(new Action(() =>
+                report.Model = graph
+                ));
+                Dispatcher.Invoke(new Action(() =>
+                reportIndex.Visibility = Visibility.Visible
+                ));
+                //Dispatcher.Invoke(new Action(() =>
+                //calculation.Visibility = Visibility.Hidden
+                //));
+                Dispatcher.Invoke(new Action(() =>
+                percentPanel.Visibility = Visibility.Visible
+                ));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Visibility = Visibility.Hidden
+                ));
+                Dispatcher.Invoke(new Action(() =>
+                status.Visibility = Visibility.Hidden
+                ));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 0 
+                ));
             }
             catch (IOException ex)
             {
@@ -541,11 +637,13 @@ namespace WetLand.KSTest
             calculation_Click(sender, e);
         }
     }
-    public class Item {
+    public class Item
+    {
         public string name { get; set; }
         public double Dmax { get; set; }
     }
-    public class Values {
+    public class Values
+    {
         public double xvalue { get; set; }
         public double yvalue { get; set; }
     }

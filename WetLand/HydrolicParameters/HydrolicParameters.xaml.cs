@@ -108,8 +108,32 @@ namespace WetLand.HydrolicParameters
             if(hydroParameters.SelectedIndex<0|| hydroParameters.SelectedIndex >= items.Count)
             {
                 Save.IsEnabled = false;
+                Save.IsEnabled = false;
+                eDate.IsEnabled = false;
+                eQin.IsEnabled = false;
+                eQOut.IsEnabled = false;
+                eVw.IsEnabled = false;
+                eArea.IsEnabled = false;
+                eET.IsEnabled = false;
+                eip.IsEnabled = false;
+                eH.IsEnabled = false;
+                eQg.IsEnabled = false;
+                eUw.IsEnabled = false;
+                etemp.IsEnabled = false;
                 return;
             }
+            Save.IsEnabled = true;
+            eDate.IsEnabled = true;
+            eQin.IsEnabled = true;
+            eQOut.IsEnabled = true;
+            eVw.IsEnabled = true;
+            eArea.IsEnabled = true;
+            eET.IsEnabled = true;
+            eip.IsEnabled = true;
+            eH.IsEnabled = true;
+            eQg.IsEnabled = true;
+            eUw.IsEnabled = true;
+            etemp.IsEnabled = true;
             eDate.Text = items[hydroParameters.SelectedIndex].date.ToString("MM/dd/yyyy");
             eQin.Text = items[hydroParameters.SelectedIndex].Qin.ToString();
             eQOut.Text = items[hydroParameters.SelectedIndex].QOut.ToString();

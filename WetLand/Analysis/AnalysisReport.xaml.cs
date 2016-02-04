@@ -123,19 +123,29 @@ namespace WetLand.Analysis
 
             string[] contents = File.ReadAllLines(prefix + fileName[reportIndex.SelectedIndex]);
             DateTime tempdate = Global.startDate.AddDays(-1);
-            for (int i = number + 3 * (number - 1); i < number + 3 * (number - 1) + 2; i++)
+            int count = 0;
+            string simStr = "";
+            //new
+            foreach (var line in File.ReadLines(prefix + fileName[reportIndex.SelectedIndex]))
             {
-                string[] parameters = contents[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
-                foreach (var parameter in parameters)
+                count++;
+                if (count > number + 3 * (number - 1) && count < number + 3 * (number - 1) + 2)
                 {
-                    items.Add(new item { date = tempdate, simulationValue = parameter });
-                    tempdate = tempdate.AddDays(1);
+                    simStr += line;
                 }
-
-
+                if (count >= number + 3 * (number - 1) + 2)
+                {
+                    count = 0;
+                    break;
+                }
+            }
+            string[] parameters = simStr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            foreach (var parameter in parameters)
+            {
+                items.Add(new item { date = tempdate, simulationValue = parameter });
+                tempdate = tempdate.AddDays(1);
             }
             analysisSimulation.ItemsSource = items;
-
         }
     }
     public class item

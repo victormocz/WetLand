@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WetLand.KSTest"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         xmlns:oxy="http://oxyplot.org/wpf"
         Title="Sensitivity Analysis" Height="800" Width="1200">
     
@@ -17,6 +18,8 @@
         <ComboBox x:Name="reportIndex" Grid.Row="0" SelectionChanged="reportIndex_SelectionChanged" Visibility="Hidden" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
         </ComboBox>
         <Button x:Name="calculation" Grid.Row="0" Content="Start Calculations" Click="calculation_Click"></Button>
+        <TextBlock x:Name="status" Grid.Row="0" Text="{Binding ElementName=progress, Path=Value,StringFormat={}{0:0}%}" Visibility="Hidden" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+        <ProgressBar x:Name="progress" Grid.Row="1" Visibility="Hidden"></ProgressBar>
         <StackPanel Name="percentPanel" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Percentage" Margin="0,0,20,0"></TextBlock>
             <TextBox Name="percentage"></TextBox>

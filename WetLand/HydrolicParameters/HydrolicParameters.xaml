@@ -65,17 +65,17 @@
             <TextBlock Grid.Row="0" Grid.Column="9" Text="Uw" HorizontalAlignment="Center"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="10" Text="temp" HorizontalAlignment="Center"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="" Name="eDate" HorizontalAlignment="Center" ></TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1" Name="eQin" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="2" Name="eQOut" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="3" Name="eVw" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="4" Name="eArea" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="5" Name="eET" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="6" Name="eip" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="7" Name="eH" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="8" Name="eQg" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="9" Name="eUw" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="10" Name="etemp" HorizontalAlignment="Center" Height="20" Width="60"></TextBox>
-            <Button x:Name="Save" Grid.Column="11" Grid.Row="1" Content="Save" Width="60" Height="25" Click="Save_Click"></Button>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="eQin" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="2" Name="eQOut" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="3" Name="eVw" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="4" Name="eArea" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="5" Name="eET" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="6" Name="eip" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="7" Name="eH" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="8" Name="eQg" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="9" Name="eUw" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="10" Name="etemp" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
+            <Button x:Name="Save" Grid.Column="11" Grid.Row="1" Content="Save" Width="60" Height="25" Click="Save_Click" IsEnabled="False"></Button>
             <TextBlock Grid.Row="0" Grid.Column="11" Text="" Name="status" HorizontalAlignment="Center" ></TextBlock>
         </Grid>
         <ListView  Name="hydroParameters" 
