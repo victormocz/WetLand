@@ -14,38 +14,38 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Name="homeMenu" FontSize="14" Background="{x:Null}">
-            <MenuItem Header="Home">
-                <MenuItem x:Name="New_Project" Header="New Project" Click="New_Project_Click"></MenuItem>
-                <MenuItem x:Name="Open_Project" Header="Open Project" Click="Open_Project_Click"></MenuItem>
-                <MenuItem x:Name="save_as" Header="Save As" IsEnabled="False" Click="save_as_Click"></MenuItem>
+            <MenuItem Header="Home" ToolTip="Create, open and save as a project">
+                <MenuItem x:Name="New_Project" Header="New Project" Click="New_Project_Click" ToolTip="Create a new project"></MenuItem>
+                <MenuItem x:Name="Open_Project" Header="Open Project" Click="Open_Project_Click" ToolTip="Open a saved project"></MenuItem>
+                <MenuItem x:Name="save_as" Header="Save As" IsEnabled="False" Click="save_as_Click" ToolTip="Save as the project "></MenuItem>
                 <MenuItem x:Name="menuExit" Header="Exit" Click="menuExit_Click"></MenuItem>
             </MenuItem>
-            <MenuItem x:Name="Input_Files" Header="Input Files" IsEnabled="false">
-                <MenuItem x:Name="menuStartDate" Header="Select Start Date" Click="menuStartDate_Click"></MenuItem>
-                <MenuItem x:Name="Hydro_Climate" Header="Hydro-Climate Parameters" IsEnabled="False">
-                    <MenuItem x:Name="menuHydroData" Header="Pre-existing Data" Click="menuHydroViewData_Click"></MenuItem>
-                    <MenuItem x:Name="menuFlowRouting" Header="Flow Routing" Click="menuFlowRouting_Click"></MenuItem>
+            <MenuItem x:Name="Input_Files" Header="Input Files" IsEnabled="false" ToolTip="Read hydrology/water quality data">
+                <MenuItem x:Name="menuStartDate" Header="Select Start Date" Click="menuStartDate_Click" ToolTip="Assign a starting date for simulation"></MenuItem>
+                <MenuItem x:Name="Hydro_Climate" Header="Hydro-Climate Parameters" IsEnabled="False" ToolTip="Assign hydro-climate inputs">
+                    <MenuItem x:Name="menuHydroData" Header="Pre-existing Data" Click="menuHydroViewData_Click" ToolTip="Read the pre-defined hydro-climate data."></MenuItem>
+                    <MenuItem x:Name="menuFlowRouting" Header="Flow Routing" Click="menuFlowRouting_Click" ToolTip="Perform a flow routing analysis "></MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="menuFixed" Header="Fixed Parameters" Click="menuFixed_Click" IsEnabled="False"></MenuItem>
-                <MenuItem x:Name="Water_quality" Header="Water Quality" IsEnabled="False">
-                    <MenuItem x:Name="menuInitial" Header="Initial Concentration" Click="menuInitial_Click"/>
-                    <MenuItem Header="Input Concentrations" Click="menuConcentrationViewData_Click">
+                <MenuItem x:Name="menuFixed" Header="Fixed Parameters" Click="menuFixed_Click" IsEnabled="False" ToolTip="Assign, edit and save the fixed parameters of WetQual"></MenuItem>
+                <MenuItem x:Name="Water_quality" Header="Water Quality" IsEnabled="False" ToolTip="Assign water quality inputs">
+                    <MenuItem x:Name="menuInitial" Header="Initial Concentration" Click="menuInitial_Click" ToolTip="Assign, edit and save initial concentration of water quality constituents"/>
+                    <MenuItem Header="Input Concentrations" Click="menuConcentrationViewData_Click" ToolTip="Read time-dependent inputs of water quality constituents">
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem x:Name="Model_Parameters" Header="Model Parameters" IsEnabled="False">
-                <MenuItem x:Name="deterministicModel" Header="Deterministic Model" Click="deterministicModel_Click"></MenuItem>
-                <MenuItem Header="Stochastic Model">
-                    <MenuItem x:Name="Nitrogen" Header="N,P,TSS" Click="Nitrogen_Click"></MenuItem>
-                    <MenuItem Header="Carbon" x:Name="Carbon" Click="Carbon_Click"></MenuItem>
+            <MenuItem x:Name="Model_Parameters" Header="Model Parameters" IsEnabled="False" ToolTip="Determine deterministic/stochastic modes to run WetQual and assign the related parameters">
+                <MenuItem x:Name="deterministicModel" Header="Deterministic Model" Click="deterministicModel_Click" ToolTip="Assign deterministic model's parameters"></MenuItem>
+                <MenuItem Header="Stochastic Model" ToolTip="Assign stochastic model's parameters and determine the number of simulations">
+                    <MenuItem x:Name="Nitrogen" Header="N,P,TSS" Click="Nitrogen_Click" ToolTip="Assign WetQual parameters for Nitrogen, Phosphorus and Total Suspended Sediment"></MenuItem>
+                    <MenuItem Header="Carbon" x:Name="Carbon" Click="Carbon_Click" ToolTip="Assign WetQual parameters for Carbon"></MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem x:Name="menu_run" Header="Run Simulations" IsEnabled="False">
-                <MenuItem x:Name="run_simulations" Header="Run It" Click="run_simulations_Click"></MenuItem>
+            <MenuItem x:Name="menu_run" Header="Run Simulations" IsEnabled="False" ToolTip="Run WetQual either in a deterministic or stochastic mode">
+                <MenuItem x:Name="run_simulations" Header="Run It" Click="run_simulations_Click" ToolTip="Run WetQual"></MenuItem>
             </MenuItem>
-            <MenuItem x:Name="menuAnalysis" Header="Analyze Output Files" Click="menuAnalysis_Click" IsEnabled="False"></MenuItem>
-            <MenuItem x:Name="PostProcessing" Header="Post Processing" Click="PostProcessing_Click" IsEnabled="False"></MenuItem>
-            <MenuItem x:Name="KSTest" Header="Senstivity Analysis" Click="KSTest_Click" IsEnabled="False"></MenuItem>
+            <MenuItem x:Name="menuAnalysis" Header="Analyze Output Files" Click="menuAnalysis_Click" IsEnabled="False" ToolTip="See the values for WetQual outputs and the related graphs"></MenuItem>
+            <MenuItem x:Name="PostProcessing" Header="Post Processing" Click="PostProcessing_Click" IsEnabled="False" ToolTip="Perform a Generalized Likelihood Uncertainty Estimation (GLUE) analysis"></MenuItem>
+            <MenuItem x:Name="KSTest" Header="Senstivity Analysis" Click="KSTest_Click" IsEnabled="False" ToolTip="Perform a Sensitivity Analysis using Kolmogorov-Smirnov (K-S) test"></MenuItem>
         </Menu>
         <Image Grid.Row="1" Source="images\background.jpg" Stretch="Fill"></Image>
     </Grid>

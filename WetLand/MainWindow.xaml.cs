@@ -112,8 +112,12 @@ namespace WetLand
                 {
                     //string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\102_Onw.txt");
                     int lineNum = 0;
-                    foreach (var line in File.ReadLines(Global.projectName + @"\InputFiles\102_Onw.txt")) {
-                        lineNum += 1;
+                    using (var reader = File.OpenText(Global.projectName + @"\InputFiles\102_Onw.txt"))
+                    {
+                        while (reader.ReadLine() != null)
+                        {
+                            lineNum++;
+                        }
                     }
                     if (lineNum == 4)
                     {

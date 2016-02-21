@@ -14,9 +14,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
+            <ComboBoxItem Content="H1 (C)" />
             <ComboBoxItem Content="Organic Nitrogen Concentration In Incoming Flow (mg/L)" />
             <ComboBoxItem Content="Nitrate-Nitrogen Concentration In Incoming Flow (mg/L)" />
             <ComboBoxItem Content="Total Ammonia-Nitrogen Concentration In Incoming Flow (mg/L)" />
@@ -36,6 +46,6 @@
             <ComboBoxItem Content="Atmospheric Deposition For Total Organic Carbon (mg/m²/day)" />
             <ComboBoxItem Content="Total Organic Carbon Concentration In Groundwater Discharge (mg/L)" />
         </ComboBox>
-        <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
+        <oxy:PlotView x:Name="report" Grid.Row="2" ></oxy:PlotView>
     </Grid>
 </Window>

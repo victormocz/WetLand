@@ -24,11 +24,11 @@ namespace WetLand.HydrolicParameters
         public Collection<DateValue> Data { get; set; }
         public int index { get; set; }
 
-        public PlotModel CreateModel(String Title,String Lengend, int viewCol,String fileName)
+        public PlotModel CreateModel(String Title,String Lengend, int viewCol,String fileName,string ytitle)
         {
             var tmp = new PlotModel { Title = Title };
-            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left,Minimum=0,MajorGridlineStyle=LineStyle.Solid });
+            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid,Title="Date (day)",TitleFontSize=15 });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left,Minimum=0,MajorGridlineStyle=LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
             this.Data = new Collection<DateValue>();
             var date = Global.startDate;
 

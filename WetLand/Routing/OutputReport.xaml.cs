@@ -30,7 +30,8 @@ namespace WetLand.Routing
             public DateTime Date { get; set; }
             public double Value { get; set; }
         }
-        public string[] lengend = { "H",  "Outflow", "Volume", "Area" };
+        private string[] ytitle = { "H (m)", "Outflow (m³/day)", "Volume (m³)", "Area (m²)" };
+        private string[] lengend = { "H",  "Outflow", "Volume", "Area" };
         public OutputReport()
         {
             InitializeComponent();
@@ -45,8 +46,8 @@ namespace WetLand.Routing
                 {
                     if (reportIndex.SelectedIndex == 4) {
                         var tmp = new PlotModel { Title = "Qin and Outflow" };
-                        tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-                        tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+                        tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid, Title = "Date (day)", TitleFontSize = 15 });
+                        tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = "Qin and Qout (m³/day)", TitleFontSize = 15 });
                         Collection<DateValue>  qinData = new Collection<DateValue>();
                         Collection<DateValue> qoutData = new Collection<DateValue>();
                         string[] inputcontents = File.ReadAllLines(Global.projectName + @"\InputFiles\Routing\2_input_time_series.txt");
@@ -94,7 +95,7 @@ namespace WetLand.Routing
 
                         return;
                     }
-                    report.Model = model.CreateModel(2, reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex]);
+                    report.Model = model.CreateModel(2, reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex], ytitle[reportIndex.SelectedIndex]);
                 }
             }
             catch (Exception ex)

@@ -16,6 +16,15 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Content="Calculate ET" Name="calculate" HorizontalAlignment="Center" VerticalAlignment="Center" Click="calculate_Click"></Button>
+        <!--<TextBlock x:Name="Calculate" Grid.Row="0" Focusable="True" Text="Calculate ET" FontSize="13.333" HorizontalAlignment="Center" PreviewMouseDown="Calculate_PreviewMouseDown">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+            </TextBlock.Foreground></TextBlock>-->
         <ListView x:Name="etData" Grid.Row="1" ItemTemplate="{StaticResource ETtemp}">
             <ListView.View>
                 <GridView>

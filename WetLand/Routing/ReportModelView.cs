@@ -13,6 +13,7 @@ namespace WetLand.Routing
     using OxyPlot.Axes;
     using System.Collections;
     using System.Collections.ObjectModel;
+    using System.Threading;
     class ReportModelView
     {
         public class DateValue
@@ -29,16 +30,15 @@ namespace WetLand.Routing
         public Collection<DateValue> routingData { get; set; }
         public Collection<HValue> HData { get; set; }
 
-
-
-        public PlotModel CreateModel(int mode,int reportIndex,string title,string lengend)
+        public PlotModel CreateModel(int mode,int reportIndex,string title,string lengend,string ytitle)
         {
+            Thread thread = Thread.CurrentThread;
             if (mode == 0)
             {
                 string filename = Global.projectName + @"\InputFiles\Routing\2_input_time_series.txt";
                 var tmp = new PlotModel { Title = title };
-                tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+                tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid,Title="Date (day)",TitleFontSize=15 });
+                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
                 routingData = new Collection<DateValue>();
                 var date = Global.startDate;
 
@@ -82,8 +82,8 @@ namespace WetLand.Routing
             {
                 string filename = Global.projectName + @"\InputFiles\Routing\3_geometry_inputs.txt";
                 var tmp = new PlotModel { Title = title };
-                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid/*,Title="Test!",TitleFontSize=20*/ });
-                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
+                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = "H (m)", TitleFontSize = 15 });
                 HData = new Collection<HValue>();
                 string[] contents = File.ReadAllLines(filename);
                 if (contents.Length < 2)
@@ -126,8 +126,8 @@ namespace WetLand.Routing
             {
                 string filename = Global.projectName + @"\InputFiles\Routing\5_output.txt";
                 var tmp = new PlotModel { Title = title };
-                tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+                tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid, Title = "Date (day)", TitleFontSize = 15 });
+                tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
                 routingData = new Collection<DateValue>();
                 var date = Global.startDate;
 

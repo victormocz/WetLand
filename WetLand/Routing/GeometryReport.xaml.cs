@@ -19,7 +19,8 @@ namespace WetLand.Routing
     /// </summary>
     public partial class GeometryReport : Window
     {
-        public string[] lengend = { "Area", "Volume", "Outflow" };
+        private string[] ytitle = { "Area (m²)", "Volume (m³)", "Outflow (m³/day)" };
+        private string[] lengend = { "Area", "Volume", "Outflow" };
         public GeometryReport()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace WetLand.Routing
                 ReportModelView model = new ReportModelView();
                 if (reportIndex != null && report != null)
                 {
-                    report.Model = model.CreateModel(1, reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex]);
+                    report.Model = model.CreateModel(1, reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex], ytitle[reportIndex.SelectedIndex]);
                 }
             }
             catch (Exception ex)

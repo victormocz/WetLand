@@ -51,7 +51,7 @@ namespace WetLand.Routing
             data.saveFile();
         }
 
-        private void addDataSourceToInput()
+        public void addDataSourceToInput()
         {
             List<InputItem> items = new List<InputItem>();
             string filename = Global.projectName + @"\InputFiles\Routing\2_input_time_series.txt";
@@ -61,23 +61,23 @@ namespace WetLand.Routing
             {
                 throw new Exception(filename + " length is too short");
             }
-            if (contents[1].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Length == 4) {
-                MessageBox.Show("Calculate ET","Info");
-            }
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.WorkingDirectory = Global.projectName + @"\InputFiles\Routing\ET Module";
-            info.FileName = Global.projectName + @"\InputFiles\Routing\ET Module\ET.exe";
-            info.UseShellExecute = false;
-            info.CreateNoWindow = true;
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-            var process = Process.Start(info);
-            process.WaitForExit();
-            string[] etcontents = File.ReadAllLines(Global.projectName + @"\InputFiles\Routing\ET Module\ET.txt");
-            data.n = contents.Length - 1;
-            if (etcontents.Length != contents.Length) {
-                throw new Exception("Length of days do not equal.(ET Module)");
-            }
+            //if (contents[1].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Length == 4) {
+            //    MessageBox.Show("Calculate ET","Info");
+            //}
+            //ProcessStartInfo info = new ProcessStartInfo();
+            //info.WorkingDirectory = Global.projectName + @"\InputFiles\Routing\ET Module";
+            //info.FileName = Global.projectName + @"\InputFiles\Routing\ET Module\ET.exe";
+            //info.UseShellExecute = false;
+            //info.CreateNoWindow = true;
+            //info.WindowStyle = ProcessWindowStyle.Hidden;
+            //var process = Process.Start(info);
+            //process.WaitForExit();
+            //string[] etcontents = File.ReadAllLines(Global.projectName + @"\InputFiles\Routing\ET Module\ET.txt");
+            //if (etcontents.Length != contents.Length) {
+            //    throw new Exception("Length of days do not equal.(ET Module)");
+            //}
             DateTime date = Global.startDate.AddDays(-1);
+            data.n = contents.Length - 1;
             for (int i = 1; i < contents.Length; i++)
             {
                 string[] parameters = contents[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
@@ -89,7 +89,7 @@ namespace WetLand.Routing
                 else if (parameters.Length == 4)
                 {
                     date = date.AddDays(1);
-                    items.Add(new InputItem { date = date, qin = parameters[1], et = etcontents[i],ip = parameters[2], qg = parameters[3] });
+                    items.Add(new InputItem { date = date, qin = parameters[1], et = "",ip = parameters[2], qg = parameters[3] });
                 }
                 else
                 {
@@ -190,18 +190,6 @@ namespace WetLand.Routing
             resizeCol();
         }
 
-        private void viewInputGraph_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            InputReport inputreportWin = new InputReport();
-            inputreportWin.ShowDialog();
-        }
-
-        private void viewGeoGraph_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            GeometryReport georeportWin = new GeometryReport();
-            georeportWin.ShowDialog();
-        }
-
         private void tabview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try {
@@ -224,51 +212,33 @@ namespace WetLand.Routing
             }
         }
 
-        private void viewOutputGraph_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void viewInputGraph_Click(object sender, RoutedEventArgs e)
         {
-            OutputReport outputreportWin = new OutputReport();
-            outputreportWin.ShowDialog();
+            InputReport ir = new InputReport();
+            ir.ShowDialog();
         }
 
-        private void ETdata_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ETData_Click(object sender, RoutedEventArgs e)
         {
-            ETWindow et = new ETWindow();
-            et.ShowDialog();
+            ETWindow ew = new ETWindow(this);
+            ew.ShowDialog();
         }
 
-        private void viewInputGraph_KeyDown(object sender, KeyEventArgs e)
+        private void viewGeoGraph_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Space) {
-                InputReport inputreportWin = new InputReport();
-                inputreportWin.ShowDialog();
-            }
+            GeometryReport gw = new GeometryReport();
+            gw.ShowDialog();
         }
 
-        private void ETdata_KeyDown(object sender, KeyEventArgs e)
+        private void viewOutputGraph_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Space)
-            {
-                ETWindow et = new ETWindow();
-                et.ShowDialog();
-            }
+            OutputReport or = new OutputReport();
+            or.ShowDialog();
         }
 
-        private void viewGeoGraph_KeyDown(object sender, KeyEventArgs e)
+        private void tranfer_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Space)
-            {
-                GeometryReport georeportWin = new GeometryReport();
-                georeportWin.ShowDialog();
-            }
-        }
-
-        private void viewOutputGraph_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Space)
-            {
-                OutputReport outputreportWin = new OutputReport();
-                outputreportWin.ShowDialog();
-            }
+            MessageBox.Show("Still working");
         }
     }
 }

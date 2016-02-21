@@ -24,13 +24,13 @@ namespace WetLand.TimeDependentParameters
         public Collection<DateValue> Data { get; set; }
         public int index { get; set; }
 
-        public PlotModel CreateModel(String Title,String Lengend,DateTime start, int viewCol,string fileName)
+        public PlotModel CreateModel(String Title,String Lengend, int viewCol,string fileName,string ytitle)
         {
             var tmp = new PlotModel { Title = Title };
-            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid,Title="Date (day)",TitleFontSize=15 });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
             this.Data = new Collection<DateValue>();
-            var date = start;
+            var date = Global.startDate;
 
             string[] content = File.ReadAllLines(fileName);
             List<Double> col = new List<double>();

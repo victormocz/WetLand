@@ -19,7 +19,8 @@ namespace WetLand.Routing
     /// </summary>
     public partial class InputReport : Window
     {
-        private string[] lengend = { "Qin","ET","ip","qg" };
+        private string[] lengend = { "Qin ","ET","ip","qg" };
+        private string[] ytitle = { "Qin (m³/day)", "ET (cm/day)", "ip (cm/day)", "qg (m³/day)" };
         public InputReport()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace WetLand.Routing
                 ReportModelView model = new ReportModelView();
                 if (reportIndex != null && report != null)
                 {
-                    report.Model = model.CreateModel(0,reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex]);
+                    report.Model = model.CreateModel(0,reportIndex.SelectedIndex, reportIndex.Text, lengend[reportIndex.SelectedIndex],ytitle[reportIndex.SelectedIndex]);
                 }
             }
             catch (Exception ex)

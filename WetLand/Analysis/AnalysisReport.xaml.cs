@@ -18,6 +18,7 @@ namespace WetLand.Analysis
     /// Interaction logic for AnalysisReport.xaml
     /// </summary>
     using System.IO;
+    using System.Threading;
     public partial class AnalysisReport : Window
     {
         private string[] fileName = { "102_Onw.txt", "103_Onss.txt","104_Onsf.txt", "105_Nw.txt", "106_Ns1.txt", "107_Ns2.txt",
@@ -28,6 +29,12 @@ namespace WetLand.Analysis
          "NO3w ", "NO3s1 ", "NO3s2 ", "Ow ", "a ", "b ", "Pw ", "Ps1 ",
          "Ps2 ", "mw ", "DOCw ", "LPOCw ", "RPOCw ", "DOCs1 ", "LPOCs1 ", "RPOCs1 ",
          "DOCs2 ", "LPOCs2 ", "RPOCs2 ", "TOCw ", "CH4w ", "CH4s1 ", "CH4s2 "};
+        private string[] title = { "Particulate organic nitrogen concentration in free water (gr/cm³)", "Concentration of organic nitrogen in in anaerobic sediment layer (gr/cm³)", "Concentration of organic nitrogen in in aerobic sediment layer (gr/cm³)", "Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in free water (gr/cm³)", "Total ammonia-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)", "Total ammonia-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)", "Nitrate-nitrogen concentration in free water (gr/cm³)", "Nitrate-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)", "Nitrate-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)", "Oxygen concentration in free water (gr/cm³)", "Mass of free floating plant (gr chlorophyll a)", "Mass of rooted plants (gr chlorophyll a)", "Total inorganic phosphorus concentration in free water (gr/cm³)", "Total phosphorus concentration in aerobic layer (gr/cm³)", "Total phosphorus concentration in anaerobic layer (gr/cm³)", "Sediment concentration in free water (gr/cm³)", "Concentrations of dissolved organic C in free water (gr/cm³)", "Concentrations of labile (fast reacting) particulate organic C in free water (gr/cm³)", "Concentrations of refractory (slow reacting) particulate organic C in free water (gr/cm³)", "Pore water concentrations of DOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of LPOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of RPOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of DOC in lower anaerobic sediment layer (gr/cm³)", "Pore water concentrations of LPOC in lower anaerobic sediment layer (gr/cm³)", "Pore water concentrations of RPOC in lower anaerobic sediment layer (gr/cm³)", "Concentrations of total organic C in free water (gr/cm³)", "Methane concentration in free water (gr/cm³)", "Methane concentration in aerobic sediment layer (gr/cm³)", "Methane concentration in anaerobic sediment layer (gr/cm³)" };
+        private string[] ytitle = { "Onw (gr/cm³)", "Onsf (gr/cm³)", "Onss (gr/cm³)", "Nw (gr/cm³)", "Ns1 (gr/cm³)",
+        "Ns2 (gr/cm³)","NO3w (gr/cm³)","NO3s1 (gr/cm³)","NO3s2 (gr/cm³)","Ow (gr/cm³)","a (gr chlorophyll a)",
+        "b (gr chlorophyll a)","Pw (gr/cm³)","Ps1 (gr/cm³)","Ps2 (gr/cm³)","mw (gr/cm³)","Docw (gr/cm³)",
+        "LPOCw (gr/cm³)","RPOCw (gr/cm³)","DOCs1 (gr/cm³)","LPOCs1 (gr/cm³)","RPOCs1 (gr/cm³)","DOCs2 (gr/cm³)",
+        "LPOCs2 (gr/cm³)","RPOCs2 (gr/cm³)","TOCw (gr/cm³)","CH4w (gr/cm³)","CH4s1 (gr/cm³)","CH4s2 (gr/cm³)"};
         private string prefix = Global.projectName + @"\InputFiles\";
         private int lengthOfsimulation;
         public AnalysisReport()
@@ -41,38 +48,50 @@ namespace WetLand.Analysis
             {
                 SimulationNumSelector.Visibility = Visibility.Visible;
             }
-
-            ReportModelView myModel = new ReportModelView();
-            if (File.Exists(prefix + fileName[0]))
-            {
-                report.Model = myModel.CreateModel(prefix + fileName[0], "Particulate organic nitrogen concentration in free water (gr/cm³)", "Onw", 1);
-                readSimulationvalue(1);
-            }
-            else
-            {
-                MessageBox.Show("File " + prefix + fileName[0] + " not found!", "caution");
-                return;
-            }
             try
             {
-                string[] content = File.ReadAllLines(prefix + fileName[0]);
-                lengthOfsimulation = content.Length / 4;
+                int count = 0;
+                using (var reader = File.OpenText(Global.projectName + @"\InputFiles\102_Onw.txt"))
+                {
+                    while (reader.ReadLine() != null)
+                    {
+                        count++;
+                    }
+                }
+                lengthOfsimulation = count / 4;
                 status.Text = "Simulation Number (1-" + lengthOfsimulation.ToString() + ")";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error!");
             }
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+            Thread update = new Thread(updateThread);
+            int index = reportIndex.SelectedIndex;
+            update.Start(index);
+        }
+
+        private void updateThread(Object index)
+        {
             if (reportIndex == null)
             {
                 return;
             }
+            if ((int)index == 0)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                    report.Model = null));
+                return;
+            }
+
             int number;
-            if (int.TryParse(simulationNum.Text, out number))
+            string simNum = "";
+            Dispatcher.Invoke(new Action(() =>
+               simNum = simulationNum.Text));
+            if (int.TryParse(simNum, out number))
             {
                 ReportModelView myModel = new ReportModelView();
                 if (number < 1 || number > lengthOfsimulation)
@@ -80,53 +99,98 @@ namespace WetLand.Analysis
                     MessageBox.Show("Simulation Number should between 1-" + lengthOfsimulation.ToString() + "!", "Error");
                     return;
                 }
-                if (File.Exists(prefix + fileName[reportIndex.SelectedIndex]))
+                if (File.Exists(prefix + fileName[(int)index - 1]))
                 {
-                    report.Model = myModel.CreateModel(prefix + fileName[reportIndex.SelectedIndex], reportIndex.Text, lengend[reportIndex.SelectedIndex], number);
+                    Dispatcher.Invoke(new Action(() =>
+               Update.Content = "Loading"));
+                    Dispatcher.Invoke(new Action(() =>
+                       Update.IsEnabled = false));
+                    Dispatcher.Invoke(new Action(() =>
+                       reportIndex.IsEnabled = false));
+                    myModel.CreateModel(prefix + fileName[(int)index - 1], title[(int)index - 1], lengend[(int)index - 1], number, ytitle[(int)index - 1]);
+                    Dispatcher.Invoke(new Action(() =>
+                    report.Model = myModel.MyModel
+                ));
+
                 }
             }
             readSimulationvalue(number);
+            Dispatcher.Invoke(new Action(() =>
+               Update.IsEnabled = true));
+            Dispatcher.Invoke(new Action(() =>
+               Update.Content = "Update"));
+            Dispatcher.Invoke(new Action(() =>
+               reportIndex.IsEnabled = true));
         }
-
-        private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void selectionThread(Object index)
         {
             if (report == null || reportIndex == null || simulationNum == null)
             {
                 return;
             }
+            if ((int)index == 0)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                    report.Model = null));
+                return;
+            }
+
             ReportModelView myModel = new ReportModelView();
 
-            if (File.Exists(prefix + fileName[reportIndex.SelectedIndex]))
+            if (File.Exists(prefix + fileName[(int)index - 1]))
             {
-                simulationNum.Text = "1";
-                report.Model = myModel.CreateModel(prefix + fileName[reportIndex.SelectedIndex], reportIndex.Text, lengend[reportIndex.SelectedIndex], 1);
+                Dispatcher.Invoke(new Action(() =>
+               Update.IsEnabled = false));
+                Dispatcher.Invoke(new Action(() =>
+                   Update.Content = "Loading"));
+                Dispatcher.Invoke(new Action(() =>
+                   reportIndex.IsEnabled = false));
+                Dispatcher.Invoke(new Action(() =>
+                   simulationNum.Text = "1"));
+                myModel.CreateModel(prefix + fileName[(int)index - 1], title[(int)index - 1], lengend[(int)index - 1], 1, ytitle[(int)index - 1]);
+                Dispatcher.Invoke(new Action(() =>
+                    report.Model = myModel.MyModel
+                ));
                 readSimulationvalue(1);
             }
             else
             {
-                MessageBox.Show("File " + prefix + fileName[reportIndex.SelectedIndex] + " not found!", "caution");
+                MessageBox.Show("File " + prefix + fileName[(int)index - 1] + " not found!", "caution");
                 return;
             }
-
-
+            Dispatcher.Invoke(new Action(() =>
+               Update.IsEnabled = true));
+            Dispatcher.Invoke(new Action(() =>
+               Update.Content = "Update"));
+            Dispatcher.Invoke(new Action(() =>
+               reportIndex.IsEnabled = true));
+        }
+        private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (report == null || reportIndex == null || simulationNum == null || reportIndex.SelectedIndex == 0)
+            {
+                return;
+            }
+            Thread selection = new Thread(selectionThread);
+            selection.Start(reportIndex.SelectedIndex);
         }
 
-        private void readSimulationvalue(int number)
+        private void readSimulationvalue(Object num)
         {
+            int number = (int)num;
             List<item> items = new List<item>();
-
-            if (!File.Exists(prefix + fileName[reportIndex.SelectedIndex]))
+            int index = 0;
+            Dispatcher.Invoke(new Action(() =>
+               index = reportIndex.SelectedIndex));
+            if (!File.Exists(prefix + fileName[index - 1]))
             {
-                MessageBox.Show("File " + prefix + fileName[reportIndex.SelectedIndex] + " not found!", "caution");
+                MessageBox.Show("File " + prefix + fileName[index - 1] + " not found!", "caution");
                 return;
             }
-
-            string[] contents = File.ReadAllLines(prefix + fileName[reportIndex.SelectedIndex]);
             DateTime tempdate = Global.startDate.AddDays(-1);
             int count = 0;
             string simStr = "";
-            //new
-            foreach (var line in File.ReadLines(prefix + fileName[reportIndex.SelectedIndex]))
+            foreach (var line in File.ReadLines(prefix + fileName[index - 1]))
             {
                 count++;
                 if (count > number + 3 * (number - 1) && count < number + 3 * (number - 1) + 2)
@@ -145,7 +209,8 @@ namespace WetLand.Analysis
                 items.Add(new item { date = tempdate, simulationValue = parameter });
                 tempdate = tempdate.AddDays(1);
             }
-            analysisSimulation.ItemsSource = items;
+            Dispatcher.Invoke(new Action(() =>
+               analysisSimulation.ItemsSource = items));
         }
     }
     public class item

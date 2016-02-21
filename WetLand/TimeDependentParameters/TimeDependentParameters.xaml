@@ -11,6 +11,7 @@
         <DataTemplate x:Key="timeTemp">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock  Text="{Binding date}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+                <TextBlock  Text="{Binding H1}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
                 <TextBlock  Text="{Binding ONin}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
                 <TextBlock  Text="{Binding NO3in}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
                 <TextBlock  Text="{Binding Nwin}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
@@ -36,38 +37,191 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="viewGraph" Text="View Graph" HorizontalAlignment="Center" FontSize="16" Focusable="True" PreviewMouseDown="viewGraph_PreviewMouseDown" KeyDown="viewGraph_KeyDown">
+        <Button Content="View Graph" Name="viewGraph" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="viewGraph_Click"></Button>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" HorizontalAlignment="Center" ToolTip="Date (day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="H1" HorizontalAlignment="Center" ToolTip="Organic nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="ONin" HorizontalAlignment="Center" ToolTip="Organic nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="NO3in" HorizontalAlignment="Center" ToolTip="Nitrate-nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="NWin" HorizontalAlignment="Center" ToolTip="Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="5" Text="NO3g" HorizontalAlignment="Center" ToolTip="Nitrate-nitrogen concentration in groundwater discharge (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="Ng" HorizontalAlignment="Center" ToolTip="Total ammonia-nitrogen concentration in groundwater discharge (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="7" Text="Owin" HorizontalAlignment="Center" ToolTip="Oxygen concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="8" Text="PO4in" HorizontalAlignment="Center" ToolTip="Phosphate concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="9" Text="Pg" HorizontalAlignment="Center" ToolTip="Total phosphorus concentration in groundwater discharge (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="10" Text="mwin" HorizontalAlignment="Center" ToolTip="Sediment concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="11" Text="NH4air" HorizontalAlignment="Center" ToolTip="Ammonium concentration in precipitation (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="12" Text="NO3air" HorizontalAlignment="Center" ToolTip="Nitrate-nitrogen concentrations in precipitation (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="13" Text="Qa" HorizontalAlignment="Center" ToolTip="Dry depositional rates of total ammonia nitrogen (mg/m2/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="14" Text="Qn" HorizontalAlignment="Center" ToolTip="Dry depositional rates of total nitrate-nitrogen (mg/m2/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="15" Text="LPOCin" HorizontalAlignment="Center" ToolTip="Labile particulate organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="16" Text="RPOCin" HorizontalAlignment="Center" ToolTip="Refractory particulate organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="17" Text="DOCin" HorizontalAlignment="Center" ToolTip="Dissolved organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="18" Text="DOCatm" HorizontalAlignment="Center" ToolTip="Atmospheric deposition for total organic carbon (mg/m2/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="19" Text="TOCgw" HorizontalAlignment="Center" ToolTip="Total organic carbon concentration in groundwater discharge (mg/L)"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="" Name="eDate" HorizontalAlignment="Center" ></TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="eH1" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="2" Name="eONin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="3" Name="eNO3in" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="4" Name="eNwin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="5" Name="eNO3g" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="6" Name="eNg" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="7" Name="eOwin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="8" Name="ePO4in" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="9" Name="ePg" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="10" Name="emwin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="11" Name="eNH4air" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="12" Name="eNO3air" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="13" Name="eQa" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="14" Name="eQn" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="15" Name="eLPOCin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="16" Name="eRPOCin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="17" Name="eDOCin" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="18" Name="eTOCatm" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="19" Name="eTOCgw" HorizontalAlignment="Center" Height="20" Width="50" IsEnabled="False"></TextBox>
+            <Button x:Name="save" Grid.Row="1" Grid.Column="20" Content="Save" Width="50" Height="25" IsEnabled="False" Click="save_Click"></Button>
+        </Grid>
+        <!--<TextBlock x:Name="viewGraph" Text="View Graph" HorizontalAlignment="Center" FontSize="16" Focusable="True" PreviewMouseDown="viewGraph_PreviewMouseDown" KeyDown="viewGraph_KeyDown">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-            </TextBlock.Foreground></TextBlock>
+            </TextBlock.Foreground></TextBlock>-->
         <ListView Name="timeParameters"
                   ItemTemplate="{StaticResource timeTemp}"
-                  Grid.Row="1"
+                  Grid.Row="2" SelectionChanged="timeParameters_SelectionChanged"
                   >
             <ListView.View>
                 <GridView x:Name="timeWindow">
-                    <GridViewColumn x:Name="col0"  Header="Date" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}" />
-                    <GridViewColumn x:Name="col1"  Header="ONin"  DisplayMemberBinding="{Binding ONin}" />
-                    <GridViewColumn x:Name="col2"  Header="NO3in"  DisplayMemberBinding="{Binding NO3in}" />
-                    <GridViewColumn x:Name="col3"  Header="Nwin"  DisplayMemberBinding="{Binding Nwin}" />
-                    <GridViewColumn x:Name="col4"  Header="NO3g"  DisplayMemberBinding="{Binding NO3g}" />
-                    <GridViewColumn x:Name="col5"  Header="Ng"  DisplayMemberBinding="{Binding Ng}" />
-                    <GridViewColumn x:Name="col6"  Header="Owin"  DisplayMemberBinding="{Binding Owin}" />
-                    <GridViewColumn x:Name="col7"  Header="PO4in"  DisplayMemberBinding="{Binding PO4in}" />
-                    <GridViewColumn x:Name="col8"  Header="Pg"  DisplayMemberBinding="{Binding Pg}" />
-                    <GridViewColumn x:Name="col9"  Header="mwin"  DisplayMemberBinding="{Binding mwin}" />
-                    <GridViewColumn x:Name="col10"  Header="NH4air"  DisplayMemberBinding="{Binding NH4air}" />
-                    <GridViewColumn x:Name="col11"  Header="NO3air"  DisplayMemberBinding="{Binding NO3air}" />
-                    <GridViewColumn x:Name="col12"  Header="Qa"  DisplayMemberBinding="{Binding Qa}" />
-                    <GridViewColumn x:Name="col13"  Header="Qn"  DisplayMemberBinding="{Binding Qn}" />
-                    <GridViewColumn x:Name="col14"  Header="LPOCin"  DisplayMemberBinding="{Binding LPOCin}" />
-                    <GridViewColumn x:Name="col15"  Header="RPOCin"  DisplayMemberBinding="{Binding RPOCin}" />
-                    <GridViewColumn x:Name="col16"  Header="DOCin"  DisplayMemberBinding="{Binding DOCin}" />
-                    <GridViewColumn x:Name="col17"  Header="TOCin"  DisplayMemberBinding="{Binding TOCin}" />
-                    <GridViewColumn x:Name="col18"  Header="TOCatm"  DisplayMemberBinding="{Binding TOCatm}" />
-                    <GridViewColumn x:Name="col19"  Header="TOCgw"  DisplayMemberBinding="{Binding TOCgw}" />
+                    <GridViewColumn x:Name="col0" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Date" ToolTip="Date (day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col17" DisplayMemberBinding="{Binding H1}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="H1" ToolTip="H1 ( C)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col1"  DisplayMemberBinding="{Binding ONin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="ONin" ToolTip="Organic nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col2"   DisplayMemberBinding="{Binding NO3in}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="NO3in" ToolTip="Nitrate-nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col3"  DisplayMemberBinding="{Binding Nwin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="NWin" ToolTip="Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col4"  DisplayMemberBinding="{Binding NO3g}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="NO3g" ToolTip="Nitrate-nitrogen concentration in groundwater discharge (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col5"  DisplayMemberBinding="{Binding Ng}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Ng" ToolTip="Total ammonia-nitrogen concentration in groundwater discharge (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col6" DisplayMemberBinding="{Binding Owin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Owin" ToolTip="Oxygen concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col7" DisplayMemberBinding="{Binding PO4in}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="PO4in" ToolTip="Phosphate concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col8"   DisplayMemberBinding="{Binding Pg}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Pg" ToolTip="Total phosphorus concentration in groundwater discharge (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col9" DisplayMemberBinding="{Binding mwin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="mwin" ToolTip="Sediment concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col10" DisplayMemberBinding="{Binding NH4air}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="NH4air" ToolTip="Ammonium concentration in precipitation (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col11"  DisplayMemberBinding="{Binding NO3air}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="NO3air" ToolTip="Nitrate-nitrogen concentrations in precipitation (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col12" DisplayMemberBinding="{Binding Qa}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Qa" ToolTip="Dry depositional rates of total ammonia nitrogen (mg/m2/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col13" DisplayMemberBinding="{Binding Qn}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Qn" ToolTip="Dry depositional rates of total nitrate-nitrogen (mg/m2/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col14"  DisplayMemberBinding="{Binding LPOCin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="LPOCin" ToolTip="Labile particulate organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col15" DisplayMemberBinding="{Binding RPOCin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="RPOCin" ToolTip="Refractory particulate organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col16" DisplayMemberBinding="{Binding DOCin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="DOCin" ToolTip="Dissolved organic carbon concentration in incoming flow (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col18"  DisplayMemberBinding="{Binding TOCatm}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="DOCatm" ToolTip="Atmospheric deposition for total organic carbon (mg/m2/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col19"   DisplayMemberBinding="{Binding TOCgw}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="TOCgw" ToolTip="Total organic carbon concentration in groundwater discharge (mg/L)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

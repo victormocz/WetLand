@@ -15,7 +15,7 @@
         <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged" >
             <ComboBoxItem Content="Area:Wetland surface area (m²)"/>
             <ComboBoxItem Content="Volume:Wetland water volume (m³)" />
-            <ComboBoxItem Content="Outflow:Wetland discharge (outflow) rate (m3/day)"/>
+            <ComboBoxItem Content="Outflow:Wetland discharge (outflow) rate (m³/day)"/>
         </ComboBox>
         <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
     </Grid>

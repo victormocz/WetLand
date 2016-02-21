@@ -14,11 +14,20 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
-            <ComboBoxItem Content="Qin(m³/day)"/>
-            <ComboBoxItem Content="QOut(m³/day)"/>
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
+            <ComboBoxItem Content="Volumetric inflow rate (m³/day)"/>
+            <ComboBoxItem Content="Wetland discharge (outflow) rate (m³/day)"/>
             <ComboBoxItem Content="Water Volume of Wetland Surface Water (m³)" />
             <ComboBoxItem Content="Wetland Surface Area (m²)" />
             <ComboBoxItem Content="Evapotranspiration Rate (cm/day)" />
@@ -28,6 +37,6 @@
             <ComboBoxItem Content="Wind speed (m/sec)"/>
             <ComboBoxItem Content="Daily Temperature (°C)"/>
         </ComboBox>
-        <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
+        <oxy:PlotView x:Name="report" Grid.Row="2" ></oxy:PlotView>
     </Grid>
 </Window>

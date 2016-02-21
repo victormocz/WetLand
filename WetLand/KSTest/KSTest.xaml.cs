@@ -132,8 +132,11 @@ namespace WetLand.KSTest
         {
             Thread cal = new Thread(calculationThread);
             calculation.Visibility = Visibility.Hidden;
+            percentPanel.Visibility = Visibility.Hidden;
+            reportIndex.Visibility = Visibility.Hidden;
             progress.Visibility = Visibility.Visible;
             status.Visibility = Visibility.Visible;
+            report.Model = null;
             cal.Start();
         }
         private void calculationThread()
@@ -147,7 +150,7 @@ namespace WetLand.KSTest
                 ));
                 getSimulation(simulationNum);
                 Dispatcher.Invoke(new Action(() =>
-                progress.Value = 10
+                progress.Value = 5
                 ));
                 double percent = Global.percentage;
                 string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\14_generated_parameters.txt");
@@ -166,7 +169,9 @@ namespace WetLand.KSTest
                     Bdata14.addOneRowData(contents[simulationNum[i]]);
                     OriginalBdata14.addOneRowData(contents[simulationNum[i]]);
                 }
-                
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 6
+                ));
                 //NB dataset
                 for (int i = bound; i < contents.Length - 1; i++)
                 {
@@ -174,6 +179,9 @@ namespace WetLand.KSTest
                     NBData14Sorted.addOneRowData(contents[simulationNum[i]]);
                 }
                 NBdata14.sort();
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 7
+                ));
                 contents = File.ReadAllLines(Global.projectName + @"\InputFiles\15_generated_parameters_carbon.txt");
                 bound = (int)Math.Floor((contents.Length - 2) * percent);
 
@@ -182,18 +190,22 @@ namespace WetLand.KSTest
                     Bdata15.addOneRowData(contents[simulationNum[i] + 1]);
                     OriginalBdata15.addOneRowData(contents[simulationNum[i] + 1]);
                 }
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 8
+                ));
                 for (int i = bound; i < contents.Length - 2; i++)
                 {
                     NBdata15.addOneRowData(contents[simulationNum[i] + 1]);
                     NBData15Sorted.addOneRowData(contents[simulationNum[i] + 1]);
                 }
+
                 Dispatcher.Invoke(new Action(() =>
-                progress.Value = 15
+                progress.Value = 9
                 ));
                 Bdata14.sort();
                 Bdata15.sort();
                 Dispatcher.Invoke(new Action(() =>
-                progress.Value = 20
+                progress.Value = 12
                 ));
                 //calculate x
                 double[] x = new double[Bdata15.aca.Count];
@@ -202,6 +214,9 @@ namespace WetLand.KSTest
                     x[i] = (i + 1.0) / (x.Length + 1.0);
                 }
                 //calculate m
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 15
+                ));
                 double[] m = new double[NBdata15.aca.Count];
                 for (int i = 0; i < m.Length; i++)
                 {
@@ -295,7 +310,7 @@ namespace WetLand.KSTest
                     Interp_B15Sorted.insertOneRowData(value15);
                 }
                 Dispatcher.Invoke(new Action(() =>
-                progress.Value = 25
+                progress.Value = 20
                 ));
 
 
@@ -338,7 +353,9 @@ namespace WetLand.KSTest
                 Interp_B14Sorted.cdf(Global.Nitrogen[36].type, Interp_B14Sorted.a_vr_s, Global.Nitrogen[36].min, Global.Nitrogen[36].max, Global.Nitrogen[36].c);
                 Interp_B14Sorted.cdf(Global.Nitrogen[37].type, Interp_B14Sorted.porw, Global.Nitrogen[37].min, Global.Nitrogen[37].max, Global.Nitrogen[37].c);
                 Interp_B14Sorted.sort();
-
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 25
+                ));
                 //aca	FaDOC	FaLPOC	FaRPOC	FbDOC	FbLPOC	FbRPOC	kLPOC	kRPOC	KsatO	KinO	KN	KinN	K1DOC	k2DOC	k3DOC	k4DOC	cp1	cp2	cp3	fbw	k1CH4	k2CH4	Rveg
                 Interp_B15Sorted.cdf(Global.Carbon[0].type, Interp_B15Sorted.aca, Global.Carbon[0].min, Global.Carbon[0].max, Global.Carbon[0].c);
                 Interp_B15Sorted.cdf(Global.Carbon[1].type, Interp_B15Sorted.fadoc, Global.Carbon[1].min, Global.Carbon[1].max, Global.Carbon[1].c);
@@ -406,7 +423,9 @@ namespace WetLand.KSTest
                 NBData14Sorted.cdf(Global.Nitrogen[36].type, NBData14Sorted.a_vr_s, Global.Nitrogen[36].min, Global.Nitrogen[36].max, Global.Nitrogen[36].c);
                 NBData14Sorted.cdf(Global.Nitrogen[37].type, NBData14Sorted.porw, Global.Nitrogen[37].min, Global.Nitrogen[37].max, Global.Nitrogen[37].c);
                 NBData14Sorted.sort();
-
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 28
+                ));
                 //NB15sorted
                 NBData15Sorted.cdf(Global.Carbon[0].type, NBData15Sorted.aca, Global.Carbon[0].min, Global.Carbon[0].max, Global.Carbon[0].c);
                 NBData15Sorted.cdf(Global.Carbon[1].type, NBData15Sorted.fadoc, Global.Carbon[1].min, Global.Carbon[1].max, Global.Carbon[1].c);
@@ -481,39 +500,90 @@ namespace WetLand.KSTest
                 progress.Value = 40
                 ));
                 result.Add(new KResult("kminw", Interp_B14.kminw, OriginalBdata14.kminw, NBdata14.kminw, Interp_B14Sorted.kminw, NBData14Sorted.kminw));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 41
+                ));
                 result.Add(new KResult("kns", Interp_B14.kns, OriginalBdata14.kns, NBdata14.kns, Interp_B14Sorted.kns, NBData14Sorted.kns));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 42
+                ));
                 result.Add(new KResult("kden", Interp_B14.kden, OriginalBdata14.kden, NBdata14.kden, Interp_B14Sorted.kden, NBData14Sorted.kden));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 43
+                ));
                 result.Add(new KResult("rowp", Interp_B14.rowp, OriginalBdata14.rowp, NBdata14.rowp, Interp_B14Sorted.rowp, NBData14Sorted.rowp));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 44
+                ));
                 result.Add(new KResult("vels_o", Interp_B14.vels_o, OriginalBdata14.vels_o, NBdata14.vels_o, Interp_B14Sorted.vels_o, NBData14Sorted.vels_o));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 45
                 ));
                 result.Add(new KResult("vels_s", Interp_B14.vels_s, OriginalBdata14.vels_s, NBdata14.vels_s, Interp_B14Sorted.vels_s, NBData14Sorted.vels_s));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 46
+                ));
                 result.Add(new KResult("velb", Interp_B14.velb, OriginalBdata14.velb, NBdata14.velb, Interp_B14Sorted.velb, NBData14Sorted.velb));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 47
+                ));
                 result.Add(new KResult("ana", Interp_B14.ana, OriginalBdata14.ana, NBdata14.ana, Interp_B14Sorted.ana, NBData14Sorted.ana));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 48
+                ));
                 result.Add(new KResult("rchl", Interp_B14.rchl, OriginalBdata14.rchl, NBdata14.rchl, Interp_B14Sorted.rchl, NBData14Sorted.rchl));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 49
+                ));
                 result.Add(new KResult("ss", Interp_B14.ss, OriginalBdata14.ss, NBdata14.ss, Interp_B14Sorted.ss, NBData14Sorted.ss));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 50
                 ));
                 result.Add(new KResult("sw", Interp_B14.sw, OriginalBdata14.sw, NBdata14.sw, Interp_B14Sorted.sw, NBData14Sorted.sw));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 51
+                ));
                 result.Add(new KResult("c_uw", Interp_B14.c_uw, OriginalBdata14.c_uw, NBdata14.c_uw, Interp_B14Sorted.c_uw, NBData14Sorted.c_uw));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 52
+                ));
                 result.Add(new KResult("frap", Interp_B14.frap, OriginalBdata14.frap, NBdata14.frap, Interp_B14Sorted.frap, NBData14Sorted.frap));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 53
+                ));
                 result.Add(new KResult("c1", Interp_B14.c1, OriginalBdata14.c1, NBdata14.c1, Interp_B14Sorted.c1, NBData14Sorted.c1));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 54
+                ));
                 result.Add(new KResult("c2", Interp_B14.c2, OriginalBdata14.c2, NBdata14.c2, Interp_B14Sorted.c2, NBData14Sorted.c2));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 55
                 ));
                 result.Add(new KResult("ph", Interp_B14.ph, OriginalBdata14.ph, NBdata14.ph, Interp_B14Sorted.ph, NBData14Sorted.ph));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 56
+                ));
                 result.Add(new KResult("s", Interp_B14.s, OriginalBdata14.s, NBdata14.s, Interp_B14Sorted.s, NBData14Sorted.s));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 57
+                ));
                 result.Add(new KResult("kw", Interp_B14.kw, OriginalBdata14.kw, NBdata14.kw, Interp_B14Sorted.kw, NBData14Sorted.kw));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 58
+                ));
                 result.Add(new KResult("apa", Interp_B14.apa, OriginalBdata14.apa, NBdata14.apa, Interp_B14Sorted.apa, NBData14Sorted.apa));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 59
+                ));
                 result.Add(new KResult("dnp", Interp_B14.dnp, OriginalBdata14.dnp, NBdata14.dnp, Interp_B14Sorted.dnp, NBData14Sorted.dnp));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 60
                 ));
                 result.Add(new KResult("ksa", Interp_B14.ksa, OriginalBdata14.ksa, NBdata14.ksa, Interp_B14Sorted.ksa, NBData14Sorted.ksa));
                 result.Add(new KResult("ksb", Interp_B14.ksb, OriginalBdata14.ksb, NBdata14.ksb, Interp_B14Sorted.ksb, NBData14Sorted.ksb));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 62
+                ));
                 result.Add(new KResult("rann1", Interp_B14.rann1, OriginalBdata14.rann1, NBdata14.rann1, Interp_B14Sorted.rann1, NBData14Sorted.rann1));
                 result.Add(new KResult("fw", Interp_B14.fw, OriginalBdata14.fw, NBdata14.fw, Interp_B14Sorted.fw, NBData14Sorted.fw));
                 result.Add(new KResult("fact", Interp_B14.fact, OriginalBdata14.fact, NBdata14.fact, Interp_B14Sorted.fact, NBData14Sorted.fact));
@@ -522,6 +592,9 @@ namespace WetLand.KSTest
                 ));
                 result.Add(new KResult("a_vr_o", Interp_B14.a_vr_o, OriginalBdata14.a_vr_o, NBdata14.a_vr_o, Interp_B14Sorted.a_vr_o, NBData14Sorted.a_vr_o));
                 result.Add(new KResult("a_vr_s", Interp_B14.a_vr_s, OriginalBdata14.a_vr_s, NBdata14.a_vr_s, Interp_B14Sorted.a_vr_s, NBData14Sorted.a_vr_s));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 67
+                ));
                 result.Add(new KResult("porw", Interp_B14.porw, OriginalBdata14.porw, NBdata14.porw, Interp_B14Sorted.porw, NBData14Sorted.porw));
                 //result for carbon
                 //aca	FaDOC	FaLPOC	FaRPOC	FbDOC	FbLPOC	FbRPOC	kLPOC	kRPOC	KsatO	KinO	KN	KinN	K1DOC	k2DOC	k3DOC	k4DOC	cp1	cp2	cp3	fbw	k1CH4	k2CH4	Rveg
@@ -531,6 +604,9 @@ namespace WetLand.KSTest
                 ));
                 result.Add(new KResult("fadoc", Interp_B15.fadoc, OriginalBdata15.fadoc, NBdata15.fadoc, Interp_B15Sorted.fadoc, NBData15Sorted.fadoc));
                 result.Add(new KResult("falpoc", Interp_B15.falpoc, OriginalBdata15.falpoc, NBdata15.falpoc, Interp_B15Sorted.falpoc, NBData15Sorted.falpoc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 72
+                ));
                 result.Add(new KResult("farpoc", Interp_B15.farpoc, OriginalBdata15.farpoc, NBdata15.farpoc, Interp_B15Sorted.farpoc, NBData15Sorted.farpoc));
                 result.Add(new KResult("fbdoc", Interp_B15.fbdoc, OriginalBdata15.fbdoc, NBdata15.fbdoc, Interp_B15Sorted.fbdoc, NBData15Sorted.fbdoc));
                 result.Add(new KResult("fblpoc", Interp_B15.fblpoc, OriginalBdata15.fblpoc, NBdata15.fblpoc, Interp_B15Sorted.fblpoc, NBData15Sorted.fblpoc));
@@ -539,35 +615,62 @@ namespace WetLand.KSTest
                 ));
                 result.Add(new KResult("fbrpoc", Interp_B15.fbrpoc, OriginalBdata15.fbrpoc, NBdata15.fbrpoc, Interp_B15Sorted.fbrpoc, NBData15Sorted.fbrpoc));
                 result.Add(new KResult("klpoc", Interp_B15.klpoc, OriginalBdata15.klpoc, NBdata15.klpoc, Interp_B15Sorted.klpoc, NBData15Sorted.klpoc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 77
+                ));
                 result.Add(new KResult("krpoc", Interp_B15.krpoc, OriginalBdata15.krpoc, NBdata15.krpoc, Interp_B15Sorted.krpoc, NBData15Sorted.krpoc));
                 result.Add(new KResult("ksato", Interp_B15.ksato, OriginalBdata15.ksato, NBdata15.ksato, Interp_B15Sorted.ksato, NBData15Sorted.ksato));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 79
+                ));
                 result.Add(new KResult("kino", Interp_B15.kino, OriginalBdata15.kino, NBdata15.kino, Interp_B15Sorted.kino, NBData15Sorted.kino));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 80
                 ));
                 result.Add(new KResult("kn", Interp_B15.kn, OriginalBdata15.kn, NBdata15.kn, Interp_B15Sorted.kn, NBData15Sorted.kn));
                 result.Add(new KResult("kinn", Interp_B15.kinn, OriginalBdata15.kinn, NBdata15.kinn, Interp_B15Sorted.kinn, NBData15Sorted.kinn));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 82
+                ));
                 result.Add(new KResult("k1doc", Interp_B15.k1doc, OriginalBdata15.k1doc, NBdata15.k1doc, Interp_B15Sorted.k1doc, NBData15Sorted.k1doc));
                 result.Add(new KResult("k2doc", Interp_B15.k2doc, OriginalBdata15.k2doc, NBdata15.k2doc, Interp_B15Sorted.k2doc, NBData15Sorted.k2doc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 84
+                ));
                 result.Add(new KResult("k3doc", Interp_B15.k3doc, OriginalBdata15.k3doc, NBdata15.k3doc, Interp_B15Sorted.k3doc, NBData15Sorted.k3doc));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 85
                 ));
                 result.Add(new KResult("k4doc", Interp_B15.k4doc, OriginalBdata15.k4doc, NBdata15.k4doc, Interp_B15Sorted.k4doc, NBData15Sorted.k4doc));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 86
+                ));
                 result.Add(new KResult("cp1", Interp_B15.cp1, OriginalBdata15.cp1, NBdata15.cp1, Interp_B15Sorted.cp1, NBData15Sorted.cp1));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 87
+                ));
                 result.Add(new KResult("cp2", Interp_B15.cp2, OriginalBdata15.cp2, NBdata15.cp2, Interp_B15Sorted.cp2, NBData15Sorted.cp2));
                 result.Add(new KResult("cp3", Interp_B15.cp3, OriginalBdata15.cp3, NBdata15.cp3, Interp_B15Sorted.cp3, NBData15Sorted.cp3));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 90
                 ));
                 result.Add(new KResult("fbw", Interp_B15.fbw, OriginalBdata15.fbw, NBdata15.fbw, Interp_B15Sorted.fbw, NBData15Sorted.fbw));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 91
+                ));
                 result.Add(new KResult("k1ch4", Interp_B15.k1ch4, OriginalBdata15.k1ch4, NBdata15.k1ch4, Interp_B15Sorted.k1ch4, NBData15Sorted.k1ch4));
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 92
+                ));
                 result.Add(new KResult("k2ch4", Interp_B15.k2ch4, OriginalBdata15.k2ch4, NBdata15.k2ch4, Interp_B15Sorted.k2ch4, NBData15Sorted.k2ch4));
                 result.Add(new KResult("rveg", Interp_B15.rveg, OriginalBdata15.rveg, NBdata15.rveg, Interp_B15Sorted.rveg, NBData15Sorted.rveg));
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 95
                 ));
                 result.Sort();
+                Dispatcher.Invoke(new Action(() =>
+                progress.Value = 97
+                ));
                 Dispatcher.Invoke(new Action(() =>
                 reportIndex.Items.Add("Overview of Sensitivity Analysis (DMax).")));
                 
@@ -625,6 +728,7 @@ namespace WetLand.KSTest
                 }
                 percent = percent * 0.01;
                 Global.percentage = percent;
+                calculation_Click(sender, e);
             }
             catch (FormatException)
             {
@@ -634,7 +738,6 @@ namespace WetLand.KSTest
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-            calculation_Click(sender, e);
         }
     }
     public class Item

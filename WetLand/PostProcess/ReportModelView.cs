@@ -13,6 +13,7 @@ namespace WetLand.PostProcess
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Threading;
     class ReportModelView
     {
         public PostProcessData ppdata;
@@ -27,7 +28,7 @@ namespace WetLand.PostProcess
             public double Minimum { get; set; }
             public double Maximum { get; set; }
         }
-        public PlotModel MyModel { get; private set; }
+        public PlotModel MyModel { get; set; }
         public Collection<DateValue> ObsData { get; set; }
         public Collection<DateValue> MedianData { get; set; }
         public Collection<AreaValue> BUBData { get; set; }
@@ -48,12 +49,12 @@ namespace WetLand.PostProcess
         };
 
 
-        public PlotModel CreateModel(int reportIndex,string title)
+        public PlotModel CreateModel(int reportIndex,string title,string ytitle)
         {
             var tmp = new PlotModel { Title = title };
 
-            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid,Title="Date (day)",TitleFontSize=15 });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
 
             this.ObsData = new Collection<DateValue>();
             this.BUBData = new Collection<AreaValue>();
@@ -136,18 +137,18 @@ namespace WetLand.PostProcess
             var s2 = new LineSeries
             {
                 Title = "Median",
-                StrokeThickness = 1,
+                StrokeThickness = 2,
                 MarkerSize = 3,
                 ItemsSource = this.MedianData,
                 DataFieldX = "Date",
                 DataFieldY = "Value",
-                Color = OxyColors.LightPink,
-                LineStyle = OxyPlot.LineStyle.Solid,
+                Color = OxyColors.Black,
+                LineStyle = OxyPlot.LineStyle.Dash,
             };
 
             var s3 = new LineSeries
             {
-                Title = "MBE="+ppdata.simulationSeries[0].MBE.ToString("f2"),
+                Title = "MBE(%)="+ppdata.simulationSeries[0].MBE.ToString("f2"),
                 LineStyle = OxyPlot.LineStyle.None,
                 Color = OxyColors.Transparent,
                 MarkerType = MarkerType.None,
@@ -155,7 +156,7 @@ namespace WetLand.PostProcess
             };
             var bestModel = new LineSeries
             {
-                Title = "Best Model: Ens = " + ppdata.simulationSeries[0].Ens.ToString("f2")+" MBE=" + ppdata.simulationSeries[0].MBE.ToString("f2"),
+                Title = "Best Model: Ens = " + ppdata.simulationSeries[0].Ens.ToString("f2")+ "; MBE (%)=" + ppdata.simulationSeries[0].MBE.ToString("f2"),
                 LineStyle = OxyPlot.LineStyle.None,
                 Color = OxyColors.Transparent,
                 MarkerType = MarkerType.None,
@@ -186,7 +187,7 @@ namespace WetLand.PostProcess
                 DataFieldY= "Minimum",
                 DataFieldX2="Date",
                 DataFieldY2= "Maximum",
-                Fill=OxyColors.LightBlue
+                Fill=OxyColors.LightGray,
             };
             var a2 = new AreaSeries
             {
@@ -198,7 +199,7 @@ namespace WetLand.PostProcess
                 DataFieldY = "Minimum",
                 DataFieldX2 = "Date",
                 DataFieldY2 = "Maximum",
-                Fill = OxyColors.LightGreen,
+                Fill = OxyColors.DarkGray,
             };
 
             
@@ -227,7 +228,7 @@ namespace WetLand.PostProcess
                 tmp.Series.Add(s4);
                 tmp.Series.Add(s5);
             }
-
+            this.MyModel = tmp;
             return tmp;
         }
     }

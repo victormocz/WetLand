@@ -89,19 +89,6 @@ namespace WetLand.HydrolicParameters
             resizeCol();
         }
 
-        private void viewGraph_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            HydrolicParametersReport reportwin = new HydrolicParametersReport();
-            reportwin.ShowDialog();
-        }
-
-        private void viewGraph_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key==Key.Enter|| e.Key == Key.Space) { 
-                HydrolicParametersReport reportwin = new HydrolicParametersReport();
-                reportwin.ShowDialog();
-            }
-        }
 
         private void hydroParameters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -187,8 +174,7 @@ namespace WetLand.HydrolicParameters
             if (boxData.Text.Length == 0)
             {
                 boxData.BorderBrush = Brushes.Red;
-                status.Visibility = Visibility.Visible;
-                status.Text = "This Field Cannot Be Empty";
+                MessageBox.Show("This Field Cannot Be Empty","Error");
                 return false;
             }
             try
@@ -200,9 +186,15 @@ namespace WetLand.HydrolicParameters
             catch (Exception)
             {
                 boxData.BorderBrush = Brushes.Red;
-                status.Text = "This Field Can have only Decimal Values";
+                MessageBox.Show("This Field Can have only Decimal Values","Error");
                 return false;
             }
+        }
+
+        private void viewGraph_Click(object sender, RoutedEventArgs e)
+        {
+            HydrolicParametersReport reportwin = new HydrolicParametersReport();
+            reportwin.ShowDialog();
         }
     }
     public class item {

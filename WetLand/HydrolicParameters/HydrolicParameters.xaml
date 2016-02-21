@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WetLand.HydrolicParameters"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Hydrolic Parameters" Height="600" Width="1000" SizeChanged="HydrolicParametersWindow_SizeChanged">
+        Title="Hydro-Climate Data" Height="600" Width="1000" SizeChanged="HydrolicParametersWindow_SizeChanged">
     <Window.Resources>
         <DataTemplate x:Key="hydroTemp">
             <StackPanel Orientation="Horizontal">
@@ -30,10 +30,7 @@
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Focusable="True" x:Name="viewGraph" Text="View Graph" HorizontalAlignment="Center" FontSize="16" PreviewMouseDown="viewGraph_PreviewMouseDown" KeyDown="viewGraph_KeyDown"  >
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-            </TextBlock.Foreground></TextBlock>
+        <Button x:Name="viewGraph" Margin="0,5,0,0"  Content="View Graph" Click="viewGraph_Click"></Button>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -53,17 +50,17 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="Qin" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="QOut" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="3" Text="Vw" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="Area" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="5" Text="ET" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="ip" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="7" Text="H" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="8" Text="Qg" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="9" Text="Uw" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="10" Text="temp" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" HorizontalAlignment="Center" ToolTip="Date (day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Qin" HorizontalAlignment="Center" ToolTip="Volumetric inflow rate (m³/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="QOut" HorizontalAlignment="Center" ToolTip="Wetland discharge (outflow) rate (m3/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Vw" HorizontalAlignment="Center" ToolTip="Water volume of wetland surface water (m3)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="Area" HorizontalAlignment="Center" ToolTip="wetland surface area (m2)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="5" Text="ET" HorizontalAlignment="Center" ToolTip="Evapotranspiration rate (cm/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="ip" HorizontalAlignment="Center" ToolTip="precipitation rate (cm/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="7" Text="H" HorizontalAlignment="Center" ToolTip="Average depth of water in wetland (m)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="8" Text="Qg" HorizontalAlignment="Center" ToolTip="Groundwater discharge (negative for infiltration) (m3/day)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="9" Text="Uw" HorizontalAlignment="Center" ToolTip="Wind speed (m/s)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="10" Text="temp" HorizontalAlignment="Center" ToolTip="Daily temperature (°C)"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="" Name="eDate" HorizontalAlignment="Center" ></TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" Name="eQin" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
             <TextBox Grid.Row="1" Grid.Column="2" Name="eQOut" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
@@ -76,24 +73,67 @@
             <TextBox Grid.Row="1" Grid.Column="9" Name="eUw" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
             <TextBox Grid.Row="1" Grid.Column="10" Name="etemp" HorizontalAlignment="Center" Height="20" Width="60" IsEnabled="False"></TextBox>
             <Button x:Name="Save" Grid.Column="11" Grid.Row="1" Content="Save" Width="60" Height="25" Click="Save_Click" IsEnabled="False"></Button>
-            <TextBlock Grid.Row="0" Grid.Column="11" Text="" Name="status" HorizontalAlignment="Center" ></TextBlock>
         </Grid>
         <ListView  Name="hydroParameters" 
             ItemTemplate="{StaticResource hydroTemp}"
                  Grid.Row="2" SelectionChanged="hydroParameters_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="col0"  Header="Date"  DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}" />
-                    <GridViewColumn x:Name="col1"  Header="Qin"  DisplayMemberBinding="{Binding Qin}" />
-                    <GridViewColumn x:Name="col2" Header="QOut"  DisplayMemberBinding="{Binding QOut}" />
-                    <GridViewColumn x:Name="col3" Header="Vw"  DisplayMemberBinding="{Binding Vw}" />
-                    <GridViewColumn x:Name="col4" Header="Area"  DisplayMemberBinding="{Binding Area}" />
-                    <GridViewColumn x:Name="col5" Header="ET"  DisplayMemberBinding="{Binding ET}" />
-                    <GridViewColumn x:Name="col6" Header="ip" DisplayMemberBinding="{Binding ip}" />
-                    <GridViewColumn x:Name="col7" Header="H"  DisplayMemberBinding="{Binding H}" />
-                    <GridViewColumn x:Name="col8" Header="Qg"  DisplayMemberBinding="{Binding Qg}" />
-                    <GridViewColumn x:Name="col9" Header="Uw"  DisplayMemberBinding="{Binding Uw}" />
-                    <GridViewColumn x:Name="col10" Header="temp"  DisplayMemberBinding="{Binding temp}" />
+                    <GridViewColumn x:Name="col0" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Date" ToolTip="Date (day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col1"  DisplayMemberBinding="{Binding Qin}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Qin" ToolTip="Volumetric inflow rate (m³/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col2" DisplayMemberBinding="{Binding QOut}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="QOut" ToolTip="Wetland discharge (outflow) rate (m3/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col3" DisplayMemberBinding="{Binding Vw}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Vw" ToolTip="Water volume of wetland surface water (m3)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col4" DisplayMemberBinding="{Binding Area}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Area" ToolTip="wetland surface area (m2)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col5"  DisplayMemberBinding="{Binding ET}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="ET" ToolTip="Evapotranspiration rate (cm/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col6" DisplayMemberBinding="{Binding ip}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="ip" ToolTip="precipitation rate (cm/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col7"  DisplayMemberBinding="{Binding H}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="H" ToolTip="Average depth of water in wetland (m)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col8" DisplayMemberBinding="{Binding Qg}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Qg" ToolTip="Groundwater discharge (negative for infiltration) (m3/day)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col9"  DisplayMemberBinding="{Binding Uw}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Uw" ToolTip="Wind speed (m/s)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col10" DisplayMemberBinding="{Binding temp}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="temp" ToolTip="Daily temperature (°C)"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

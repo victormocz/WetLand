@@ -53,7 +53,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Hinitial(m)" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Hinitial(m)" HorizontalAlignment="Center" ToolTip="initial maximum stage of water in wetland (m)"></TextBlock>
                     <TextBox x:Name="hinitial" Grid.Column="2" Grid.Row="2" Width="100" Height="34" FontSize="16"></TextBox>
                     <Button x:Name="save" Grid.Column="2" Grid.Row="3" Height="34" Content="Save" Click="save_Click"></Button>
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="4" Name="status" HorizontalAlignment="Center"></TextBlock>
@@ -71,25 +71,47 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="viewInputGraph" Grid.Column="1" Text="View Inputs Time Series Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewInputGraph_PreviewMouseDown" Focusable="True" KeyDown="viewInputGraph_KeyDown">
+                        <!--<TextBlock x:Name="viewInputGraph" Grid.Column="1" Text="View Inputs Time Series Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewInputGraph_PreviewMouseDown" Focusable="True" KeyDown="viewInputGraph_KeyDown">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-                            </TextBlock.Foreground></TextBlock>
-                        <TextBlock x:Name="ETdata" Text="ET Data" PreviewMouseDown="ETdata_PreviewMouseDown" Focusable="True" KeyDown="ETdata_KeyDown">
+                            </TextBlock.Foreground></TextBlock>-->
+                        <Button Content="ET Calculation" Name="ETData" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ETData_Click"></Button>
+                        <Button Content="View Graph" Name="viewInputGraph" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="viewInputGraph_Click"></Button>
+                        <!--<TextBlock x:Name="ETdata" Text="ET Data" PreviewMouseDown="ETdata_PreviewMouseDown" Focusable="True" KeyDown="ETdata_KeyDown">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
                             </TextBlock.Foreground>
-                        </TextBlock>
+                        </TextBlock>-->
                     </Grid>
                     
                     <ListView x:Name="timeSeriesData" Grid.Row="1" ItemTemplate="{StaticResource inputtimeTemp}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn x:Name="col0" Header="Date" Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}"></GridViewColumn>
-                                <GridViewColumn x:Name="col1" Header="Qin (m³/day)" Width="135" DisplayMemberBinding="{Binding qin}"></GridViewColumn>
-                                <GridViewColumn x:Name="col2" Header="ET (cm/day)" Width="135" DisplayMemberBinding="{Binding et}"></GridViewColumn>
-                                <GridViewColumn x:Name="col3" Header="ip (cm/day)" Width="135" DisplayMemberBinding="{Binding ip}"></GridViewColumn>
-                                <GridViewColumn x:Name="col4" Header="Qg (m³/day)" Width="135" DisplayMemberBinding="{Binding qg}"></GridViewColumn>
+                                <GridViewColumn x:Name="col0"  Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}" >
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Date" ToolTip="Date (day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="col1" Width="135" DisplayMemberBinding="{Binding qin}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Qin (m³/day)" ToolTip="Volumetric inflow rate (m³/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="col2" Width="135" DisplayMemberBinding="{Binding et}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="ET (cm/day)" ToolTip="Evapotranspiration rate (cm/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="col3" Width="135" DisplayMemberBinding="{Binding ip}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="ip (cm/day)" ToolTip="Precipitation rate (cm/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="col4" Width="135" DisplayMemberBinding="{Binding qg}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Qg (m³/day)" ToolTip="Groundwater discharge (negative for infiltration) (m³/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -101,17 +123,34 @@
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="viewGeoGraph" Text="View Geometry Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewGeoGraph_PreviewMouseDown" Focusable="True" KeyDown="viewGeoGraph_KeyDown">
+                    <Button Content="View Graph" Name="viewGeoGraph" HorizontalAlignment="Center" Click="viewGeoGraph_Click" VerticalAlignment="Center"></Button>
+                    <!--<TextBlock x:Name="viewGeoGraph" Text="View Geometry Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewGeoGraph_PreviewMouseDown" Focusable="True" KeyDown="viewGeoGraph_KeyDown">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-                        </TextBlock.Foreground></TextBlock>
+                        </TextBlock.Foreground></TextBlock>-->
                     <ListView x:Name="geometryData" Grid.Row="1" ItemTemplate="{StaticResource geoTemp}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn x:Name="gcol0" Header="H (m)" Width="175" DisplayMemberBinding="{Binding h}"></GridViewColumn>
-                                <GridViewColumn x:Name="gcol1" Header="Area (m²)" Width="175" DisplayMemberBinding="{Binding area}"></GridViewColumn>
-                                <GridViewColumn x:Name="gcol2" Header="Volume (m³)" Width="175" DisplayMemberBinding="{Binding volume}"></GridViewColumn>
-                                <GridViewColumn x:Name="gcol3" Header="Outflow (m³/day)" Width="175" DisplayMemberBinding="{Binding outflow}"></GridViewColumn>
+                                <GridViewColumn x:Name="gcol0" Width="175" DisplayMemberBinding="{Binding h}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="H (m)" ToolTip="Average depth of water in wetland (m)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="gcol1" Width="175" DisplayMemberBinding="{Binding area}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Area (m²)" ToolTip="Wetland surface area (m²) "></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="gcol2" Width="175" DisplayMemberBinding="{Binding volume}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Volume (m³)" ToolTip="Wetland water volume (m³)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="gcol3" Width="175" DisplayMemberBinding="{Binding outflow}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Outflow (m³/day)" ToolTip="Wetland discharge (outflow) rate (m³/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -123,18 +162,40 @@
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="viewOutputGraph" Text="View Output Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewOutputGraph_PreviewMouseDown" KeyDown="viewOutputGraph_KeyDown" Focusable="True">
+                    <Button Content="View Graph" Name="viewOutputGraph" HorizontalAlignment="Center" VerticalAlignment="Center" Click="viewOutputGraph_Click"></Button>
+                    <Button Content="Transfer Output" Name="tranfer" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="tranfer_Click"></Button>
+                    <!--<TextBlock x:Name="viewOutputGraph" Text="View Output Report" HorizontalAlignment="Center" FontSize="13.333" PreviewMouseDown="viewOutputGraph_PreviewMouseDown" KeyDown="viewOutputGraph_KeyDown" Focusable="True">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
-                        </TextBlock.Foreground></TextBlock>
+                        </TextBlock.Foreground></TextBlock>-->
                     <ListView x:Name="outputData" Grid.Row="1" ItemTemplate="{StaticResource outputTemp}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn x:Name="ocol0" Header="Date" Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}"></GridViewColumn>
-                                <GridViewColumn x:Name="ocol1" Header="H (m)" Width="135" DisplayMemberBinding="{Binding h}"></GridViewColumn>
-                                <GridViewColumn x:Name="ocol2" Header="Volume (m³)" Width="135" DisplayMemberBinding="{Binding volume}"></GridViewColumn>
-                                <GridViewColumn x:Name="ocol3" Header="Outflow (m³/day)" Width="135" DisplayMemberBinding="{Binding outflow}"></GridViewColumn>
-                                <GridViewColumn x:Name="ocol4" Header="Area (m²)" Width="135" DisplayMemberBinding="{Binding area}"></GridViewColumn>
+                                <GridViewColumn x:Name="ocol0" Width="140" DisplayMemberBinding="{Binding date,StringFormat=MM/dd/yyyy}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Date" ToolTip="Date (day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="ocol1" Width="135" DisplayMemberBinding="{Binding h}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="H (m)" ToolTip="Average depth of water in wetland (m)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="ocol2" Width="135" DisplayMemberBinding="{Binding volume}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Volume (m³)" ToolTip="Wetland water volume (m³)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="ocol3" Width="135" DisplayMemberBinding="{Binding outflow}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Outflow (m³/day)" ToolTip="Wetland discharge (outflow) rate (m³/day)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn x:Name="ocol4" Width="135" DisplayMemberBinding="{Binding area}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="Area (m²)" ToolTip="Wetland surface area (m²)"></TextBlock>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

@@ -72,8 +72,12 @@
       <HintPath>..\packages\OxyPlot.Core.2015.1.708-alpha\lib\net45\OxyPlot.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OxyPlot.Wpf">
-      <HintPath>..\..\..\..\..\Downloads\oxyplot-develop\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.dll</HintPath>
+    <Reference Include="OxyPlot.Wpf, Version=0.0.1.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\oxyplot-develop\Source\OxyPlot.Xps\bin\Debug\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Xps">
+      <HintPath>..\..\..\..\..\Downloads\oxyplot-develop\Source\OxyPlot.Xps\bin\Debug\OxyPlot.Xps.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
