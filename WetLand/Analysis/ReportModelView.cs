@@ -24,25 +24,35 @@ namespace WetLand.Analysis
         public Collection<DateValue> Data { get; set; }
         public int index { get; set; }
 
-        public PlotModel CreateModel(string filename,String Title,String Lengend,int simulationNum)
+        public PlotModel CreateModel(string filename, String Title, String Lengend, int simulationNum, string ytitle)
         {
             var tmp = new PlotModel { Title = Title };
-            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid });
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+            tmp.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "MMM/dd/yyyy", MajorGridlineStyle = LineStyle.Solid, Title = "Date (day)", TitleFontSize = 15 });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = ytitle, TitleFontSize = 15 });
             this.Data = new Collection<DateValue>();
             var date = Global.startDate;
 
-            string[] content = File.ReadAllLines(filename);
-            List<Double> col = new List<double>();
-            for (int i = simulationNum+3*(simulationNum-1); i < simulationNum + 3 * (simulationNum - 1) + 2; i++)
+
+            int count = 0;
+            string simStr = "";
+            foreach (var line in File.ReadLines(filename))
             {
-                string[] parameters = content[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
-                foreach (var parameter in parameters) {
-                    this.Data.Add(new DateValue { Date = date, Value = Convert.ToDouble(parameter) });
-                    date = date.AddDays(1);
+                count++;
+                if (count > simulationNum + 3 * (simulationNum - 1) && count < simulationNum + 3 * (simulationNum - 1) + 2)
+                {
+                    simStr += line;
                 }
-                
-                
+                if (count >= simulationNum + 3 * (simulationNum - 1) + 2)
+                {
+                    count = 0;
+                    break;
+                }
+            }
+            string[] parameters = simStr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            foreach (var parameter in parameters)
+            {
+                this.Data.Add(new DateValue { Date = date, Value = Convert.ToDouble(parameter) });
+                date = date.AddDays(1);
             }
 
 
@@ -61,6 +71,7 @@ namespace WetLand.Analysis
             };
 
             tmp.Series.Add(s1);
+            MyModel = tmp;
             return tmp;
         }
     }
