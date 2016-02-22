@@ -72,7 +72,7 @@
         <TextBox x:Name="amc" Grid.Column="0" Grid.Row="5" ></TextBox>
         <TextBox x:Name="lamdar" Grid.Column="1" Grid.Row="5" ></TextBox>
 
-        <TextBlock x:Name="status" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4" HorizontalAlignment="Center" Text="status" Foreground="Red" Visibility="Hidden"></TextBlock>
+        <TextBlock x:Name="status" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4" HorizontalAlignment="Center" Text="status" Foreground="Black" Visibility="Hidden"></TextBlock>
         <Button Grid.Row="5" Grid.Column="7" Content="Save Values" Name="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Save_Click" Height="34" ></Button>
     </Grid>
 </Window>

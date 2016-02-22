@@ -49,11 +49,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">Parameters</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">Distribution</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Text="Min (or mu)" Background="White"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="4" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Background="White">"c" in Triangular dist</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="3" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="#FFDD550C" Text="Max (or sigma)" Background="White"></TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="0" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Background="White">Parameters</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Background="White">Distribution</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Text="Min (or mu)" Background="White"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="4" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Background="White">"c" in Triangular dist</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" FontSize="14" FontFamily="Arial" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" Text="Max (or sigma)" Background="White"></TextBlock>
 
 
 

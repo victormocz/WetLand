@@ -115,7 +115,7 @@
         <TextBox Grid.Row="15" Grid.Column="1" Width="80" Name="ch4s1" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
         <TextBox Grid.Row="15" Grid.Column="2" Width="80" Name="ch4s2" FontFamily="Arial" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
 
-        <TextBlock Grid.Row="15" Grid.ColumnSpan="4" Grid.Column="3" Text="Status" TextAlignment="Center" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden" Name="status"></TextBlock>
+        <TextBlock Grid.Row="15" Grid.ColumnSpan="4" Grid.Column="3" Text="Status" TextAlignment="Center" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Visibility="Hidden" Name="status"></TextBlock>
         <Button Grid.Row="15" Grid.Column="7" Content="Save Values"  FontFamily="Arial" Padding="0" Name="Save" Click="Save_Click" Height="34" Margin="2,1,2,0" VerticalAlignment="Top" ></Button>
 
     </Grid>

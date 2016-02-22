@@ -22,22 +22,22 @@
             ItemTemplate="{StaticResource rankTemp}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="col1" Width="150" DisplayMemberBinding="{Binding rank}">
+                    <GridViewColumn x:Name="col1" Width="140" DisplayMemberBinding="{Binding rank}">
                         <GridViewColumn.Header>
                             <TextBlock Text="Rank" ToolTip="Rank of the parameters"></TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="col2" Width="150" DisplayMemberBinding="{Binding percentage}">
+                    <GridViewColumn x:Name="col2" Width="140" DisplayMemberBinding="{Binding percentage}">
                         <GridViewColumn.Header>
                             <TextBlock Text="Percentage" ToolTip="Percentage rank/totle simulation number +1"></TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="col3" Width="150" DisplayMemberBinding="{Binding simnum}">
+                    <GridViewColumn x:Name="col3" Width="140" DisplayMemberBinding="{Binding simnum}">
                         <GridViewColumn.Header>
                             <TextBlock Text="Sim" ToolTip="Simulation number"></TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="col4" Width="150" DisplayMemberBinding="{Binding likelihood}">
+                    <GridViewColumn x:Name="col4" Width="140" DisplayMemberBinding="{Binding likelihood}">
                         <GridViewColumn.Header>
                             <TextBlock Text="Likelihood" ToolTip="Likelihood"></TextBlock>
                         </GridViewColumn.Header>
