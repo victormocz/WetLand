@@ -17,6 +17,13 @@ namespace WetLand.Routing
     /// <summary>
     /// Interaction logic for GeometryReport.xaml
     /// </summary>
+    using Microsoft.Win32;
+    using OxyPlot;
+    using OxyPlot.Xps;
+    using OxyPlot.Series;
+    using OxyPlot.Axes;
+    using System.IO;
+    using System.Diagnostics;
     public partial class GeometryReport : Window
     {
         private string[] ytitle = { "Area (m²)", "Volume (m³)", "Outflow (m³/day)" };
@@ -45,6 +52,37 @@ namespace WetLand.Routing
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             setModel();
+        }
+
+        private string GetFilename(string filter, string defaultExt)
+        {
+            var dlg = new SaveFileDialog { Filter = filter, DefaultExt = defaultExt };
+            return dlg.ShowDialog(this.Owner).Value ? dlg.FileName : null;
+        }
+        private static void OpenContainingFolder(string fileName)
+        {
+            // var folder = Path.GetDirectoryName(fileName);
+            var psi = new ProcessStartInfo("Explorer.exe", "/select," + fileName);
+            Process.Start(psi);
+        }
+
+        private void menu_pdf_Click (object sender, RoutedEventArgs e)
+        {
+            var path = this.GetFilename(".pdf files|*.pdf", ".pdf");
+            if (path != null)
+            {
+                using (var stream = File.Create(path))
+                {
+                    OxyPlot.PdfExporter.Export(report.Model, stream, report.ActualWidth, report.ActualHeight);
+                }
+
+                OpenContainingFolder(path);
+            }
+        }
+
+        private void menu_print_Click(object sender, RoutedEventArgs e)
+        {
+            XpsExporter.Print(report.Model, report.ActualWidth, report.ActualHeight);
         }
     }
 }

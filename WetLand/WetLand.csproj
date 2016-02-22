@@ -112,6 +112,7 @@
     <Compile Include="FixedParameterFolder\FixedParameters.xaml.cs">
       <DependentUpon>FixedParameters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PostProcess\RankData.cs" />
     <Compile Include="KSTest\Data14.cs" />
     <Compile Include="KSTest\Data15.cs" />
     <Compile Include="KSTest\KResult.cs" />
@@ -132,6 +133,9 @@
       <DependentUpon>PostProcess.xaml</DependentUpon>
     </Compile>
     <Compile Include="PostProcess\PostProcessData.cs" />
+    <Compile Include="PostProcess\RankTable.xaml.cs">
+      <DependentUpon>RankTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PostProcess\ReportModelView.cs" />
     <Compile Include="PostProcess\SimulationData.cs" />
     <Compile Include="Routing\ETItem.cs" />
@@ -223,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PostProcess\PostProcess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PostProcess\RankTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

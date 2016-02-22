@@ -1,0 +1,49 @@
+﻿<Window x:Class="WetLand.PostProcess.RankTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand.PostProcess"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Rank Table" Height="400" Width="600">
+    <Window.Resources>
+        <DataTemplate x:Key="rankTemp">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  Text="{Binding rank}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock  Text="{Binding percentage}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock  Text="{Binding simnum}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock  Text="{Binding likelihood}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListView  Name="ranTableParameters" 
+            ItemTemplate="{StaticResource rankTemp}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="col1" Width="150" DisplayMemberBinding="{Binding rank}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Rank" ToolTip="Rank of the parameters"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col2" Width="150" DisplayMemberBinding="{Binding percentage}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Percentage" ToolTip="Percentage rank/totle simulation number +1"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col3" Width="150" DisplayMemberBinding="{Binding simnum}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Sim" ToolTip="Simulation number"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="col4" Width="150" DisplayMemberBinding="{Binding likelihood}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Likelihood" ToolTip="Likelihood"></TextBlock>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

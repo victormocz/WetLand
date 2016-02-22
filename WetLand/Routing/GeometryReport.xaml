@@ -10,13 +10,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged" >
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged" >
             <ComboBoxItem Content="Area:Wetland surface area (m²)"/>
             <ComboBoxItem Content="Volume:Wetland water volume (m³)" />
             <ComboBoxItem Content="Outflow:Wetland discharge (outflow) rate (m³/day)"/>
         </ComboBox>
-        <oxy:PlotView x:Name="report" Grid.Row="1" ></oxy:PlotView>
+        <oxy:PlotView x:Name="report" Grid.Row="2" ></oxy:PlotView>
     </Grid>
 </Window>

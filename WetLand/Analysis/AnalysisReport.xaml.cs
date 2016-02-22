@@ -19,6 +19,12 @@ namespace WetLand.Analysis
     /// </summary>
     using System.IO;
     using System.Threading;
+    using Microsoft.Win32;
+    using OxyPlot;
+    using OxyPlot.Xps;
+    using OxyPlot.Series;
+    using OxyPlot.Axes;
+    using System.Diagnostics;
     public partial class AnalysisReport : Window
     {
         private string[] fileName = { "102_Onw.txt", "103_Onss.txt","104_Onsf.txt", "105_Nw.txt", "106_Ns1.txt", "107_Ns2.txt",
@@ -167,9 +173,19 @@ namespace WetLand.Analysis
         }
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (report == null || reportIndex == null || simulationNum == null || reportIndex.SelectedIndex == 0)
+            if (report == null || reportIndex == null || simulationNum == null )
             {
                 return;
+            }
+            if (reportIndex.SelectedIndex == 0)
+            {
+                menu_print.IsEnabled = false;
+                menu_pdf.IsEnabled = false;
+                return;
+            }
+            else {
+                menu_print.IsEnabled = true;
+                menu_pdf.IsEnabled = true;
             }
             Thread selection = new Thread(selectionThread);
             selection.Start(reportIndex.SelectedIndex);
@@ -211,6 +227,37 @@ namespace WetLand.Analysis
             }
             Dispatcher.Invoke(new Action(() =>
                analysisSimulation.ItemsSource = items));
+        }
+
+        private string GetFilename(string filter, string defaultExt)
+        {
+            var dlg = new SaveFileDialog { Filter = filter, DefaultExt = defaultExt };
+            return dlg.ShowDialog(this.Owner).Value ? dlg.FileName : null;
+        }
+        private static void OpenContainingFolder(string fileName)
+        {
+            // var folder = Path.GetDirectoryName(fileName);
+            var psi = new ProcessStartInfo("Explorer.exe", "/select," + fileName);
+            Process.Start(psi);
+        }
+
+        private void menu_pdf_Click(object sender, RoutedEventArgs e)
+        {
+            var path = this.GetFilename(".pdf files|*.pdf", ".pdf");
+            if (path != null)
+            {
+                using (var stream = File.Create(path))
+                {
+                    OxyPlot.PdfExporter.Export(report.Model, stream, report.ActualWidth, report.ActualHeight);
+                }
+
+                OpenContainingFolder(path);
+            }
+        }
+
+        private void menu_print_Click(object sender, RoutedEventArgs e)
+        {
+            XpsExporter.Print(report.Model, report.ActualWidth, report.ActualHeight);
         }
     }
     public class item

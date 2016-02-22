@@ -18,6 +18,13 @@ namespace WetLand.PostProcess
     /// Interaction logic for PostProcess.xaml
     /// </summary>
     using System.Threading;
+    using Microsoft.Win32;
+    using OxyPlot;
+    using OxyPlot.Xps;
+    using OxyPlot.Series;
+    using OxyPlot.Axes;
+    using System.Diagnostics;
+    using System.IO;
     public partial class PostProcess : Window
     {
         private string[] title = { "Particulate organic nitrogen concentration in free water (gr/cm³)", "Concentration of organic nitrogen in in anaerobic sediment layer (gr/cm³)", "Concentration of organic nitrogen in in aerobic sediment layer (gr/cm³)", "Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in free water (gr/cm³)", "Total ammonia-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)", "Total ammonia-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)", "Nitrate-nitrogen concentration in free water (gr/cm³)", "Nitrate-nitrogen pore-water concentration in upper aerobic layer (gr/cm³)", "Nitrate-nitrogen pore-water concentration in lower anaerobic layer (gr/cm³)", "Oxygen concentration in free water (gr/cm³)", "Mass of free floating plant (gr chlorophyll a)", "Mass of rooted plants (gr chlorophyll a)", "Total inorganic phosphorus concentration in free water (gr/cm³)", "Total phosphorus concentration in aerobic layer (gr/cm³)", "Total phosphorus concentration in anaerobic layer (gr/cm³)", "Sediment concentration in free water (gr/cm³)", "Concentrations of dissolved organic C in free water (gr/cm³)", "Concentrations of labile (fast reacting) particulate organic C in free water (gr/cm³)", "Concentrations of refractory (slow reacting) particulate organic C in free water (gr/cm³)", "Pore water concentrations of DOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of LPOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of RPOC in aerobic sediment layer (gr/cm³)", "Pore water concentrations of DOC in lower anaerobic sediment layer (gr/cm³)", "Pore water concentrations of LPOC in lower anaerobic sediment layer (gr/cm³)", "Pore water concentrations of RPOC in lower anaerobic sediment layer (gr/cm³)", "Concentrations of total organic C in free water (gr/cm³)", "Methane concentration in free water (gr/cm³)", "Methane concentration in aerobic sediment layer (gr/cm³)", "Methane concentration in anaerobic sediment layer (gr/cm³)" };
@@ -26,6 +33,7 @@ namespace WetLand.PostProcess
         "b (gr chlorophyll a)","Pw (gr/cm³)","Ps1 (gr/cm³)","Ps2 (gr/cm³)","mw (gr/cm³)","Docw (gr/cm³)",
         "LPOCw (gr/cm³)","RPOCw (gr/cm³)","DOCs1 (gr/cm³)","LPOCs1 (gr/cm³)","RPOCs1 (gr/cm³)","DOCs2 (gr/cm³)",
         "LPOCs2 (gr/cm³)","RPOCs2 (gr/cm³)","TOCw (gr/cm³)","CH4w (gr/cm³)","CH4s1 (gr/cm³)","CH4s2 (gr/cm³)"};
+        private ReportModelView myModel;
         public PostProcess()
         {
             InitializeComponent();
@@ -51,9 +59,22 @@ namespace WetLand.PostProcess
 
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (reportIndex == null || report == null||reportIndex.SelectedIndex==0)
+            if (reportIndex == null || report == null)
             {
                 return;
+            }
+            if (reportIndex.SelectedIndex == 0)
+            {
+                menu_print.IsEnabled = false;
+                menu_pdf.IsEnabled = false;
+                table.IsEnabled = false;
+                return;
+            }
+            else
+            {
+                menu_print.IsEnabled = true;
+                menu_pdf.IsEnabled = true;
+                table.IsEnabled = true;
             }
             Thread selection = new Thread(selectionThread);
             selection.Start();
@@ -83,7 +104,7 @@ namespace WetLand.PostProcess
                 {
                     return;
                 }
-                ReportModelView myModel = new ReportModelView();
+                myModel = new ReportModelView();
                 myModel.CreateModel(index - 1, title[index - 1], ytitle[index - 1]);
                 Dispatcher.Invoke(new Action(() =>
                 report.Model = myModel.MyModel
@@ -106,7 +127,7 @@ namespace WetLand.PostProcess
 
         private void updateThread()
         {
-            ReportModelView myModel = new ReportModelView();
+            myModel = new ReportModelView();
             string pertext = "1";
             int index = 1;
             Dispatcher.Invoke(new Action(() =>
@@ -160,6 +181,55 @@ namespace WetLand.PostProcess
         {
             Thread update = new Thread(updateThread);
             update.Start();
+        }
+
+        private string GetFilename(string filter, string defaultExt)
+        {
+            var dlg = new SaveFileDialog { Filter = filter, DefaultExt = defaultExt };
+            return dlg.ShowDialog(this.Owner).Value ? dlg.FileName : null;
+        }
+        private static void OpenContainingFolder(string fileName)
+        {
+            // var folder = Path.GetDirectoryName(fileName);
+            var psi = new ProcessStartInfo("Explorer.exe", "/select," + fileName);
+            Process.Start(psi);
+        }
+
+        private void menu_pdf_Click(object sender, RoutedEventArgs e)
+        {
+            var path = this.GetFilename(".pdf files|*.pdf", ".pdf");
+            if (path != null)
+            {
+                using (var stream = File.Create(path))
+                {
+                    OxyPlot.PdfExporter.Export(report.Model, stream, report.ActualWidth, report.ActualHeight);
+                }
+
+                OpenContainingFolder(path);
+            }
+        }
+
+        private void menu_print_Click(object sender, RoutedEventArgs e)
+        {
+            XpsExporter.Print(report.Model, report.ActualWidth, report.ActualHeight);
+        }
+
+        private void table_Click(object sender, RoutedEventArgs e)
+        {
+            if (myModel != null) {
+                List<RankData> items = new List<RankData>();
+                for (int i = 0; i < myModel.ppdata.simulationSeries.Count; i++) {
+                    items.Add(new RankData
+                    {
+                        rank = (i + 1).ToString(),
+                        percentage = ((double)(i + 1) / (double)myModel.ppdata.simulationSeries.Count).ToString(),
+                        simnum = myModel.ppdata.simulationSeries[i].simulationNumber.ToString(),
+                        likelihood = myModel.ppdata.simulationSeries[i].likelihood.ToString()
+                    });
+                }
+                RankTable rtw = new RankTable(items);
+                rtw.ShowDialog();
+            }
         }
     }
 }

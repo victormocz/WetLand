@@ -13,19 +13,28 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="reportIndex" Grid.Row="0" SelectionChanged="reportIndex_SelectionChanged" Visibility="Hidden" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox x:Name="reportIndex" Grid.Row="1" SelectionChanged="reportIndex_SelectionChanged" Visibility="Hidden" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
         </ComboBox>
-        <Button x:Name="calculation" Grid.Row="0" Content="Start Calculations" Click="calculation_Click"></Button>
-        <TextBlock x:Name="status" Grid.Row="0" Text="{Binding ElementName=progress, Path=Value,StringFormat={}{0:0}%}" Visibility="Hidden" HorizontalAlignment="Center" FontSize="20"></TextBlock>
-        <ProgressBar x:Name="progress" Grid.Row="1" Visibility="Hidden"></ProgressBar>
-        <StackPanel Name="percentPanel" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button x:Name="calculation" Grid.Row="1" Content="Start Calculations" Click="calculation_Click"></Button>
+        <TextBlock x:Name="status" Grid.Row="1" Text="{Binding ElementName=progress, Path=Value,StringFormat={}{0:0}%}" Visibility="Hidden" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+        <ProgressBar x:Name="progress" Grid.Row="2" Visibility="Hidden"></ProgressBar>
+        <StackPanel Name="percentPanel" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Percentage" Margin="0,0,20,0"></TextBlock>
             <TextBox Name="percentage"></TextBox>
             <TextBlock Text="%"></TextBlock>
             <Button Margin="20,0,0,0" Content="Update" Name="updateButton" Click="updateButton_Click" ></Button>
         </StackPanel>
-        <oxy:PlotView x:Name="report" Grid.Row="2"></oxy:PlotView>
+        <oxy:PlotView x:Name="report" Grid.Row="3"></oxy:PlotView>
     </Grid>
 </Window>

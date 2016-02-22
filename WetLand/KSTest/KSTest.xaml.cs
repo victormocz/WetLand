@@ -24,6 +24,10 @@ namespace WetLand.KSTest
     using OxyPlot.Axes;
     using OxyPlot.Series;
     using System.Threading;
+
+    using Microsoft.Win32;
+    using OxyPlot.Xps;
+    using System.Diagnostics;
     public partial class KSTest : Window
     {
         public List<KResult> result;
@@ -54,6 +58,8 @@ namespace WetLand.KSTest
             {
                 return;
             }
+            menu_print.IsEnabled = true;
+            menu_pdf.IsEnabled = true;
             if (reportIndex.SelectedIndex == 0)
             {
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
@@ -738,6 +744,37 @@ namespace WetLand.KSTest
             {
                 MessageBox.Show(ex.Message, "Error");
             }
+        }
+
+        private string GetFilename(string filter, string defaultExt)
+        {
+            var dlg = new SaveFileDialog { Filter = filter, DefaultExt = defaultExt };
+            return dlg.ShowDialog(this.Owner).Value ? dlg.FileName : null;
+        }
+        private static void OpenContainingFolder(string fileName)
+        {
+            // var folder = Path.GetDirectoryName(fileName);
+            var psi = new ProcessStartInfo("Explorer.exe", "/select," + fileName);
+            Process.Start(psi);
+        }
+
+        private void menu_pdf_Click(object sender, RoutedEventArgs e)
+        {
+            var path = this.GetFilename(".pdf files|*.pdf", ".pdf");
+            if (path != null)
+            {
+                using (var stream = File.Create(path))
+                {
+                    OxyPlot.PdfExporter.Export(report.Model, stream, report.ActualWidth, report.ActualHeight);
+                }
+
+                OpenContainingFolder(path);
+            }
+        }
+
+        private void menu_print_Click(object sender, RoutedEventArgs e)
+        {
+            XpsExporter.Print(report.Model, report.ActualWidth, report.ActualHeight);
         }
     }
     public class Item

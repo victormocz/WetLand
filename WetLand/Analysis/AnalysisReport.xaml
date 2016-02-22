@@ -19,12 +19,21 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <!--RowDefinition Height="60"></-->
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="reportIndex" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
             <ComboBoxItem Content="Select Parameter" />
             <ComboBoxItem Content="Particulate organic nitrogen concentration in free water (gr/cm³)" />
             <ComboBoxItem Content="Concentration of organic nitrogen in in anaerobic sediment layer (gr/cm³)" />
@@ -56,7 +65,7 @@
             <ComboBoxItem Content="Methane concentration in aerobic sediment layer (gr/cm³)" />
             <ComboBoxItem Content="Methane concentration in anaerobic sediment layer (gr/cm³)"/>
         </ComboBox>
-        <Grid x:Name="SimulationNumSelector" Grid.Row="2" >
+        <Grid x:Name="SimulationNumSelector" Grid.Row="3" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -72,7 +81,7 @@
             <TextBox x:Name="simulationNum" Grid.Column="4"  Width="100" Text="1"></TextBox>
             <Button x:Name="Update" Grid.Column="5"  Width="90" Content="Update" Click="Update_Click"></Button>
         </Grid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

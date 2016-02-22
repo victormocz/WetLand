@@ -12,9 +12,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox Grid.Row="0" Name="reportIndex"  IsEnabled="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
+        <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="File" >
+                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Save">
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox Grid.Row="1" Name="reportIndex"  IsEnabled="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
             <ComboBoxItem Content="Select Parameter" />
             <ComboBoxItem Content="Particulate organic nitrogen concentration in free water (gr/cm³)" />
             <ComboBoxItem Content="Concentration of organic nitrogen in in anaerobic sediment layer (gr/cm³)" />
@@ -46,12 +55,13 @@
             <ComboBoxItem Content="Methane concentration in aerobic sediment layer (gr/cm³)" />
             <ComboBoxItem Content="Methane concentration in anaerobic sediment layer (gr/cm³)"/>
         </ComboBox>
-        <StackPanel Name="percentPanel" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Name="percentPanel" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Percentage" Margin="0,0,20,0"></TextBlock>
             <TextBox Name="percentage"></TextBox>
             <TextBlock Text="%"></TextBlock>
             <Button Margin="20,0,0,0" Content="Update" Name="updateButton" Click="updateButton_Click"></Button>
         </StackPanel>
-        <oxy:PlotView x:Name="report" Grid.Row="2" ></oxy:PlotView>
+        <Button  Margin="0,0,20,0" Grid.Row="2" HorizontalAlignment="Right" Name="table" Content="Rank Table" Click="table_Click" IsEnabled="False"></Button>
+        <oxy:PlotView x:Name="report" Grid.Row="3" ></oxy:PlotView>
     </Grid>
 </Window>
