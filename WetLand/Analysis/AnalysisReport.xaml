@@ -81,20 +81,9 @@
             <TextBox x:Name="simulationNum" Grid.Column="4"  Width="100" Text="1"></TextBox>
             <Button x:Name="Update" Grid.Column="5"  Width="90" Content="Update" Click="Update_Click"></Button>
         </Grid>
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <ListView Grid.Column="0" Name="analysisSimulation"
-                  ItemTemplate="{StaticResource analysisTemp}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical" Margin="4" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListView>
-            <oxy:PlotView x:Name="report" Grid.Column="1"></oxy:PlotView>
-        </Grid>
+        <Button x:Name="timeTable" Content="Time Series Table" Margin="0,0,10,0" Grid.Row="3" HorizontalAlignment="Right" Click="timeTable_Click"></Button>
+
+        <oxy:PlotView x:Name="report" Grid.Row="4"></oxy:PlotView>
+
     </Grid>
 </Window>

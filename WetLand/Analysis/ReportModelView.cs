@@ -67,7 +67,7 @@ namespace WetLand.Analysis
                 DataFieldY = "Value",
                 Color = OxyColors.Blue,
                 MarkerStroke = OxyColors.Red,
-                MarkerType = MarkerType.Circle
+                MarkerType = MarkerType.None //may need to change
             };
 
             tmp.Series.Add(s1);

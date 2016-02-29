@@ -79,16 +79,16 @@ namespace WetLand.KSTest
                 title = " Model is not sensitive to " + title + " parameter.";
             }
             var tmp = new PlotModel { Title = title };
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
-            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = "Parameter range", TitleFontSize = 15 });
+            tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, MajorGridlineStyle = LineStyle.Solid, Title = "Percent", TitleFontSize = 15 });
             Collection<Values> DataB = new Collection<Values>();
             Collection<Values> DataNB = new Collection<Values>();
             List<Double> col = new List<double>();
             for (int i = 0; i < result[reportIndex.SelectedIndex - 1].NBData.Count; i++)
             {
 
-                DataB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].Interp_BData[i], yvalue = (i + 1) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
-                DataNB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].NBData[i], yvalue = (i + 1) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
+                DataB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].Interp_BData[i], yvalue = (i + 2) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
+                DataNB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].NBData[i], yvalue = (i + 2) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
             }
             // Create a line series
             var Bseries = new LineSeries
@@ -685,7 +685,7 @@ namespace WetLand.KSTest
                 {//TODO change to 10
                     topTen.Add(new Item() { name = result[i].name, Dmax = result[i].Dmax });
                     Dispatcher.Invoke(new Action(() =>
-                reportIndex.Items.Add("Parameter " + result[i].name + "'s report")));
+                reportIndex.Items.Add("CDFs of Parameter " + result[i].name + " ")));
                 }
                 
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };

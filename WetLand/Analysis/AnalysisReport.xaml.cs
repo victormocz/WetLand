@@ -43,6 +43,7 @@ namespace WetLand.Analysis
         "LPOCs2 (gr/cm³)","RPOCs2 (gr/cm³)","TOCw (gr/cm³)","CH4w (gr/cm³)","CH4s1 (gr/cm³)","CH4s2 (gr/cm³)"};
         private string prefix = Global.projectName + @"\InputFiles\";
         private int lengthOfsimulation;
+        private List<item> items;
         public AnalysisReport()
         {
             InitializeComponent();
@@ -194,7 +195,7 @@ namespace WetLand.Analysis
         private void readSimulationvalue(Object num)
         {
             int number = (int)num;
-            List<item> items = new List<item>();
+            items = new List<item>();
             int index = 0;
             Dispatcher.Invoke(new Action(() =>
                index = reportIndex.SelectedIndex));
@@ -225,8 +226,6 @@ namespace WetLand.Analysis
                 items.Add(new item { date = tempdate, simulationValue = parameter });
                 tempdate = tempdate.AddDays(1);
             }
-            Dispatcher.Invoke(new Action(() =>
-               analysisSimulation.ItemsSource = items));
         }
 
         private string GetFilename(string filter, string defaultExt)
@@ -258,6 +257,12 @@ namespace WetLand.Analysis
         private void menu_print_Click(object sender, RoutedEventArgs e)
         {
             XpsExporter.Print(report.Model, report.ActualWidth, report.ActualHeight);
+        }
+
+        private void timeTable_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSeriesWindow tsw = new TimeSeriesWindow(items);
+            tsw.ShowDialog();
         }
     }
     public class item
