@@ -29,7 +29,7 @@
                     </GridViewColumn>
                     <GridViewColumn x:Name="col2" Width="140" DisplayMemberBinding="{Binding percentage}">
                         <GridViewColumn.Header>
-                            <TextBlock Text="Percentage (%)" ToolTip="Rank/(totle simulation number +1)"></TextBlock>
+                            <TextBlock Text="Percentile (%)" ToolTip="Rank/(totle simulation number +1)"></TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="col3" Width="140" DisplayMemberBinding="{Binding simnum}">

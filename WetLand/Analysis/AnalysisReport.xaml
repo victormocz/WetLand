@@ -27,10 +27,12 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <MenuItem Header="File" >
-                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" ></MenuItem>
+                <MenuItem Icon="images\print.ico" x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Save">
-                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" ></MenuItem>
+                <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" >
+                    
+                </MenuItem>
             </MenuItem>
         </Menu>
         <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" SelectionChanged="reportIndex_SelectionChanged">
