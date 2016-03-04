@@ -70,7 +70,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" HorizontalAlignment="Center" ToolTip="Date (day)"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="H1" HorizontalAlignment="Center" ToolTip="Organic nitrogen concentration in incoming flow (mg/L)"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="H1" HorizontalAlignment="Center" ToolTip="Canopy height above free water ( C)"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="ONin" HorizontalAlignment="Center" ToolTip="Organic nitrogen concentration in incoming flow (mg/L)"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="3" Text="NO3in" HorizontalAlignment="Center" ToolTip="Nitrate-nitrogen concentration in incoming flow (mg/L)"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="4" Text="NWin" HorizontalAlignment="Center" ToolTip="Total ammonia-nitrogen ([NH4+] + [NH3]) concentration in incoming flow (mg/L)"></TextBlock>
@@ -129,7 +129,7 @@
                     </GridViewColumn>
                     <GridViewColumn x:Name="col17" DisplayMemberBinding="{Binding H1}">
                         <GridViewColumn.Header>
-                            <TextBlock Text="H1" ToolTip="H1 ( C)"></TextBlock>
+                            <TextBlock Text="H1" ToolTip="Canopy height above free water ( C)"></TextBlock>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                     <GridViewColumn x:Name="col1"  DisplayMemberBinding="{Binding ONin}">

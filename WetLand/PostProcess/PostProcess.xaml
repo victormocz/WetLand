@@ -16,20 +16,18 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Name="saveMenu" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-            <MenuItem Header="File" >
-                <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" >
+            <MenuItem x:Name="menu_print" Header="Print" Click="menu_print_Click" IsEnabled="False" >
                     <MenuItem.Icon>
                         <Image Width="20" Height="20" Source="../images/print.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Save">
+
                 <MenuItem x:Name="menu_pdf" Header="Save As PDF" Click="menu_pdf_Click" IsEnabled="False" >
                     <MenuItem.Icon>
                         <Image Width="20" Height="20" Source="../images/save.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-            </MenuItem>
+
         </Menu>
         <ComboBox Grid.Row="1" Name="reportIndex"  IsEnabled="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
             <ComboBoxItem Content="Select Parameter" />
