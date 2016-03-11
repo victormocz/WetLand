@@ -48,7 +48,7 @@
             <MenuItem x:Name="KSTest" Header="Senstivity Analysis" Click="KSTest_Click" IsEnabled="False" ToolTip="Perform a Sensitivity Analysis using Kolmogorov-Smirnov (K-S) test"></MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="User Manual"></MenuItem>
-                <MenuItem Header="About"></MenuItem>
+                <MenuItem Header="About WetQual 1.0"></MenuItem>
             </MenuItem>
         </Menu>
         <Image Grid.Row="1" Source="images\background.jpg" Stretch="Fill"></Image>
