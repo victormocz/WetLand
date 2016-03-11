@@ -27,7 +27,7 @@ namespace WetLand.TimeDependentParameters
             resizeCol();
             string filename = Global.projectName + @"\InputFiles\13_time_dependent_parameters.txt";
             string[] contents = File.ReadAllLines(filename);
-            DateTime current = Global.startDate;
+            DateTime current = Global.startDate.AddDays(-1);
             for (int i = 2; i < contents.Length; i++)
             {
                 string[] parameters = contents[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);

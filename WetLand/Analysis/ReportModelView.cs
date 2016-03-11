@@ -38,11 +38,11 @@ namespace WetLand.Analysis
             foreach (var line in File.ReadLines(filename))
             {
                 count++;
-                if (count > simulationNum + 3 * (simulationNum - 1) && count < simulationNum + 3 * (simulationNum - 1) + 2)
+                if (count > simulationNum + 3 * (simulationNum - 1) && count < simulationNum + 3 * (simulationNum - 1) + 4)
                 {
                     simStr += line;
                 }
-                if (count >= simulationNum + 3 * (simulationNum - 1) + 2)
+                if (count >= simulationNum + 3 * (simulationNum - 1) + 4)
                 {
                     count = 0;
                     break;

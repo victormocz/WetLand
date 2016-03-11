@@ -33,7 +33,7 @@
             </MenuItem>
         </Menu>
         <ComboBox x:Name="reportIndex" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="reportIndex_SelectionChanged" SelectedIndex="0">
-            <ComboBoxItem Content="H1 (C)" />
+            <ComboBoxItem Content="Canopy height above free water ( C)" />
             <ComboBoxItem Content="Organic Nitrogen Concentration In Incoming Flow (mg/L)" />
             <ComboBoxItem Content="Nitrate-Nitrogen Concentration In Incoming Flow (mg/L)" />
             <ComboBoxItem Content="Total Ammonia-Nitrogen Concentration In Incoming Flow (mg/L)" />

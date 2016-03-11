@@ -26,10 +26,10 @@ namespace WetLand.TimeDependentParameters
     using System.Diagnostics;
     public partial class TimeDependentReport : Window
     {
-        private string[] Lengend = { "H1","ONin", "NO3in", "Nwin", "NO3g", "Ng", "Owin",
+        private string[] Lengend = { "H1 ","ONin", "NO3in", "Nwin", "NO3g", "Ng", "Owin",
             "PO4in", "Pg", "mwin", "NH4air", "NO3air", "Qa", "Qn", "LPOCin",
             "RPOCin", "DOCin", "TOCatm", "TOCgw" };
-        private string[] PTitle = { "H1","Organic Nitrogen Concentration In Incoming Flow (mg/L)",
+        private string[] PTitle = { "Canopy height above free water ( C)","Organic Nitrogen Concentration In Incoming Flow (mg/L)",
             "Nitrate-Nitrogen Concentration In Incoming Flow (mg/L)",
             "Total Ammonia-Nitrogen Concentration In Incoming Flow (mg/L)",
             "Nitrate-Nitrogen Concentration In Groundwater Discharge (mg/L)",
@@ -58,7 +58,7 @@ namespace WetLand.TimeDependentParameters
             InitializeComponent();
             fileName = Global.projectName + @"\InputFiles\13_time_dependent_parameters.txt";
             ReportModelView myModel = new ReportModelView();
-            report.Model = myModel.CreateModel("Organic Nitrogen Concentration In Incoming Flow (mg/L)", "ONin", 0, fileName, ytitle[0]);
+            report.Model = myModel.CreateModel("Canopy height above free water ( C)", "H", 0, fileName, ytitle[0]);
         }
 
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -17,6 +17,7 @@ namespace WetLand.Date
     /// <summary>
     /// Interaction logic for Date.xaml
     /// </summary>
+    using System.IO;
     public partial class Date : Window
     {
         public Date()
@@ -33,11 +34,12 @@ namespace WetLand.Date
             }
             try {
                 Global.startDate = Convert.ToDateTime(startDate.Text);
+
                 Global.mainWin.Hydro_Climate.IsEnabled = true;
                 this.Close();
-            }catch(Exception)
+            }catch(Exception ex)
             {
-                MessageBox.Show("DateTime format error!","Error");
+                MessageBox.Show(ex.Message,"Error");
             }
         }
     }

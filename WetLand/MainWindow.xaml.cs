@@ -60,7 +60,7 @@ namespace WetLand
             HydrolicParameters.HydrolicParameters parameterWindow = new HydrolicParameters.HydrolicParameters();
             parameterWindow.ShowDialog();
             menuFixed.IsEnabled = true;
-            
+
         }
 
         private void menuConcentrationViewData_Click(object sender, RoutedEventArgs e)
@@ -80,7 +80,8 @@ namespace WetLand
             FolderBrowserDialog folderDlg = new FolderBrowserDialog();
             folderDlg.ShowDialog();
             string path = folderDlg.SelectedPath;
-            if (path.Length == 0) {
+            if (path.Length == 0)
+            {
                 return;
             }
             bool result = validatePath(path);
@@ -88,6 +89,7 @@ namespace WetLand
             {
                 Global.projectName = path;
                 Global.nofDays = getNumberOfDays(Global.projectName + @"\InputFiles\12_hydro_climate.txt");
+                
                 Hydro_Climate.IsEnabled = true;
                 save_as.IsEnabled = true;
                 menuFixed.IsEnabled = true;
@@ -107,7 +109,7 @@ namespace WetLand
                         outputFileCount++;
                     }
                 }
-               
+
                 if (outputFileCount == 29)
                 {
                     //string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\102_Onw.txt");
@@ -172,14 +174,14 @@ namespace WetLand
 
         private void run_simulations_Click(object sender, RoutedEventArgs e)
         {
-            
+
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = Global.projectName + @"\InputFiles\Wetlandmodel.exe";
             info.UseShellExecute = true;
             info.WorkingDirectory = Global.projectName + @"\InputFiles";
             var process = Process.Start(info);
             process.WaitForExit();
-            
+
             string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\102_Onw.txt");
 
             if (contents.Length == 4)
@@ -197,7 +199,7 @@ namespace WetLand
                 }
                 KSTest.IsEnabled = true;
             }
-            
+
             menuAnalysis.IsEnabled = true;
             PostProcessing.IsEnabled = true;
         }
@@ -240,12 +242,13 @@ namespace WetLand
 
         private void New_Project_Click(object sender, RoutedEventArgs e)
         {
-            try {
+            try
+            {
                 CreateNewProject(true);
-                
-                
+
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message, "Error");
             }
@@ -347,7 +350,8 @@ namespace WetLand
             carbonwin.ShowDialog();
         }
 
-        private void InitializeParameters() {
+        private void InitializeParameters()
+        {
             Global.Nitrogen = new List<ModelParameters.Parameters>();
             Global.Carbon = new List<ModelParameters.Parameters>();
             //15mon.bat
@@ -364,7 +368,8 @@ namespace WetLand
                     Global.Nitrogen.Add(new ModelParameters.Parameters(type, min, max, c));
                 }
             }
-            else {
+            else
+            {
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 5, 50, 5));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 1.15, 1.35, 1.15));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 100, 400, 100));
@@ -372,36 +377,36 @@ namespace WetLand
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.032, 80, 0.032));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.15, 0.45, 0.15));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.0009, 0.002, 0.0009));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.0009,0.002, 0.0009));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.000001 ,0.0031 ,0.000001 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.0001 ,0.35 ,0.0001 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.000001 ,0.001 ,0.000001 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.01 ,42 ,0.01 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.004,0.15,0.004 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,1.5 ,2.2 ,1.5 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.025 ,138 ,0.025 ));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.0009, 0.002, 0.0009));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.000001, 0.0031, 0.000001));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.0001, 0.35, 0.0001));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.000001, 0.001, 0.000001));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.01, 42, 0.01));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.004, 0.15, 0.004));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 1.5, 2.2, 1.5));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.025, 138, 0.025));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 8, 6750, 8));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.000274 ,0.006575 ,0.000274 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,3.5 ,17.6 ,3.5 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,20 ,100 ,20 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.022 ,0.065 ,0.022 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0 ,0 ,0 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.0864, 0.3456, 0.0864));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.5 ,1 ,0.5 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.04 ,0.14 ,0.04 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,1228, 3686, 1228));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,4.5 ,8.2 ,4.5 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.0004 ,3.5 ,0.0004 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,1024 ,1193731 ,1024 ));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(0,0.4 ,2 ,0.4 ));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.000274, 0.006575, 0.000274));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 3.5, 17.6, 3.5));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 20, 100, 20));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.022, 0.065, 0.022));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0, 0, 0));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.0864, 0.3456, 0.0864));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.5, 1, 0.5));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.04, 0.14, 0.04));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 1228, 3686, 1228));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 4.5, 8.2, 4.5));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.0004, 3.5, 0.0004));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 1024, 1193731, 1024));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.4, 2, 0.4));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.66, 0.83, 0.66));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 1024, 1193731, 1024));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 8780, 18549874, 8780));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0, 1, 0));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.5, 1, 0.5));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(1, 9.3, 2021, 9.3));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1,0.00001, 61, 0.00001));
-                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.00001,0.46121 ,0.00001 ));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.00001, 61, 0.00001));
+                Global.Nitrogen.Add(new ModelParameters.Parameters(1, 0.00001, 0.46121, 0.00001));
                 Global.Nitrogen.Add(new ModelParameters.Parameters(0, 0.65, 0.95, 0.65));
             }
 
@@ -418,30 +423,31 @@ namespace WetLand
                     Global.Carbon.Add(new ModelParameters.Parameters(type, min, max, c));
                 }
             }
-            else {
-                Global.Carbon.Add(new ModelParameters.Parameters(0,15,160,15));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.33,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.99,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.99,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.33,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.99,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.04,0.99,0.04));
+            else
+            {
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 15, 160, 15));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.33, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.99, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.99, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.33, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.99, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.04, 0.99, 0.04));
                 Global.Carbon.Add(new ModelParameters.Parameters(1, 0.000001, 0.003, 0.000001));
                 Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001, 0.0003, 0.0000001));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.2,1,0.2));
-                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001,1, 0.0000001));
-                Global.Carbon.Add(new ModelParameters.Parameters(1,0.004,0.36,0.004));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.2, 1, 0.2));
+                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001, 1, 0.0000001));
+                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.004, 0.36, 0.004));
                 Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001, 0.36, 0.0000001));
-                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.0015,0.4, 0.0015));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.001,0.16,0.001));
-                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.0005,0.08, 0.0005));
-                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001,0.08, 0.0000001));
-                Global.Carbon.Add(new ModelParameters.Parameters(1,0.00002,1,0.00002));
-                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.000005,1, 0.000005));
-                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.00000015,0.5, 0.00000015));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.4,0.7,0.4));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.25,0.01));
-                Global.Carbon.Add(new ModelParameters.Parameters(0,0.01,0.08,0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.0015, 0.4, 0.0015));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.001, 0.16, 0.001));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.0005, 0.08, 0.0005));
+                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000001, 0.08, 0.0000001));
+                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.00002, 1, 0.00002));
+                Global.Carbon.Add(new ModelParameters.Parameters(1, 0.000005, 1, 0.000005));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.00000015, 0.5, 0.00000015));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.4, 0.7, 0.4));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.25, 0.01));
+                Global.Carbon.Add(new ModelParameters.Parameters(0, 0.01, 0.08, 0.01));
                 Global.Carbon.Add(new ModelParameters.Parameters(1, 0.0000006, 0.077, 0.0000006));
             }
         }
