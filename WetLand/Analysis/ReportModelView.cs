@@ -13,6 +13,8 @@ namespace WetLand.Analysis
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Text.RegularExpressions;
+
     class ReportModelView
     {
         public class DateValue
@@ -34,21 +36,26 @@ namespace WetLand.Analysis
 
 
             int count = 0;
-            string simStr = "";
+            //string simStr = "";
+            bool startAddLine = false;
+            StringBuilder simStr = new StringBuilder();
             foreach (var line in File.ReadLines(filename))
             {
-                count++;
-                if (count > simulationNum + 3 * (simulationNum - 1) && count < simulationNum + 3 * (simulationNum - 1) + 4)
+                string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$") && Convert.ToInt32(para[0]) > simulationNum)
                 {
-                    simStr += line;
+                    startAddLine = false;
                 }
-                if (count >= simulationNum + 3 * (simulationNum - 1) + 4)
+                if (startAddLine)
                 {
-                    count = 0;
-                    break;
+                    simStr.Append(line + "\t");
+                }
+                if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$") && Convert.ToInt32(para[0]) == simulationNum)
+                {
+                    startAddLine = true;
                 }
             }
-            string[] parameters = simStr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            string[] parameters = simStr.ToString().Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
             foreach (var parameter in parameters)
             {
                 this.Data.Add(new DateValue { Date = date, Value = Convert.ToDouble(parameter) });
