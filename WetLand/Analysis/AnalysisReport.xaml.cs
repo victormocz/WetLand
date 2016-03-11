@@ -25,6 +25,8 @@ namespace WetLand.Analysis
     using OxyPlot.Series;
     using OxyPlot.Axes;
     using System.Diagnostics;
+    using System.Text.RegularExpressions;
+
     public partial class AnalysisReport : Window
     {
         private string[] fileName = { "102_Onw.txt", "103_Onss.txt","104_Onsf.txt", "105_Nw.txt", "106_Ns1.txt", "107_Ns2.txt",
@@ -205,22 +207,26 @@ namespace WetLand.Analysis
                 return;
             }
             DateTime tempdate = Global.startDate.AddDays(-1);
-            int count = 0;
-            string simStr = "";
+            bool startAddLine = false;
+            StringBuilder simStr = new StringBuilder();
             foreach (var line in File.ReadLines(prefix + fileName[index - 1]))
             {
-                count++;
-                if (count > number + 3 * (number - 1) && count < number + 3 * (number - 1) + 2)
+                string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$") && Convert.ToInt32(para[0]) > number)
                 {
-                    simStr += line;
-                }
-                if (count >= number + 3 * (number - 1) + 2)
-                {
-                    count = 0;
+                    startAddLine = false;
                     break;
                 }
+                if (startAddLine)
+                {
+                    simStr.Append(line + "\t");
+                }
+                if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$") && Convert.ToInt32(para[0]) == number)
+                {
+                    startAddLine = true;
+                }
             }
-            string[] parameters = simStr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            string[] parameters = simStr.ToString().Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
             foreach (var parameter in parameters)
             {
                 items.Add(new item { date = tempdate, simulationValue = parameter });

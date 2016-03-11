@@ -34,9 +34,6 @@ namespace WetLand.Analysis
             this.Data = new Collection<DateValue>();
             var date = Global.startDate;
 
-
-            int count = 0;
-            //string simStr = "";
             bool startAddLine = false;
             StringBuilder simStr = new StringBuilder();
             foreach (var line in File.ReadLines(filename))
@@ -45,6 +42,7 @@ namespace WetLand.Analysis
                 if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$") && Convert.ToInt32(para[0]) > simulationNum)
                 {
                     startAddLine = false;
+                    break;
                 }
                 if (startAddLine)
                 {
@@ -56,6 +54,7 @@ namespace WetLand.Analysis
                 }
             }
             string[] parameters = simStr.ToString().Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            simStr.Clear();
             foreach (var parameter in parameters)
             {
                 this.Data.Add(new DateValue { Date = date, Value = Convert.ToDouble(parameter) });
