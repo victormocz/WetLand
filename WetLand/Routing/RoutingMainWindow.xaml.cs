@@ -34,7 +34,7 @@ namespace WetLand.Routing
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Error!");
+                MessageBox.Show(ex.Message, "Error!");
             }
         }
 
@@ -56,7 +56,7 @@ namespace WetLand.Routing
             List<InputItem> items = new List<InputItem>();
             string filename = Global.projectName + @"\InputFiles\Routing\2_input_time_series.txt";
             string[] contents = File.ReadAllLines(filename);
-            
+
             if (contents.Length < 2)
             {
                 throw new Exception(filename + " length is too short");
@@ -89,11 +89,11 @@ namespace WetLand.Routing
                 else if (parameters.Length == 4)
                 {
                     date = date.AddDays(1);
-                    items.Add(new InputItem { date = date, qin = parameters[1], et = "",ip = parameters[2], qg = parameters[3] });
+                    items.Add(new InputItem { date = date, qin = parameters[1], et = "", ip = parameters[2], qg = parameters[3] });
                 }
                 else
                 {
-                    throw new Exception("We need to have 4 or 5 parameters in line "+i.ToString());
+                    throw new Exception("We need to have 4 or 5 parameters in line " + i.ToString());
                 }
             }
             timeSeriesData.ItemsSource = items;
@@ -138,7 +138,7 @@ namespace WetLand.Routing
             info.CreateNoWindow = true;
             var process = Process.Start(info);
             process.WaitForExit();
-            if(!File.Exists(Global.projectName + @"\InputFiles\Routing\5_output.txt"))
+            if (!File.Exists(Global.projectName + @"\InputFiles\Routing\5_output.txt"))
             {
                 throw new Exception("Cannot find the output file " + Global.projectName + @"\InputFiles\Routing\5_output.txt");
             }
@@ -153,13 +153,13 @@ namespace WetLand.Routing
                 string[] parameters = contents[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
                 if (parameters.Length == 5)
                 {
-                    items.Add(new OutputItem { date=date,h=parameters[1],outflow=parameters[2],volume=parameters[3],area=parameters[4]});
+                    items.Add(new OutputItem { date = date, h = parameters[1], outflow = parameters[2], volume = parameters[3], area = parameters[4] });
                 }
                 else
                 {
                     throw new Exception("We need to have 5 parameters in line " + i.ToString());
                 }
-                
+
             }
             outputData.ItemsSource = items;
         }
@@ -192,21 +192,26 @@ namespace WetLand.Routing
 
         private void tabview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try {
+            try
+            {
                 if (inputItem.IsSelected)
                 {
                     InitializeInputText();
-                } else if (timeItem.IsSelected)
+                }
+                else if (timeItem.IsSelected)
                 {
                     addDataSourceToInput();
-                } else if (geometryItem.IsSelected)
+                }
+                else if (geometryItem.IsSelected)
                 {
                     addDataSourceToGeo();
-                }else if (outputItem.IsSelected)
+                }
+                else if (outputItem.IsSelected)
                 {
                     addDataSourceToOutput();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
@@ -238,7 +243,38 @@ namespace WetLand.Routing
 
         private void tranfer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Still working");
+            try
+            {
+                string[] output = File.ReadAllLines(Global.projectName + @"\InputFiles\Routing\5_output.txt");
+                string[] hydra = File.ReadAllLines(Global.projectName + @"\InputFiles\12_hydro_climate.txt");
+                if (output.Length != hydra.Length - 1)
+                {
+                    throw new Exception("The Length of output file is not equals to hydro_climate file!");
+                }
+                for (int i = 2; i < output.Length; i++)
+                {
+                    string[] outrow = output[i - 1].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                    string[] hydrarow = hydra[i].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                    if (outrow.Length == 5 && hydrarow.Length == 6)
+                    {
+                        hydra[i] = hydrarow[0] + "\t" + outrow[2] + "\t" + outrow[3] + "\t" + outrow[4] + "\t" + hydrarow[1] + "\t" + hydrarow[2] + "\t" + outrow[1] + "\t" + hydrarow[3] + "\t" + hydrarow[4] + "\t" + hydrarow[5];
+                    }
+                    else if (outrow.Length == 5 && hydrarow.Length == 10)
+                    {
+                        hydra[i] = hydrarow[0] + "\t" + outrow[2] + "\t" + outrow[3] + "\t" + outrow[4] + "\t" + hydrarow[4] + "\t" + hydrarow[5] + "\t" + outrow[1] + "\t" + hydrarow[7] + "\t" + hydrarow[8] + "\t" + hydrarow[9];
+                    }
+                    else
+                    {
+                        throw new Exception("Format Error, Please check output and hydro climate data.");
+                    }
+                }
+                File.WriteAllLines(Global.projectName + @"\InputFiles\12_hydro_climate.txt", hydra);
+                MessageBox.Show("Data was successfully transfered!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
     }
 }
