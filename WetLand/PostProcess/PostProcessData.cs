@@ -70,24 +70,7 @@ namespace WetLand.PostProcess
                 foreach (var line in File.ReadLines(filePath))
                 {
                     string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
-
                     if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$")) {
-                        string[] parameter = simStr.ToString().Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
-                        if (parameter.Length == Global.nofDays && !simStr.ToString().Contains("*")) {
-                            double[] inputSimulationSeries = new double[parameter.Length];
-                            for (int i = 0; i < parameter.Length; i++)
-                            {
-                                inputSimulationSeries[i] = Convert.ToDouble(parameter[i]);
-                                if (observedCount == 0)
-                                {
-                                    simulationSeries.Add(new SimulationData(simNum, inputSimulationSeries));
-                                }
-                                else
-                                {
-                                    simulationSeries.Add(new SimulationData(simNum, inputSimulationSeries, observedValue));
-                                }
-                            }
-                        }
                         simStr.Clear();
                         simNum = Convert.ToInt32(para[0]);
                     }
@@ -95,6 +78,25 @@ namespace WetLand.PostProcess
                     {
                         simStr.Append(line);
                     }
+                    string[] parameter = simStr.ToString().Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                    if (parameter.Length == Global.nofDays && !simStr.ToString().Contains("*"))
+                    {
+                        double[] inputSimulationSeries = new double[parameter.Length];
+                        for (int i = 0; i < parameter.Length; i++)
+                        {
+                            inputSimulationSeries[i] = Convert.ToDouble(parameter[i]);
+                        }
+                        if (observedCount == 0)
+                        {
+                            simulationSeries.Add(new SimulationData(simNum, inputSimulationSeries));
+                        }
+                        else
+                        {
+                            simulationSeries.Add(new SimulationData(simNum, inputSimulationSeries, observedValue));
+                        }
+                    }
+
+
                     //if (count == 0)
                     //{
                     //    simNum = Convert.ToInt32(line);
@@ -126,12 +128,12 @@ namespace WetLand.PostProcess
                     //    count = 0;
                     //    simStr = "";
 
-                        //}
-                        //else
-                        //{
-                        //    simStr += line + "\t";
-                        //    count++;
-                        //}
+                    //}
+                    //else
+                    //{
+                    //    simStr += line + "\t";
+                    //    count++;
+                    //}
                 }
             }
         }
