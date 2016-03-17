@@ -62,7 +62,7 @@ namespace WetLand.PostProcess
                 throw new IOException("Cannot fine the file"+filePath);
             }
             else {
-                int count = 0;
+
                 //string simStr = "";
                 int simNum=0;
 

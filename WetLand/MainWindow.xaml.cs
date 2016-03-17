@@ -116,20 +116,26 @@ namespace WetLand
                     int lineNum = 0;
                     using (var reader = File.OpenText(Global.projectName + @"\InputFiles\102_Onw.txt"))
                     {
-                        while (reader.ReadLine() != null)
+                        String line;
+                        while (( line= reader.ReadLine()) != null)
                         {
-                            lineNum++;
+                            string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                            if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$"))
+                            {
+                                lineNum++;
+                            }
+                            if (lineNum > 1)
+                            {
+                                Global.DeterminMode = false;
+                                KSTest.IsEnabled = true;
+                                break;
+                            }
                         }
                     }
-                    if (lineNum == 4)
+                    if (lineNum == 1)
                     {
                         Global.DeterminMode = true;
                         KSTest.IsEnabled = false;
-                    }
-                    else
-                    {
-                        Global.DeterminMode = false;
-                        KSTest.IsEnabled = true;
                     }
                     Global.mainWin.menuAnalysis.IsEnabled = true;
                     Global.mainWin.PostProcessing.IsEnabled = true;

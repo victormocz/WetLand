@@ -60,14 +60,15 @@ namespace WetLand.Analysis
             try
             {
                 int count = 0;
-                using (var reader = File.OpenText(Global.projectName + @"\InputFiles\102_Onw.txt"))
+                foreach (var line in File.ReadLines(Global.projectName + @"\InputFiles\102_Onw.txt"))
                 {
-                    while (reader.ReadLine() != null)
+                    string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                    if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$"))
                     {
                         count++;
                     }
                 }
-                lengthOfsimulation = count / 4;
+                lengthOfsimulation = count;
                 status.Text = "Simulation Number (1-" + lengthOfsimulation.ToString() + ")";
             }
             catch (Exception ex)
@@ -176,7 +177,7 @@ namespace WetLand.Analysis
         }
         private void reportIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (report == null || reportIndex == null || simulationNum == null )
+            if (report == null || reportIndex == null || simulationNum == null)
             {
                 return;
             }

@@ -60,6 +60,9 @@ namespace WetLand.KSTest
             }
             menu_print.IsEnabled = true;
             menu_pdf.IsEnabled = true;
+            if (reportIndex.SelectedIndex < 0) {
+                return;
+            }
             if (reportIndex.SelectedIndex == 0)
             {
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
@@ -144,6 +147,7 @@ namespace WetLand.KSTest
             status.Visibility = Visibility.Visible;
             report.Model = null;
             cal.Start();
+            
         }
         private void calculationThread()
         {
@@ -677,17 +681,20 @@ namespace WetLand.KSTest
                 Dispatcher.Invoke(new Action(() =>
                 progress.Value = 97
                 ));
+                
+                Dispatcher.Invoke(new Action(() =>
+                reportIndex.Items.Clear()));
                 Dispatcher.Invoke(new Action(() =>
                 reportIndex.Items.Add("Overview of Sensitivity Analysis (DMax).")));
-                
+
                 this.topTen = new Collection<Item>();
                 for (int i = 0; i < 20; i++)
-                {//TODO change to 10
+                {//TODO may need change to 10
                     topTen.Add(new Item() { name = result[i].name, Dmax = result[i].Dmax });
                     Dispatcher.Invoke(new Action(() =>
                 reportIndex.Items.Add("CDFs of Parameter " + result[i].name + " ")));
                 }
-                
+
                 var graph = new PlotModel { Title = "DMax", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
                 graph.Axes.Add(new CategoryAxis { ItemsSource = this.topTen, LabelField = "name" });
                 graph.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, AbsoluteMinimum = 0 });
@@ -714,7 +721,7 @@ namespace WetLand.KSTest
                 status.Visibility = Visibility.Hidden
                 ));
                 Dispatcher.Invoke(new Action(() =>
-                progress.Value = 0 
+                progress.Value = 0
                 ));
             }
             catch (IOException ex)
