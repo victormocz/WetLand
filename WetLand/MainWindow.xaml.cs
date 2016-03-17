@@ -188,27 +188,63 @@ namespace WetLand
             var process = Process.Start(info);
             process.WaitForExit();
 
-            string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\102_Onw.txt");
 
-            if (contents.Length == 4)
+            int lineNum = 0;
+            using (var reader = File.OpenText(Global.projectName + @"\InputFiles\102_Onw.txt"))
             {
-                Global.DeterminMode = true;
-                KSTest.IsEnabled = false;
-            }
-            else
-            {
-                Global.DeterminMode = false;
-                if (Global.tempCarbon != null && Global.tempNitrogen == null)
+                String line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    Global.Nitrogen = new List<ModelParameters.Parameters>(Global.tempNitrogen);
-                    Global.Carbon = new List<ModelParameters.Parameters>(Global.tempCarbon);
+                    string[] para = line.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+                    if (para.Length == 1 && Regex.IsMatch(para[0], @"^\d+$"))
+                    {
+                        lineNum++;
+                        Global.DeterminMode = true;
+                        KSTest.IsEnabled = false;
+                    }
+                    if (lineNum > 1)
+                    {
+                        Global.DeterminMode = false;
+                        KSTest.IsEnabled = true;
+                        if (Global.tempCarbon != null && Global.tempNitrogen != null)
+                        {
+                            Global.Nitrogen = new List<ModelParameters.Parameters>(Global.tempNitrogen);
+                            Global.Carbon = new List<ModelParameters.Parameters>(Global.tempCarbon);
+                        }
+                        break;
+                    }
                 }
-                KSTest.IsEnabled = true;
+                if (lineNum != 0)
+                {
+                    menuAnalysis.IsEnabled = true;
+                    PostProcessing.IsEnabled = true;
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Simulation Model Error,Please check the input files", "Error");
+                }
             }
-
-            menuAnalysis.IsEnabled = true;
-            PostProcessing.IsEnabled = true;
         }
+        //    string[] contents = File.ReadAllLines(Global.projectName + @"\InputFiles\102_Onw.txt");
+        //    if (contents.Length == 4)
+        //    {
+        //        Global.DeterminMode = true;
+        //        KSTest.IsEnabled = false;
+        //    }
+        //    else
+        //    {
+        //        Global.DeterminMode = false;
+        //        if (Global.tempCarbon != null && Global.tempNitrogen != null)
+        //        {
+        //            Global.Nitrogen = new List<ModelParameters.Parameters>(Global.tempNitrogen);
+        //            Global.Carbon = new List<ModelParameters.Parameters>(Global.tempCarbon);
+        //        }
+        //        KSTest.IsEnabled = true;
+        //    }
+
+        //    menuAnalysis.IsEnabled = true;
+        //    PostProcessing.IsEnabled = true;
+        //}
 
         private void deterministicModel_Click(object sender, RoutedEventArgs e)
         {
@@ -461,6 +497,17 @@ namespace WetLand
         private void save_as_Click(object sender, RoutedEventArgs e)
         {
             CreateNewProject(false);
+        }
+
+        private void menu_about_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void about_menu_Click(object sender, RoutedEventArgs e)
+        {
+            About ab = new About();
+            ab.ShowDialog();
         }
     }
 }

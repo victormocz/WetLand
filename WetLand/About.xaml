@@ -1,0 +1,28 @@
+﻿<Window x:Class="WetLand.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WetLand"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="About" Height="330" Width="510">
+    <Grid>
+        <StackPanel>
+            <TextBlock  HorizontalAlignment="Center" Text="WetQual GUI, version 1.0" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"></TextBlock>
+            <TextBlock  HorizontalAlignment="Center" Text="Graphical User Interface for the Wetland Water Quality Model, WetQual" FontFamily="Times New Roman" FontSize="16" FontWeight="Bold"></TextBlock>
+            <TextBlock></TextBlock>
+            <TextBlock HorizontalAlignment="Center" Text="Authors: 1Kalin, L., 1Rezaeianzadeh, M., 2Hantush, M. M., 3Mo, C., and 4Sharifi, A."></TextBlock>
+            <TextBlock></TextBlock>
+            <TextBlock TextWrapping="Wrap" Text="1 School of Forestry and Wildlife Sciences, Auburn University, 602 Duncan Dr., Auburn, AL 36849"></TextBlock>
+            <TextBlock TextWrapping="Wrap" Text="2 National Risk Management Research Laboratory, U.S. Environmental Protection Agency, Cincinnati, Ohio"></TextBlock>
+            <TextBlock TextWrapping="Wrap" Text="3 Department of Computer Science and Software Engineering, 1301 Shelby Center, Auburn, AL 36849"></TextBlock>
+            <TextBlock TextWrapping="Wrap" Text="4 Dept. of Environmental sciences and Technology (ENST), University of Maryland"></TextBlock>
+            <TextBlock></TextBlock>
+            <TextBlock></TextBlock>
+            <TextBlock x:Name="webpage" HorizontalAlignment="Center" Foreground="Blue" PreviewMouseDown="webpage_PreviewMouseDown">http://www.auburn.edu/~kalinla/</TextBlock>
+            <TextBlock HorizontalAlignment="Center">Copyright © 2014-2016 Authors, All Rights Reserved.</TextBlock>
+            <Button x:Name="OK" Content="OK" Margin="0,10,0,0" Click="close_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

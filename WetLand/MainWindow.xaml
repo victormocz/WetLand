@@ -46,9 +46,9 @@
             <MenuItem x:Name="menuAnalysis" Header="Analyze Output Files" Click="menuAnalysis_Click" IsEnabled="False" ToolTip="See the values for WetQual outputs and the related graphs"></MenuItem>
             <MenuItem x:Name="PostProcessing" Header="Post Processing" Click="PostProcessing_Click" IsEnabled="False" ToolTip="Perform a Generalized Likelihood Uncertainty Estimation (GLUE) analysis"></MenuItem>
             <MenuItem x:Name="KSTest" Header="Senstivity Analysis" Click="KSTest_Click" IsEnabled="False" ToolTip="Perform a Sensitivity Analysis using Kolmogorov-Smirnov (K-S) test"></MenuItem>
-            <MenuItem Header="Help">
+            <MenuItem x:Name="menu_about" Header="Help" Click="menu_about_Click">
                 <MenuItem Header="User Manual"></MenuItem>
-                <MenuItem Header="About WetQual 1.0"></MenuItem>
+                <MenuItem x:Name="about_menu" Header="About WetQual 1.0" Click="about_menu_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Image Grid.Row="1" Source="images\background.jpg" Stretch="Fill"></Image>
