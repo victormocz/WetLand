@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WetLand", "WetLand\WetLand.csproj", "{D137DF59-3991-4BD6-873D-F9DA1171CF34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WetQual", "WetLand\WetQual.csproj", "{D137DF59-3991-4BD6-873D-F9DA1171CF34}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WetQual_Install", "Wetland_Install\Wetland_Install.vdproj", "{E237361E-4A5D-4280-B4F6-5DCC6B4A3B84}"
 EndProject

@@ -7,7 +7,7 @@
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="WetQual" Height="550" Width="850" MinHeight="400" MinWidth="650">
+        Title="WetQual GUI v1.0" Height="550" Width="850" MinHeight="400" MinWidth="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -48,7 +48,7 @@
             <MenuItem x:Name="KSTest" Header="Senstivity Analysis" Click="KSTest_Click" IsEnabled="False" ToolTip="Perform a Sensitivity Analysis using Kolmogorov-Smirnov (K-S) test"></MenuItem>
             <MenuItem x:Name="menu_about" Header="Help" Click="menu_about_Click">
                 <MenuItem Header="User Manual"></MenuItem>
-                <MenuItem x:Name="about_menu" Header="About WetQual 1.0" Click="about_menu_Click"></MenuItem>
+                <MenuItem x:Name="about_menu" Header="About" Click="about_menu_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Image Grid.Row="1" Source="images\background.jpg" Stretch="Fill"></Image>

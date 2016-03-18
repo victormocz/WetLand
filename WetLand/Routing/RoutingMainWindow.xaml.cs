@@ -154,6 +154,7 @@ namespace WetLand.Routing
                 if (parameters.Length == 5)
                 {
                     items.Add(new OutputItem { date = date, h = parameters[1], outflow = parameters[2], volume = parameters[3], area = parameters[4] });
+                    date = date.AddDays(1);
                 }
                 else
                 {

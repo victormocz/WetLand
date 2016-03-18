@@ -87,7 +87,7 @@ namespace WetLand.KSTest
             Collection<Values> DataB = new Collection<Values>();
             Collection<Values> DataNB = new Collection<Values>();
             List<Double> col = new List<double>();
-            for (int i = 0; i < result[reportIndex.SelectedIndex - 1].NBData.Count; i++)
+            for (int i = 0; i < result[reportIndex.SelectedIndex - 1].NBData.Length; i++)
             {
 
                 DataB.Add(new Values { xvalue = result[reportIndex.SelectedIndex - 1].Interp_BData[i], yvalue = (i + 2) * 100 / (result[reportIndex.SelectedIndex - 1].Interp_BData.Count + 1) });
